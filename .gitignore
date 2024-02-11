@@ -1,6 +1,8 @@
 # MACOS DS_Store
 .DS_Store
 
+# model object files
+*.mdo
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
