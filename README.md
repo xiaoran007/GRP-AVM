@@ -19,6 +19,7 @@
 ## **TODO**
 - **Transformers**
 - **Model optimize**
+    * classifier + regressor
 
 ## **Environment**
 ### Packages
