@@ -1,6 +1,5 @@
 import os
 import sys
-
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -118,3 +117,10 @@ class Preprocessing(object):
         y_test_log = np.log1p(y_test)
         return X_train, y_train, X_test, y_test, X_train_log, y_train_log, X_test_log, y_test_log
 
+
+def Default():
+    os.chdir(os.path.dirname(__file__))
+    print(f"set dir: {os.getcwd()}")
+    X, y = DataLoader().Load(method="keep", normal="MinMax", lofi=False)
+    X_train, y_train, X_test, y_test = Preprocessing(X, y, random_state=62).DoNothing()
+    return X_train, y_train, X_test, y_test
