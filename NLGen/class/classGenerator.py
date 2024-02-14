@@ -12,17 +12,17 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 
 def classGenerator(method, normal, random_state, k):
-    X_train, y_train, X_test, y_test = Default()
+    X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
+    print(X_train)
     kmeans = KMeans(n_clusters=k, random_state=random_state, n_init='auto')
     kmeans.fit(X_train)
     print(kmeans.labels_)
-    os.chdir(os.path.dirname(__file__))
     joblib.dump(kmeans, './kmeans_model.mdo')
 
 
+
 def Test(method, normal, random_state, k):
-    X, y = DataLoader().Load(method=method, normal=normal, lofi=False)
-    X_train, y_train, X_test, y_test = Preprocessing(X, y, random_state=random_state).DoNothing()
+    X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
     kmeans = KMeans(n_clusters=k, random_state=random_state, n_init='auto')
     # kmeans = AgglomerativeClustering(n_clusters=k)  # k = 4
     kmeans.fit(X_train)

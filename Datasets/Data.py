@@ -118,9 +118,11 @@ class Preprocessing(object):
         return X_train, y_train, X_test, y_test, X_train_log, y_train_log, X_test_log, y_test_log
 
 
-def Default():
+def Default(cwd):
     os.chdir(os.path.dirname(__file__))
     print(f"set dir: {os.getcwd()}")
     X, y = DataLoader().Load(method="keep", normal="MinMax", lofi=False)
     X_train, y_train, X_test, y_test = Preprocessing(X, y, random_state=62).DoNothing()
+    os.chdir(cwd)
+    print(f"set dir back: {cwd}")
     return X_train, y_train, X_test, y_test
