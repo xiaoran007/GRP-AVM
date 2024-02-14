@@ -1,6 +1,6 @@
 import os
 
-from Datasets.Data import DataLoader, Preprocessing
+from Datasets.Data import DataLoader, Preprocessing, Default
 from sklearn.cluster import KMeans
 import seaborn as sns
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
@@ -12,8 +12,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 
 def classGenerator(method, normal, random_state, k):
-    X, y = DataLoader().Load(method=method, normal=normal, lofi=False)
-    X_train, y_train, X_test, y_test = Preprocessing(X, y, random_state=random_state).DoNothing()
+    X_train, y_train, X_test, y_test = Default()
     kmeans = KMeans(n_clusters=k, random_state=random_state, n_init='auto')
     kmeans.fit(X_train)
     print(kmeans.labels_)
