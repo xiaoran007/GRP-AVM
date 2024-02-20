@@ -162,3 +162,13 @@ def Default(cwd):
     os.chdir(cwd)
     print(f"set dir back: {cwd}")
     return X_train, y_train, X_test, y_test
+
+
+def Default_Easy(cwd):
+    os.chdir(os.path.dirname(__file__))
+    print(f"set dir: {os.getcwd()}")
+    X, y = DataLoader().Load(flag=True, full=False)
+    X_train, y_train, X_test, y_test = Preprocessing(X, y, random_state=62).DoNothing()
+    os.chdir(cwd)
+    print(f"set dir back: {cwd}")
+    return X_train, y_train, X_test, y_test

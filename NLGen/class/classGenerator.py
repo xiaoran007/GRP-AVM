@@ -20,7 +20,6 @@ def classGenerator(method, normal, random_state, k):
     joblib.dump(kmeans, './kmeans_model.mdo')
 
 
-
 def Test(method, normal, random_state, k):
     X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
     kmeans = KMeans(n_clusters=k, random_state=random_state, n_init='auto')
