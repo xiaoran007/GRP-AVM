@@ -155,6 +155,11 @@ class Preprocessing(object):
 
 
 def Default(cwd):
+    """
+
+    :param cwd: current work path
+    :return: pandas DataFrame
+    """
     os.chdir(os.path.dirname(__file__))
     print(f"set dir: {os.getcwd()}")
     X, y = DataLoader().Load(flag=True, full=True)
@@ -165,6 +170,11 @@ def Default(cwd):
 
 
 def Default_Easy(cwd):
+    """
+
+        :param cwd: current work path
+        :return: pandas DataFrame
+    """
     os.chdir(os.path.dirname(__file__))
     print(f"set dir: {os.getcwd()}")
     X, y = DataLoader().Load(flag=True, full=False)
