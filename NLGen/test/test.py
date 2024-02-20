@@ -24,10 +24,12 @@ def EASY_TEST():
     X_train_numpy = X_train.to_numpy()
     df = numpy2df(X_train_numpy[0], full=False)
     pred = kmeans.predict(df)[0]
-    avg_pred = avg[pred]
+    avg_pred_X = avg[pred][0]
+    avg_pred_price = avg[pred][1]
     print(f"Predict class: {pred}")
     print(f"Values: {df.to_numpy()[0].tolist()}")
-    print(f"Class avg: {avg_pred}")
+    print(f"Class avg: {avg_pred_X}")
+    print(f"Price avg: {avg_pred_price}")
 
 
 def FULL_TEST():
@@ -37,10 +39,12 @@ def FULL_TEST():
     X_train_numpy = X_train.to_numpy()
     df = numpy2df(X_train_numpy[0], full=True)
     pred = kmeans.predict(df)[0]
-    avg_pred = avg[pred]
+    avg_pred_X = avg[pred][0]
+    avg_pred_price = avg[pred][1]
     print(f"Predict class: {pred}")
     print(f"Values: {df.to_numpy()[0].tolist()}")
-    print(f"Class avg: {avg_pred}")
+    print(f"Class avg: {avg_pred_X}")
+    print(f"Price avg: {avg_pred_price}")
 
 
 EASY_TEST()

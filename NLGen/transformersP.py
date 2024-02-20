@@ -32,10 +32,10 @@ def main2():
 def main3():
     model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2", torch_dtype="auto", trust_remote_code=True)
     tokenizer = AutoTokenizer.from_pretrained("microsoft/phi-2", trust_remote_code=True)
-    text = 'Instruct: Paraphrase this sentence: "The expected property price is higher than average for this type of property due to the large lot size, but is reduced slightly due to poor condition of the single bathroom"\nOutput:'
+    text = 'Instruct: Paraphrase this sentence in two different way: "The expected property price is higher than average for this type of property due to the large lot size, but is reduced slightly due to poor condition of the single bathroom"\nOutput:'
     inputs = tokenizer(text, return_tensors="pt", return_attention_mask=False)
 
-    outputs = model.generate(**inputs, max_length=200, pad_token_id=tokenizer.eos_token_id)
+    outputs = model.generate(**inputs, max_length=2000, pad_token_id=tokenizer.eos_token_id)
     text = tokenizer.batch_decode(outputs)[0]
     print(text)
 
