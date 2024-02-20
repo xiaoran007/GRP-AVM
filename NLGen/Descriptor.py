@@ -1,17 +1,22 @@
 from Datasets.Data import Default, Default_Easy
 import joblib
 import pandas as pd
+import os
 
 
 class Descriptor(object):
-    def __init__(self, X, predicted_price, full=True):
+    def __init__(self, X, predicted_price, full=True, cwd='./'):
         self.X = X
         self.FULL = full
         self.PRICE = predicted_price
         self.KMEANS = None
         self.AVG = None
         self.TRANSFORMERS = None
+        os.chdir(os.path.dirname(__file__))
+        print(f"set dir: {os.getcwd()}")
         self.LoadObject()
+        os.chdir(cwd)
+        print(f"set dir back: {cwd}")
 
     def LoadObject(self):
         try:
@@ -35,9 +40,9 @@ class Descriptor(object):
             avg_price_in_class = self.AVG[X_class][1]
             if self.FULL is True:
                 text = (f"The expected property price is {'higher' if self.PRICE >= avg_price_in_class else 'lower'} than "
-                        f"average for this type of property due to the {'high' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='grade', full=True) else 'low'} grade, "
+                        f"average for this type of property due to the {'higher' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='grade', full=True) else 'lower'} grade, "
                         f"the living size is {'larger' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='sqft_living', full=True) else 'smaller'} than average, "
-                        f"which means large {'positive' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='sqft_living', full=True) else 'negative'} to the price.")
+                        f"which means {'positive' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='sqft_living', full=True) else 'negative'} to the price.")
                 return text
 
 
