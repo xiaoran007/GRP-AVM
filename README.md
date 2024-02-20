@@ -31,6 +31,7 @@ This project uses Python and the following packages are needed:
 * scikit-learn
 * matplotlib
 * flask
+* joblib
 
 ### Virtual Environment
 It is recommended to use a virtual environment and use conda as the manager.
@@ -41,4 +42,18 @@ conda create --name AVM python=3.9
 ```
 Then install the packages, if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
 
+## **Object Files**
+Create:
 
+```python
+import joblib
+
+joblib.dump(object, "path")
+```
+
+Load and use:
+```python
+import joblib
+
+my_object = joblib.load("path")
+```
