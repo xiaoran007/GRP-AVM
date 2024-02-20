@@ -47,4 +47,10 @@ def FULL_TEST():
     print(f"Price avg: {avg_pred_price}")
 
 
-EASY_TEST()
+def TEST():
+    avg = joblib.load('../class/class_avg_Full.mdo')
+    for i, j in avg.items():
+        print(f"{i}: {j[1]}")
+
+
+TEST()
