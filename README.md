@@ -65,3 +65,9 @@ my_object = joblib.load("path")
 ```
 
 Please note that pre-trained object files are not stored in this repository.
+
+Object files should locate in:
+```shell
+./model/object # model object files (RF_Full.mdo) 
+./NLGen/class # class object files (class_avg_Full.mdo and kmeans_model_full.mdo)
+```
