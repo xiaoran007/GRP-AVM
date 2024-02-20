@@ -6,6 +6,7 @@ import seaborn as sns
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 import joblib
 import warnings
+import pandas as pd
 
 # Ignore only DeprecationWarning
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -47,7 +48,47 @@ def KmeansEvaluator(X, Labels, k):
           f'{daviesBouldinScore:.3f}, Calinski Harabasz Score: {calinskiHarabaszScore:.3f}')
 
 
+def getAVG(full=True):
+    if full is True:
+        X_train, y_train, _, _ = Default(os.path.dirname(__file__))
+        flag = "Full"
+        feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view', 'condition', 'grade',
+            'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long', 'sqft_living15',
+            'sqft_lot15', 'year', 'month']
+        kmeans = joblib.load('./kmeans_model_Full.mdo')
+    else:
+        X_train, y_train, _, _ = Default_Easy(os.path.dirname(__file__))
+        flag = "Easy"
+        feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
+        kmeans = joblib.load('./kmeans_model_Easy.mdo')
+    X_train_numpy = X_train.to_numpy()
+    y_train_numpy = y_train.to_numpy()
+    class0 = pd.DataFrame()
+    class1 = pd.DataFrame()
+    class2 = pd.DataFrame()
+    class3 = pd.DataFrame()
+    for i in X_train_numpy:
+        df = numpy2df(i, full=full)
+        train = kmeans.predict(df)
+        print(train)
+
+
+def numpy2df(numpy_arr, full):
+    if full is True:
+        feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view', 'condition',
+                        'grade',
+                        'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long', 'sqft_living15',
+                        'sqft_lot15', 'year', 'month']
+    else:
+        feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
+    df = pd.DataFrame([numpy_arr])
+    df.columns = feature_name
+    return df
+
+
+getAVG()
+
 # for i in range(2, 11):
 #     Test(method="keep", normal="MinMax", random_state=62, k=i)
 
-classGenerator(method="keep", normal="MinMax", random_state=62, k=4, full=False)
+# classGenerator(method="keep", normal="MinMax", random_state=62, k=4, full=False)
