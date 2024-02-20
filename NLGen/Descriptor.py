@@ -43,7 +43,14 @@ class Descriptor(object):
                         f"average for this type of property due to the {'higher' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='grade', full=True) else 'lower'} grade, "
                         f"the living size is {'larger' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='sqft_living', full=True) else 'smaller'} than average, "
                         f"which means {'positive' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='sqft_living', full=True) else 'negative'} to the price.")
-                return text
+            else:
+                text = (f"The expected property price is {'higher' if self.PRICE >= avg_price_in_class else 'lower'} than "
+                        f"average for this type of property due to the {'higher' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='sqft_living', full=False) else 'lower'} living areas, "
+                        f"the lot size is {'larger' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='sqft_lot', full=False) else 'smaller'} than average, "
+                        f"which means {'positive' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='sqft_lot', full=False) else 'negative'} to the price. "
+                        f"Also, building age is {'older' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='building_age', full=False) else 'younger'} than average, it "
+                        f"{'decreases' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='building_age', full=False) else 'increases'} the price.")
+            return text
 
 
     @staticmethod
