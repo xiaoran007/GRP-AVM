@@ -1,20 +1,26 @@
 from model.src import RF
+import os
+import pandas as pd
 
 
 class Predictor(object):
 
-    def __init__(self, X, model_sel="RF", lofi=False, lang=False):
+    def __init__(self, X, model_sel="RF", full=True, lang=False, cwd='./'):
         """
         :param X: dataframe, 19 columns if lofi is False, 7 columns if lofi is True
         :param model_sel: string, model type, support 'RF'
-        :param lofi: Bool, set True if need easy model
+        :param full: Bool, set False if need easy model
         :param lang: Bool, set True if need descriptions
         """
         self.X = X
         self.model_sel = model_sel
-        self.LOFI = lofi
+        self.FULL = full
         self.LANG = lang
+        os.chdir(os.path.dirname(__file__))
+        print(f"set dir: {os.getcwd()}")
         self.MODEL = self.LoadModel()
+        os.chdir(cwd)
+        print(f"set dir back: {cwd}")
 
     def Predict(self):
         """
@@ -23,11 +29,12 @@ class Predictor(object):
         if self.CheckModel():
             try:
                 return_dict = dict()
-                predicted_values = self.MODEL.predict(self.X)
+                predicted_values = self.MODEL.predict(self.numpy2df(self.X, self.FULL))
                 return_dict['status'] = 0
                 return_dict['values'] = predicted_values.tolist()
                 return return_dict
-            except:
+            except Exception as e:
+                print('Error: ', e)
                 return_dict = dict()
                 return_dict['status'] = -1
                 return_dict['values'] = 'Error when predict.'
@@ -38,12 +45,27 @@ class Predictor(object):
             return_dict['values'] = 'Model unload.'
             return return_dict
 
+    @staticmethod
+    def numpy2df(numpy_arr, full):
+        if full is True:
+            feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
+                            'condition',
+                            'grade',
+                            'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long',
+                            'sqft_living15',
+                            'sqft_lot15', 'year', 'month']
+        else:
+            feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
+        df = pd.DataFrame([numpy_arr])
+        df.columns = feature_name
+        return df
+
     def LoadModel(self):
         """
         :return: model object
         """
         if self.model_sel == 'RF':
-            return RF.RFModel(self.LOFI, self.LANG).Load()
+            return RF.RFModel((not self.FULL), self.LANG).Load()
 
     def CheckModel(self):
         """

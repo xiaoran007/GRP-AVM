@@ -15,9 +15,9 @@ class RFModel(object):
         :return: RF model object, None if fail
         """
         if self.LOFI:
-            url = '../object/RF_Easy.mdo'
+            url = './object/RF_Easy.mdo'
         else:
-            url = '../object/RF_Full.mdo'
+            url = './object/RF_Full.mdo'
         try:
             RF_model = joblib.load(url)
             return RF_model
