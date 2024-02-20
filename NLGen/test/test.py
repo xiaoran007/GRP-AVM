@@ -1,5 +1,5 @@
 import joblib
-from Datasets.Data import Default
+from Datasets.Data import Default, Default_Easy
 import os
 import pandas as pd
 
@@ -17,6 +17,19 @@ def numpy2df(numpy_arr, full):
     return df
 
 
+def EASY_TEST():
+    X_train, y_train, X_test, y_test = Default_Easy(os.path.dirname(__file__))
+    kmeans = joblib.load('../class/kmeans_model_Easy.mdo')
+    avg = joblib.load('../class/class_avg_Easy.mdo')
+    X_train_numpy = X_train.to_numpy()
+    df = numpy2df(X_train_numpy[0], full=False)
+    pred = kmeans.predict(df)[0]
+    avg_pred = avg[pred]
+    print(f"Predict class: {pred}")
+    print(f"Values: {df.to_numpy()[0].tolist()}")
+    print(f"Class avg: {avg_pred}")
+
+
 def FULL_TEST():
     X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
     kmeans = joblib.load('../class/kmeans_model_Full.mdo')
@@ -30,4 +43,4 @@ def FULL_TEST():
     print(f"Class avg: {avg_pred}")
 
 
-FULL_TEST()
+EASY_TEST()
