@@ -157,7 +157,7 @@ class Preprocessing(object):
 def Default(cwd):
     """
 
-    :param cwd: current work path
+    :param cwd: current work path, os.path.dirname(__file__)
     :return: pandas DataFrame
     """
     os.chdir(os.path.dirname(__file__))
@@ -172,7 +172,7 @@ def Default(cwd):
 def Default_Easy(cwd):
     """
 
-        :param cwd: current work path
+        :param cwd: current work path, os.path.dirname(__file__)
         :return: pandas DataFrame
     """
     os.chdir(os.path.dirname(__file__))
