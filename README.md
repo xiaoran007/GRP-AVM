@@ -63,3 +63,5 @@ import joblib
 
 my_object = joblib.load("path")
 ```
+
+Please note that pre-trained object files are not stored in this repository.
