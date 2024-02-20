@@ -1,6 +1,6 @@
 import os
 
-from Datasets.Data import DataLoader, Preprocessing, Default
+from Datasets.Data import DataLoader, Preprocessing, Default, Default_Easy
 from sklearn.cluster import KMeans
 import seaborn as sns
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
@@ -11,13 +11,21 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 
-def classGenerator(method, normal, random_state, k):
-    X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
+def classGenerator(method, normal, random_state, k, full=True):
+    if full is True:
+        X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
+        flag = "Full"
+    else:
+        X_train, y_train, X_test, y_test = Default_Easy(os.path.dirname(__file__))
+        flag = "Easy"
     print(X_train)
     kmeans = KMeans(n_clusters=k, random_state=random_state, n_init='auto')
     kmeans.fit(X_train)
     print(kmeans.labels_)
-    joblib.dump(kmeans, './kmeans_model.mdo')
+    try:
+        joblib.dump(kmeans, f'./kmeans_model_{flag}.mdo')
+    except Exception as e:
+        print("Error: ", e)
 
 
 def Test(method, normal, random_state, k):
@@ -42,4 +50,4 @@ def KmeansEvaluator(X, Labels, k):
 # for i in range(2, 11):
 #     Test(method="keep", normal="MinMax", random_state=62, k=i)
 
-classGenerator(method="keep", normal="MinMax", random_state=62, k=4)
+classGenerator(method="keep", normal="MinMax", random_state=62, k=4, full=False)
