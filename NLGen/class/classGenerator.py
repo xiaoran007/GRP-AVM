@@ -2,11 +2,11 @@ import os
 
 from Datasets.Data import DataLoader, Preprocessing, Default, Default_Easy
 from sklearn.cluster import KMeans
-import seaborn as sns
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 import joblib
 import warnings
 import pandas as pd
+import numpy as np
 
 # Ignore only DeprecationWarning
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -34,25 +34,33 @@ def classGenerator(method, normal, random_state, k, full=True):
     class1 = list()
     class2 = list()
     class3 = list()
+    price0 = list()
+    price1 = list()
+    price2 = list()
+    price3 = list()
     for i in range(len(kmeans.labels_)):
         if kmeans.labels_[i] == 0:
             class0.append(X_train_numpy[i])
+            price0.append(y_train_numpy[i])
         elif kmeans.labels_[i] == 1:
             class1.append(X_train_numpy[i])
+            price1.append(y_train_numpy[i])
         elif kmeans.labels_[i] == 2:
             class2.append(X_train_numpy[i])
+            price2.append(y_train_numpy[i])
         elif kmeans.labels_[i] == 3:
             class3.append(X_train_numpy[i])
+            price3.append(y_train_numpy[i])
     print(f"Class 0: {len(class0)}, Class 1: {len(class1)}, Class 2: {len(class2)}, Class 3: {len(class3)}")
     class0_df = pd.DataFrame(class0)
     class1_df = pd.DataFrame(class1)
     class2_df = pd.DataFrame(class2)
     class3_df = pd.DataFrame(class3)
     avg_dict = dict()
-    avg_dict[0] = [round(x, 3) for x in class0_df.mean(axis="rows").tolist()]
-    avg_dict[1] = [round(x, 3) for x in class1_df.mean(axis="rows").tolist()]
-    avg_dict[2] = [round(x, 3) for x in class2_df.mean(axis="rows").tolist()]
-    avg_dict[3] = [round(x, 3) for x in class3_df.mean(axis="rows").tolist()]
+    avg_dict[0] = [[round(x, 3) for x in class0_df.mean(axis="rows").tolist()], round(np.mean(price0), 3)]
+    avg_dict[1] = [[round(x, 3) for x in class1_df.mean(axis="rows").tolist()], round(np.mean(price1), 3)]
+    avg_dict[2] = [[round(x, 3) for x in class2_df.mean(axis="rows").tolist()], round(np.mean(price2), 3)]
+    avg_dict[3] = [[round(x, 3) for x in class3_df.mean(axis="rows").tolist()], round(np.mean(price3), 3)]
     try:
         print(avg_dict)
         joblib.dump(avg_dict, f'./class_avg_{flag}.mdo')
@@ -67,8 +75,6 @@ def Test(method, normal, random_state, k):
     # kmeans = AgglomerativeClustering(n_clusters=k)  # k = 4
     kmeans.fit(X_train)
     print(kmeans.labels_)
-    sns.boxplot(x=kmeans.labels_, y=y_train)
-    # plt.show()
     KmeansEvaluator(X=X_train, Labels=kmeans.labels_, k=k)
 
 
@@ -124,3 +130,4 @@ def numpy2df(numpy_arr, full):
 #     Test(method="keep", normal="MinMax", random_state=62, k=i)
 
 classGenerator(method="keep", normal="MinMax", random_state=62, k=4, full=True)
+classGenerator(method="keep", normal="MinMax", random_state=62, k=4, full=False)
