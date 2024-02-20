@@ -19,12 +19,44 @@ def classGenerator(method, normal, random_state, k, full=True):
     else:
         X_train, y_train, X_test, y_test = Default_Easy(os.path.dirname(__file__))
         flag = "Easy"
-    print(X_train)
     kmeans = KMeans(n_clusters=k, random_state=random_state, n_init='auto')
     kmeans.fit(X_train)
     print(kmeans.labels_)
     try:
         joblib.dump(kmeans, f'./kmeans_model_{flag}.mdo')
+        print("Save kmeans object file.")
+    except Exception as e:
+        print("Error: ", e)
+
+    X_train_numpy = X_train.to_numpy()
+    y_train_numpy = y_train.to_numpy()
+    class0 = list()
+    class1 = list()
+    class2 = list()
+    class3 = list()
+    for i in range(len(kmeans.labels_)):
+        if kmeans.labels_[i] == 0:
+            class0.append(X_train_numpy[i])
+        elif kmeans.labels_[i] == 1:
+            class1.append(X_train_numpy[i])
+        elif kmeans.labels_[i] == 2:
+            class2.append(X_train_numpy[i])
+        elif kmeans.labels_[i] == 3:
+            class3.append(X_train_numpy[i])
+    print(f"Class 0: {len(class0)}, Class 1: {len(class1)}, Class 2: {len(class2)}, Class 3: {len(class3)}")
+    class0_df = pd.DataFrame(class0)
+    class1_df = pd.DataFrame(class1)
+    class2_df = pd.DataFrame(class2)
+    class3_df = pd.DataFrame(class3)
+    avg_dict = dict()
+    avg_dict[0] = [round(x, 3) for x in class0_df.mean(axis="rows").tolist()]
+    avg_dict[1] = [round(x, 3) for x in class1_df.mean(axis="rows").tolist()]
+    avg_dict[2] = [round(x, 3) for x in class2_df.mean(axis="rows").tolist()]
+    avg_dict[3] = [round(x, 3) for x in class3_df.mean(axis="rows").tolist()]
+    try:
+        print(avg_dict)
+        joblib.dump(avg_dict, f'./class_avg_{flag}.mdo')
+        print("Save avg object file.")
     except Exception as e:
         print("Error: ", e)
 
@@ -86,9 +118,9 @@ def numpy2df(numpy_arr, full):
     return df
 
 
-getAVG()
+# getAVG()
 
 # for i in range(2, 11):
 #     Test(method="keep", normal="MinMax", random_state=62, k=i)
 
-# classGenerator(method="keep", normal="MinMax", random_state=62, k=4, full=False)
+classGenerator(method="keep", normal="MinMax", random_state=62, k=4, full=True)
