@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="testbox">
-  <form method="post">
+  <form method="post" action="/result">
     <div class="banner">
       <h1>Pro Mode UI Demo</h1>
     </div>
@@ -17,12 +17,12 @@
       <legend>Property General Information</legend>
       <div class="columns">
         <div class="item">
-          <label for="address">Address<span>*</span></label>
-          <input id="address" type="text"   name="address" />
+          <label for="lat">Lat<span>*</span></label>
+          <input id="lat" type="text"   name="lat" />
         </div>
         <div class="item">
-          <label for="zipcode">Zip Code<span>*</span></label>
-          <input id="zipcode" type="text"   name="zipcode" required/>
+          <label for="long">Long<span>*</span></label>
+          <input id="long" type="text"   name="long" />
         </div>
         <div class="item">
           <label for="sqft_living">Home Square Footage <span>*</span></label>
@@ -74,13 +74,14 @@
         </div>
 
         <div class="item">
-          <label for="yr_built">Built Date<span>*</span></label>
-          <input id="yr_built" type="date" name="yr_built" />
+          <label for="yr_renovated">Renovated Date<span>*</span></label>
+          <input id="yr_renovated" type="text" name="yr_renovated" />
           <i class="fas fa-calendar-alt"></i>
         </div>
+
         <div class="item">
-          <label for="yr_renovated">Renovated Date<span>*</span></label>
-          <input id="yr_renovated" type="date" name="yr_renovated" />
+          <label for="yr_built">Built Date<span>*</span></label>
+          <input id="yr_built" type="text" name="yr_built" />
           <i class="fas fa-calendar-alt"></i>
         </div>
       </div>
@@ -102,18 +103,18 @@
         </div>
         <div class="item">
           <p>Condition </p>
-          <select>
-            <option value="" disabled selected>Select Condition</option>
-            <option value="1" >1</option>
+          <select id="condition" name="condition">
+            <option value="-1" disabled selected>Select Condition</option>
+            <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
         </div>
         <div class="item">
           <p>Grade </p>
-          <select>
-            <option value="" disabled selected>Select Grade</option>
-            <option value="1" >1</option>
+          <select id="grade" name="grade">
+            <option value="-1" disabled selected>Select Grade</option>
+            <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
@@ -131,30 +132,27 @@
       <div class="columns">
         <div class="item">
           <p>Base Algorithm Select </p>
-          <select>
-            <option value="" disabled selected>Select Algorithm</option>
-            <option value="1" >Random Forest</option>
-            <option value="2">KNN</option>
-            <option value="3">GAN</option>
+          <select id="algorithm" name="algorithm">
+            <option value="-1" disabled selected>Select Algorithm</option>
+            <option value="RF" >Random Forest</option>
+            <option value="KNN">KNN</option>
+            <option value="GAN">GAN</option>
           </select>
         </div>
         <div class="item">
           <p>Mode Select </p>
-          <select>
-            <option  value="4" disabled selected>Select Mode</option>
-            <option value="5" >HiFi</option>
-            <option value="6">LoFi</option>
+          <select id="full" name="full">
+            <option  value="-1" disabled selected>Select Mode</option>
+            <option value="Full" >HiFi</option>
+            <option value="Easy">LoFi</option>
           </select>
         </div>
         <div class="item">
-          <p>Natural language description style</p>
-          <select>
-            <option value="8" disabled selected>Select Style</option>
-            <option value="9" >1</option>
-            <option value="10">2</option>
-            <option value="11">3</option>
-            <option value="12">4</option>
-            <option value="13">5</option>
+          <p>Natural language description backend</p>
+          <select id="nl_backend" name="nl_backend">
+            <option value="-1" disabled selected>Select Backend</option>
+            <option value="D" >Default</option>
+            <option value="T">Transformers</option>
           </select>
         </div>
         <div class="item">
