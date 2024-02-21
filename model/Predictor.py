@@ -9,8 +9,8 @@ class Predictor(object):
         """
         :param X: dataframe, 19 columns if lofi is False, 7 columns if lofi is True
         :param model_sel: string, model type, support 'RF'
-        :param full: Bool, set False if need easy model
-        :param lang: Bool, set True if need descriptions
+        :param full: Bool, set False if easy model is needed
+        :param lang: Bool, set True if descriptions is needed
         """
         self.X = X
         self.model_sel = model_sel
