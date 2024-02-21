@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pro Mode UI Demo</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="testbox">
+  <form>
+    <div class="banner">
+      <h1>Pro Mode UI Demo</h1>
+    </div>
+    <br/>
+    <fieldset>
+      <legend>Property General Information</legend>
+      <div class="columns">
+        <div class="item">
+          <label for="address">Address<span>*</span></label>
+          <input id="address" type="text"   name="address" />
+        </div>
+        <div class="item">
+          <label for="zipcode">Zip Code<span>*</span></label>
+          <input id="zipcode" type="text"   name="zipcode" required/>
+        </div>
+        <div class="item">
+          <label for="sqft_living">Home Square Footage <span>*</span></label>
+          <input id="sqft_living" type="text"   name="sqft_living" />
+        </div>
+        <div class="item">
+          <label for="sqft_lot">Lot Square Footage<span>*</span></label>
+          <input id="sqft_lot" type="text"   name="sqft_lot" />
+        </div>
+        <div class="item">
+          <label for="bedrooms">Bedrooms Number<span>*</span></label>
+          <input id="bedrooms" type="text"   name="bedrooms" />
+        </div>
+        <div class="item">
+          <label for="bathrooms">Bathrooms Number<span>*</span></label>
+          <input id="bathrooms" type="text"   name="bathrooms" />
+        </div>
+      </div>
+    </fieldset>
+
+    <br/>
+
+    <fieldset>
+      <legend>Property Additional Information</legend>
+      <div class="columns">
+        <div class="item">
+          <label for="floors">Total floors (levels)<span>*</span></label>
+          <input id="floors" type="text"   name="floors" />
+        </div>
+        <div class="item">
+          <label for="waterfront">Waterfront<span>*</span></label>
+          <input id="waterfront" type="text"   name="waterfront" />
+        </div>
+        <div class="item">
+          <label for="sqft_above">House Apart From Basement Square Footage <span>*</span></label>
+          <input id="sqft_above" type="text"   name="sqft_above" />
+        </div>
+        <div class="item">
+          <label for="sqft_basement">Basement Square Footage<span>*</span></label>
+          <input id="sqft_basement" type="text"   name="sqft_basement" />
+        </div>
+        <div class="item">
+          <label for="sqft_living15">Living Room Area In 2015<span>*</span></label>
+          <input id="sqft_living15" type="text"   name="sqft_living15" />
+        </div>
+        <div class="item">
+          <label for="sqft_lot15">Lot Area In 2015<span>*</span></label>
+          <input id="sqft_lot15" type="text"   name="sqft_lot15" />
+        </div>
+
+        <div class="item">
+          <label for="yr_built">Built Date<span>*</span></label>
+          <input id="yr_built" type="date" name="yr_built" />
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="item">
+          <label for="yr_renovated">Renovated Date<span>*</span></label>
+          <input id="yr_renovated" type="date" name="yr_renovated" />
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+      </div>
+    </fieldset>
+
+    <br/>
+
+    <fieldset>
+      <legend>Market Related Information</legend>
+      <div class="columns">
+        <div class="item">
+          <label for="view">View Number<span>*</span></label>
+          <input id="view" type="text"   name="view" />
+        </div>
+        <div class="item">
+          <label for="eva_date">Evaluation Date<span>*</span></label>
+          <input id="eva_date" type="date" name="eva_date" />
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="item">
+          <p>Condition </p>
+          <select>
+            <option value="" disabled selected>Select Condition</option>
+            <option value="1" >1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="item">
+          <p>Grade </p>
+          <select>
+            <option value="" disabled selected>Select Grade</option>
+            <option value="1" >1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+
+
+
+      </div>
+    </fieldset>
+
+    <br/>
+
+    <fieldset>
+      <legend>Model Settings</legend>
+      <div class="columns">
+        <div class="item">
+          <p>Base Algorithm Select </p>
+          <select>
+            <option value="" disabled selected>Select Algorithm</option>
+            <option value="1" >Random Forest</option>
+            <option value="2">KNN</option>
+            <option value="3">GAN</option>
+          </select>
+        </div>
+        <div class="item">
+          <p>Mode Select </p>
+          <select>
+            <option  value="4" disabled selected>Select Mode</option>
+            <option value="5" >HiFi</option>
+            <option value="6">LoFi</option>
+          </select>
+        </div>
+        <div class="item">
+          <p>Natural language description style</p>
+          <select>
+            <option value="8" disabled selected>Select Style</option>
+            <option value="9" >1</option>
+            <option value="10">2</option>
+            <option value="11">3</option>
+            <option value="12">4</option>
+            <option value="13">5</option>
+          </select>
+        </div>
+        <div class="item">
+          <p>Enable hyperparameter mode?</p>
+          <select>
+            <option value="14" disabled selected>Select HP</option>
+            <option value="15" >0</option>
+            <option value="16">1</option>
+            <option value="17">2</option>
+            <option value="18">3</option>
+            <option value="19">4</option>
+            <option value="19">5</option>
+          </select>
+        </div>
+        <div class="item" style=width:100%>
+          <label for="HPToken">Hyperparameter Mode Token</label>
+          <input id="HPToken" type="number" name="HPToken" />
+        </div>
+      </div>
+      <div class="item">
+        <label for="instruction">Special Instructions</label>
+        <textarea id="instruction" rows="3"></textarea>
+      </div>
+    </fieldset>
+    <div class="btn-block">
+      <button type="submit" href="/">Submit</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
