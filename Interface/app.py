@@ -40,5 +40,13 @@ def readmore():
         return "undefined"
 
 
+@app.route('/getstarted', methods=['GET', 'POST'])
+def getstarted():
+    if request.method == 'GET':
+        return render_template('getStartPage.html')
+    elif request.method == 'POST':
+        return "undefined"
+
+
 if __name__ == '__main__':
     app.run(debug=True)
