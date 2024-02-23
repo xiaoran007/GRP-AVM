@@ -32,5 +32,13 @@ def indev():
         return "undefined"
 
 
+@app.route('/readmore', methods=['GET', 'POST'])
+def readmore():
+    if request.method == 'GET':
+        return render_template('readmore.html')
+    elif request.method == 'POST':
+        return "undefined"
+
+
 if __name__ == '__main__':
     app.run(debug=True)
