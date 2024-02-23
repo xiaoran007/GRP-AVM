@@ -103,6 +103,53 @@
 
                             </div>
                         </div>
+
+                        <div class="container mt-5">
+                            <ul class="nav nav-tabs nav-fill p-0" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link mb-0 px-0 py-1 active" id="home-tab" data-bs-toggle="tab"
+                                            data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                                            aria-selected="true">Home
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link mb-0 px-0 py-1" id="profile-tab" data-bs-toggle="tab"
+                                            data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                                            aria-selected="false">Profile
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link mb-0 px-0 py-1" id="contact-tab" data-bs-toggle="tab"
+                                            data-bs-target="#contact" type="button" role="tab" aria-controls="contact"
+                                            aria-selected="false">Contact
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                     aria-labelledby="home-tab">Home Content
+                                    <div class="mt-3">
+                                        <button class="btn btn-primary" onclick="changeTab('next')">Next</button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    Profile Content
+                                    <div class="mt-3">
+                                        <button class="btn btn-primary" onclick="changeTab('home')">Previous</button>
+                                        <button class="btn btn-primary" onclick="changeTab('next')">Next</button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                    Contact Content
+                                    <div class="mt-3">
+                                        <button class="btn btn-primary" onclick="changeTab('home')">Previous</button>
+                                        <button class="btn btn-success" onclick="submitForm()">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="nav-wrapper position-relative end-0">
                             <ul class="nav nav-pills nav-fill p-1" role="tablist">
                                 <li class="nav-item">
@@ -167,6 +214,41 @@
 <script src="/js/core/bootstrap.min.js" type="text/javascript"></script>
 <script src="https://demos.creative-tim.com/material-kit/assets/js/material-kit.min.js?v=3.0.4"
         type="text/javascript"></script>
+
+
+<!-- Bootstrap JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const tabs = document.querySelectorAll('.nav-tabs .nav-link');
+
+    function changeTab(direction) {
+        const activeTab = document.querySelector('.nav-tabs .nav-link.active');
+        const activeTabIndex = Array.from(tabs).indexOf(activeTab);
+        let newIndex;
+
+        if (direction === 'next') {
+            newIndex = activeTabIndex + 1;
+            if (newIndex >= tabs.length) {
+                newIndex = tabs.length - 1; // Stay at the last tab
+            }
+        } else {
+            newIndex = activeTabIndex - 1;
+            if (newIndex < 0) {
+                newIndex = 0; // Stay at the first tab
+            }
+        }
+
+        tabs[newIndex].click();
+    }
+
+    function submitForm() {
+        // Your submit form logic goes here
+        console.log('Form submitted!');
+    }
+</script>
+
+
 </body>
 
 </html>
