@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, flash
 import util
 
-app = Flask(__name__)
+app = Flask(__name__,   static_url_path='',
+            static_folder='static',
+            template_folder='templates')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -21,5 +23,14 @@ def pro_result():
         pred_price, text = util.backend(ar, full=True)
         return f"OK\nPrice: {pred_price}\nText: {text}"
 
+
+@app.route('/indev', methods=['GET', 'POST'])
+def indev():
+    if request.method == 'GET':
+        return render_template('indev.html')
+    elif request.method == 'POST':
+        return "undefined"
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
