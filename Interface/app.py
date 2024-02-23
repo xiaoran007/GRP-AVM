@@ -56,5 +56,13 @@ def normal_mode_form():
         return "undefined"
 
 
+@app.route('/temp', methods=['GET', 'POST'])
+def temp():
+    if request.method == 'GET':
+        return render_template('temp.html')
+    elif request.method == 'POST':
+        return "undefined"
+
+
 if __name__ == '__main__':
     app.run(debug=True)
