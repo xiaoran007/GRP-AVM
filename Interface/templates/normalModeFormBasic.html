@@ -119,40 +119,32 @@
 
                             <div class="tab-content">
                                 <div class="tab-pane" id="location">
-                                    <h4 class="info-text"> Start with the basic information.</h4>
+                                    <h4 class="info-text"> Start with the property location.</h4>
                                     <div class="row">
+                                        <!-- Address and Zipcode -->
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">City</label>
-                                                <input name="city" type="text" class="form-control" id="exampleInputEmail1">
+                                                <label for="address" class="control-label">Address</label>
+                                                <input name="address" type="text" class="form-control" id="address">
                                             </div>
                                         </div>
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Country</label>
-                                                <select name="country" class="form-control">
-                                                    <option disabled="" selected=""></option>
-                                                    <option value="Afghanistan"> Afghanistan</option>
-                                                    <option value="Albania"> Albania</option>
-                                                </select>
+                                                <label for="zipcode" class="control-label">Zipcode</label>
+                                                <input name="zipcode" type="text" class="form-control" id="zipcode">
+                                            </div>
+                                        </div>
+                                        <!-- Latitude and Longitude -->
+                                        <div class="col-sm-5 mx-auto">
+                                            <div class="form-group label-floating">
+                                                <label for="latitude" class="control-label">Latitude</label>
+                                                <input name="lat" type="text" class="form-control" id="latitude">
                                             </div>
                                         </div>
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Accommodates</label>
-                                                <select class="form-control">
-                                                    <option disabled="" selected=""></option>
-                                                    <option>1 Person</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Rent price</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                    <span class="input-group-addon">$</span>
-                                                </div>
+                                                <label for="longitude" class="control-label">Longitude</label>
+                                                <input name="long" type="text" class="form-control" id="longitude">
                                             </div>
                                         </div>
                                     </div>
