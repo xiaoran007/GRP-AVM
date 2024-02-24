@@ -51,7 +51,7 @@ def getstarted():
 @app.route('/normal_mode_form', methods=['GET', 'POST'])
 def normal_mode_form():
     if request.method == 'GET':
-        return render_template('normalModeFormDemo.html')
+        return render_template('normalModeFormBasic.html')
     elif request.method == 'POST':
         return "undefined"
 
