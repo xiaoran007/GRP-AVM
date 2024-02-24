@@ -56,6 +56,13 @@ def normal_mode_form():
         return "undefined"
 
 
+@app.route('/normal_mode_submit_basic', methods=['POST'])
+def normal_mode_submit_basic():
+    if request.method == 'POST':
+        print(request.form)
+        return request.form
+
+
 @app.route('/temp', methods=['GET', 'POST'])
 def temp():
     if request.method == 'GET':
