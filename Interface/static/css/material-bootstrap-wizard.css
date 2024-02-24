@@ -1143,20 +1143,20 @@ select.form-control {
   padding: 10px 15px;
   min-width: 130px; }
 
-.footer {
-  position: relative;
-  bottom: 20px;
-  right: 0px;
-  width: 100%;
-  color: #FFFFFF;
-  z-index: 4;
-  text-align: right;
-  margin-top: 60px;
-  text-shadow: 0 0px 1px black; }
-  .footer a {
-    color: #FFFFFF; }
-  .footer .heart {
-    color: #FF3B30; }
+/*.footer {*/
+/*  position: relative;*/
+/*  bottom: 20px;*/
+/*  right: 0px;*/
+/*  width: 100%;*/
+/*  color: #FFFFFF;*/
+/*  z-index: 4;*/
+/*  text-align: right;*/
+/*  margin-top: 60px;*/
+/*  text-shadow: 0 0px 1px black; }*/
+/*  .footer a {*/
+/*    color: #FFFFFF; }*/
+/*  .footer .heart {*/
+/*    color: #FF3B30; }*/
 
 .withripple {
   position: relative; }
