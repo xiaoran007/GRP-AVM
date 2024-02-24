@@ -150,39 +150,36 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="type">
-                                    <h4 class="info-text">What type of location do you have? </h4>
+                                    <h4 class="info-text">Your property's basic information </h4>
                                     <div class="row">
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">City</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail2">
+                                                <label for="bedrooms" class="control-label">Bedrooms number</label>
+                                                <input name="bedrooms" type="text" class="form-control" id="bedrooms">
                                             </div>
                                         </div>
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Country</label>
-                                                <select name="country" class="form-control">
-                                                    <option disabled="" selected=""></option>
-                                                    <option value="Afghanistan"> Afghanistan</option>
-                                                    <option value="Albania"> Albania</option>
-                                                </select>
+                                                <label for="bathrooms" class="control-label">Bathrooms number</label>
+                                                <input name="bathrooms" type="text" class="form-control" id="bathrooms">
                                             </div>
                                         </div>
+                                        <!-- square -->
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Accommodates</label>
-                                                <select class="form-control">
-                                                    <option disabled="" selected=""></option>
-                                                    <option>1 Person</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Rent price</label>
+                                                <label for="sqft_living" class="control-label">Living size</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                    <span class="input-group-addon">$</span>
+                                                    <input name="sqft_living" type="text" class="form-control" id="sqft_living">
+                                                    <span class="input-group-addon">ft<sup>2</sup></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5 mx-auto">
+                                            <div class="form-group label-floating">
+                                                <label for="sqft_lot" class="control-label">Lot size</label>
+                                                <div class="input-group">
+                                                    <input name="sqft_lot" type="text" class="form-control" id="sqft_lot">
+                                                    <span class="input-group-addon">ft<sup>2</sup></span>
                                                 </div>
                                             </div>
                                         </div>
