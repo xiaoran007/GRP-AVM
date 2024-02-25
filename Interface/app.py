@@ -87,8 +87,16 @@ def normal_mode_end():
         session['normal_form_pro'] = request.form.to_dict()
         print(f"from share basic: {session.get('normal_form_basic')}")
         print(f"from share pro: {session.get('normal_form_pro')}")
-        features = util.data_trans(session.get('normal_form_basic').update(session.get('normal_form_pro')), 'advance')
-        return render_template('normalModeFormEnd.html', features=features)
+        combined = {**session.get('normal_form_basic'), **(session.get('normal_form_pro'))}
+        combined['sqft_living15'] = '1340'
+        combined['sqft_lot15'] = '5650'
+        print(combined)
+        features = util.data_trans(combined, 'advance')
+        ar = util.data_preprocessing(combined, full=True)
+        print(ar)
+        pred_price, text = util.backend(ar, full=True)
+        print(f"OK\nPrice: {pred_price}\nText: {text}")
+        return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text)
 
 
 @app.route('/temp', methods=['GET', 'POST'])

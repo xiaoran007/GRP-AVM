@@ -47,7 +47,7 @@ def data_preprocessing(data_form, full):
             elif feature_name == 'month':
                 my_array.append(month)
             else:
-                my_array.append(float(data_form.get(feature_name)))
+                my_array.append(float(data_form[feature_name]))
     return my_array
 
 
