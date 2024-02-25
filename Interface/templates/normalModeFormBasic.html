@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Material Bootstrap Wizard by Creative Tim</title>
+    <title>Normal Mode</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
 
@@ -113,7 +113,7 @@
                                     <li><a href="#location" data-toggle="tab">Location</a></li>
                                     <li><a href="#type" data-toggle="tab">Type</a></li>
                                     <li><a href="#facilities" data-toggle="tab">Facilities</a></li>
-                                    <li><a href="#description" data-toggle="tab">Description</a></li>
+                                    <li><a href="#Building Age" data-toggle="tab">Building Age</a></li>
                                 </ul>
                             </div>
 
@@ -187,73 +187,60 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="facilities">
-                                    <h4 class="info-text">Tell us more about facilities. </h4>
+                                    <h4 class="info-text">Tell us more about your property. </h4>
                                     <div class="row">
-                                        <!-- comments -->
+                                        <!-- floors and waterfront -->
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">City</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail3">
+                                                <label for="floors" class="control-label">Floors</label>
+                                                <input name="floors" type="text" class="form-control" id="floors">
                                             </div>
                                         </div>
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Country</label>
-                                                <select name="country" class="form-control">
+                                                <label for="waterfront" class="control-label">Is waterfront?</label>
+                                                <select name="waterfront" class="form-control" id="waterfront">
                                                     <option disabled="" selected=""></option>
-                                                    <option value="Afghanistan"> Afghanistan</option>
-                                                    <option value="Albania"> Albania</option>
+                                                    <option value="1"> Yes</option>
+                                                    <option value="0"> No</option>
                                                 </select>
                                             </div>
                                         </div>
+                                        <!-- sqft_above and sqft_basement -->
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Accommodates</label>
-                                                <select class="form-control">
-                                                    <option disabled="" selected=""></option>
-                                                    <option>1 Person</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Rent price</label>
+                                                <label for="sqft_above" class="control-label">The size above basement</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                    <span class="input-group-addon">$</span>
+                                                    <input name="sqft_above" type="text" class="form-control" id="sqft_above">
+                                                    <span class="input-group-addon">ft<sup>2</sup></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5 mx-auto">
+                                            <div class="form-group label-floating">
+                                                <label for="sqft_basement" class="control-label">Basement size</label>
+                                                <div class="input-group">
+                                                    <input name="sqft_basement" type="text" class="form-control" id="sqft_basement">
+                                                    <span class="input-group-addon">ft<sup>2</sup></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="description">
-                                    <h4 class="info-text">Tell us more about facilities. </h4>
+                                <div class="tab-pane" id="Building Age">
+                                    <h4 class="info-text">Almost there! A bit more information. </h4>
                                     <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                <input type="checkbox" name="jobb" value="Design">
-                                                <div class="icon">
-                                                    <i class="fa fa-pencil"></i>
-                                                </div>
-                                                <h6>Design</h6>
+                                        <!-- built year -->
+                                        <div class="col-sm-5 mx-auto">
+                                            <div class="form-group label-floating">
+                                                <label for="yr_built" class="control-label">Built year</label>
+                                                <input name="yr_built" type="text" class="form-control" id="yr_built">
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                <input type="checkbox" name="jobb" value="Code">
-                                                <div class="icon">
-                                                    <i class="fa fa-terminal"></i>
-                                                </div>
-                                                <h6>Code</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                <input type="checkbox" name="jobb" value="Develop">
-                                                <div class="icon">
-                                                    <i class="fa fa-laptop"></i>
-                                                </div>
-                                                <h6>Develop</h6>
+                                        <div class="col-sm-5 mx-auto">
+                                            <div class="form-group label-floating">
+                                                <label for="yr_renovated" class="control-label">Renovated year (if not, enter 0)</label>
+                                                <input name="yr_renovated" type="text" class="form-control" id="yr_renovated">
                                             </div>
                                         </div>
                                     </div>
