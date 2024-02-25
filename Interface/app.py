@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, g, redirect, url_for, session
 import util
 
 app = Flask(__name__,   static_url_path='',
             static_folder='static',
             template_folder='templates')
+app.secret_key = 'my_secret_key'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -56,11 +57,31 @@ def normal_mode_form():
         return "undefined"
 
 
-@app.route('/normal_mode_submit_basic', methods=['POST'])
-def normal_mode_submit_basic():
+@app.route('/normal_mode_mid', methods=['POST'])
+def normal_mode_mid():
     if request.method == 'POST':
         print(request.form)
-        return request.form
+        g.shared_value = request.form
+        session['shared_value'] = request.form
+        return render_template('normalModeFormMid.html')
+
+
+@app.route('/normal_mode_pro', methods=['GET', 'POST'])
+def normal_mode_pro():
+    if request.method == 'GET':
+        print(f"from share {session.get('shared_value')}")
+        return render_template('normalModeFormPro.html')
+    elif request.method == 'POST':
+        return "undefined"
+
+
+@app.route('/normal_mode_end', methods=['GET', 'POST'])
+def normal_mode_end():
+    if request.method == 'GET':
+        print(f"from share {session.get('shared_value')}")
+        return render_template('normalModeFormEnd.html')
+    elif request.method == 'POST':
+        return "undefined"
 
 
 @app.route('/temp', methods=['GET', 'POST'])
