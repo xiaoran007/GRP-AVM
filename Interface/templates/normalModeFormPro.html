@@ -113,7 +113,6 @@
                                     <li><a href="#View" data-toggle="tab">View</a></li>
                                     <li><a href="#Condition" data-toggle="tab">Condition</a></li>
                                     <li><a href="#Grade" data-toggle="tab">Grade</a></li>
-                                    <li><a href="#description" data-toggle="tab">Description</a></li>
                                 </ul>
                             </div>
 
@@ -123,7 +122,7 @@
                                     <div class="row">
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label for="viewnum" class="control-label">viewed times (if not, enter 0)</label>
+                                                <label for="viewnum" class="control-label">Viewed times (if not, enter 0)</label>
                                                 <input name="view" type="text" class="form-control" id="viewnum">
                                             </div>
                                         </div>
@@ -132,110 +131,60 @@
                                 <div class="tab-pane" id="Condition">
                                     <h4 class="info-text">The score you think about condition </h4>
                                     <div class="row">
-                                        <!-- bedrooms and bathrooms -->
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="bedrooms" class="control-label">Bedrooms number</label>
-                                                <input name="bedrooms" type="text" class="form-control" id="bedrooms">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="bathrooms" class="control-label">Bathrooms number</label>
-                                                <input name="bathrooms" type="text" class="form-control" id="bathrooms">
-                                            </div>
-                                        </div>
-                                        <!-- square -->
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="sqft_living" class="control-label">Living size</label>
-                                                <div class="input-group">
-                                                    <input name="sqft_living" type="text" class="form-control" id="sqft_living">
-                                                    <span class="input-group-addon">ft<sup>2</sup></span>
+                                        <div class="col">
+                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                <input type="checkbox" name="condition" value="1">
+                                                <div class="icon">
+                                                    <i class="fa-regular fa-star"></i>
                                                 </div>
+                                                <h6>1⭐️</h6>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="sqft_lot" class="control-label">Lot size</label>
-                                                <div class="input-group">
-                                                    <input name="sqft_lot" type="text" class="form-control" id="sqft_lot">
-                                                    <span class="input-group-addon">ft<sup>2</sup></span>
+                                        <div class="col">
+                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                <input type="checkbox" name="condition" value="2">
+                                                <div class="icon">
+                                                    <i class="fa-regular fa-star"></i>
                                                 </div>
+                                                <h6>2⭐️</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                <input type="checkbox" name="condition" value="3">
+                                                <div class="icon">
+                                                    <i class="fa-regular fa-star"></i>
+                                                </div>
+                                                <h6>3⭐️</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                <input type="checkbox" name="condition" value="4">
+                                                <div class="icon">
+                                                    <i class="fa-regular fa-star"></i>
+                                                </div>
+                                                <h6>4⭐️</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                <input type="checkbox" name="condition" value="5">
+                                                <div class="icon">
+                                                    <i class="fa-regular fa-star"></i>
+                                                </div>
+                                                <h6>5⭐️</h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="Grade">
-                                    <h4 class="info-text">Tell us more about your property. </h4>
+                                    <h4 class="info-text">Already evaluated? Tell us the grade. </h4>
                                     <div class="row">
-                                        <!-- floors and waterfront -->
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label for="floors" class="control-label">Floors</label>
-                                                <input name="floors" type="text" class="form-control" id="floors">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="waterfront" class="control-label">Is waterfront?</label>
-                                                <select name="waterfront" class="form-control" id="waterfront">
-                                                    <option disabled="" selected=""></option>
-                                                    <option value="1"> Yes</option>
-                                                    <option value="0"> No</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!-- sqft_above and sqft_basement -->
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="sqft_above" class="control-label">The size above basement</label>
-                                                <div class="input-group">
-                                                    <input name="sqft_above" type="text" class="form-control" id="sqft_above">
-                                                    <span class="input-group-addon">ft<sup>2</sup></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="sqft_basement" class="control-label">Basement size</label>
-                                                <div class="input-group">
-                                                    <input name="sqft_basement" type="text" class="form-control" id="sqft_basement">
-                                                    <span class="input-group-addon">ft<sup>2</sup></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="description">
-                                    <h4 class="info-text">Almost there! A bit more information </h4>
-                                    <div class="row">
-                                        <!-- built year -->
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                <input type="checkbox" name="jobb" value="Design">
-                                                <div class="icon">
-                                                    <i class="fa fa-pencil"></i>
-                                                </div>
-                                                <h6>Design</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                <input type="checkbox" name="jobb" value="Code">
-                                                <div class="icon">
-                                                    <i class="fa fa-terminal"></i>
-                                                </div>
-                                                <h6>Code</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                <input type="checkbox" name="jobb" value="Develop">
-                                                <div class="icon">
-                                                    <i class="fa fa-laptop"></i>
-                                                </div>
-                                                <h6>Develop</h6>
+                                                <label for="gradenum" class="control-label">Grade (if not, enter -1)</label>
+                                                <input name="grade" type="text" class="form-control" id="gradenum">
                                             </div>
                                         </div>
                                     </div>
