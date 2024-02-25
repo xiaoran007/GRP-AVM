@@ -98,59 +98,39 @@
             <div class="col-sm-8 col-sm-offset-2 mx-auto">
                 <!--      Wizard container        -->
                 <div class="wizard-container">
-                    <div class="card wizard-card" data-color="green" id="wizard">
-                        <form action="/normal_mode_submit_basic" method="POST">
+                    <div class="card wizard-card" data-color="blue" id="wizard">
+                        <form action="/normal_mode_end" method="POST">
                             <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
 
                             <div class="wizard-header">
                                 <h1 class="wizard-title">
-                                    Let's start
+                                    A few additional questions.
                                 </h1>
-                                <h5>This information will let us know more about your property.</h5>
+                                <h5>This information will let us provide better prediction</h5>
                             </div>
                             <div class="wizard-navigation">
                                 <ul>
-                                    <li><a href="#location" data-toggle="tab">Location</a></li>
-                                    <li><a href="#type" data-toggle="tab">Type</a></li>
-                                    <li><a href="#facilities" data-toggle="tab">Facilities</a></li>
+                                    <li><a href="#View" data-toggle="tab">View</a></li>
+                                    <li><a href="#Condition" data-toggle="tab">Condition</a></li>
+                                    <li><a href="#Grade" data-toggle="tab">Grade</a></li>
                                     <li><a href="#description" data-toggle="tab">Description</a></li>
                                 </ul>
                             </div>
 
                             <div class="tab-content">
-                                <div class="tab-pane" id="location">
-                                    <h4 class="info-text"> Start with the property location.</h4>
+                                <div class="tab-pane" id="View">
+                                    <h4 class="info-text"> Has this property been viewed already?</h4>
                                     <div class="row">
-                                        <!-- Address and Zipcode -->
                                         <div class="col-sm-5 mx-auto">
                                             <div class="form-group label-floating">
-                                                <label for="address" class="control-label">Address</label>
-                                                <input name="address" type="text" class="form-control" id="address">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="zipcode" class="control-label">Zipcode</label>
-                                                <input name="zipcode" type="text" class="form-control" id="zipcode">
-                                            </div>
-                                        </div>
-                                        <!-- Latitude and Longitude -->
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="latitude" class="control-label">Latitude</label>
-                                                <input name="lat" type="text" class="form-control" id="latitude">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5 mx-auto">
-                                            <div class="form-group label-floating">
-                                                <label for="longitude" class="control-label">Longitude</label>
-                                                <input name="long" type="text" class="form-control" id="longitude">
+                                                <label for="viewnum" class="control-label">viewed times (if not, enter 0)</label>
+                                                <input name="view" type="text" class="form-control" id="viewnum">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="type">
-                                    <h4 class="info-text">Your property's basic information </h4>
+                                <div class="tab-pane" id="Condition">
+                                    <h4 class="info-text">The score you think about condition </h4>
                                     <div class="row">
                                         <!-- bedrooms and bathrooms -->
                                         <div class="col-sm-5 mx-auto">
@@ -186,7 +166,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="facilities">
+                                <div class="tab-pane" id="Grade">
                                     <h4 class="info-text">Tell us more about your property. </h4>
                                     <div class="row">
                                         <!-- floors and waterfront -->
@@ -263,7 +243,7 @@
                             </div>
                             <div class="wizard-footer">
                                 <div class="pull-right">
-                                    <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next'
+                                    <input type='button' class='btn btn-next btn-fill btn-info btn-wd' name='next'
                                            value='Next'/>
                                     <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd'
                                            name='finish' value='Finish'/>
