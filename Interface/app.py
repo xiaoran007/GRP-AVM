@@ -61,15 +61,14 @@ def normal_mode_form():
 def normal_mode_mid():
     if request.method == 'POST':
         print(request.form)
-        g.shared_value = request.form
-        session['shared_value'] = request.form
+        session['normal_form_basic'] = request.form.to_dict()
         return render_template('normalModeFormMid.html')
 
 
 @app.route('/normal_mode_pro', methods=['GET', 'POST'])
 def normal_mode_pro():
     if request.method == 'GET':
-        print(f"from share {session.get('shared_value')}")
+        print(f"from share {session.get('normal_form_basic')}")
         return render_template('normalModeFormPro.html')
     elif request.method == 'POST':
         return "undefined"
@@ -77,11 +76,17 @@ def normal_mode_pro():
 
 @app.route('/normal_mode_end', methods=['GET', 'POST'])
 def normal_mode_end():
+    # from basic
     if request.method == 'GET':
-        print(f"from share {session.get('shared_value')}")
-        return render_template('normalModeFormEnd.html')
+        print(f"from share {session.get('normal_form_basic')}")
+        return render_template('normalModeFormEnd.html', basic=session.get('normal_form_basic'), pro="NONE")
+    # from pro
     elif request.method == 'POST':
-        return "undefined"
+        print(request.form)
+        session['normal_form_pro'] = request.form.to_dict()
+        print(f"from share basic: {session.get('normal_form_basic')}")
+        print(f"from share pro: {session.get('normal_form_pro')}")
+        return render_template('normalModeFormEnd.html', basic=session.get('normal_form_basic'), pro=session.get('normal_form_pro'))
 
 
 @app.route('/temp', methods=['GET', 'POST'])
