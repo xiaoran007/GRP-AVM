@@ -51,6 +51,19 @@ def data_preprocessing(data_form, full):
     return my_array
 
 
+def data_trans(data_dict, data_class):
+    res = list()
+    for key, value in data_dict.items():
+        row = dict()
+        row['name'] = key
+        if value != '':
+            row['value'] = value
+        else:
+            row['value'] = "None"
+        row['class'] = data_class
+        res.append(row)
+    return res
+
 
 class DecodeDate(object):
     def __init__(self, date_str):

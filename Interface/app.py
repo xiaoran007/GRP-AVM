@@ -79,14 +79,16 @@ def normal_mode_end():
     # from basic
     if request.method == 'GET':
         print(f"from share {session.get('normal_form_basic')}")
-        return render_template('normalModeFormEnd.html', basic=session.get('normal_form_basic'), pro="NONE")
+        features = util.data_trans(session.get('normal_form_basic'), 'default')
+        return render_template('normalModeFormEnd.html', features=features)
     # from pro
     elif request.method == 'POST':
         print(request.form)
         session['normal_form_pro'] = request.form.to_dict()
         print(f"from share basic: {session.get('normal_form_basic')}")
         print(f"from share pro: {session.get('normal_form_pro')}")
-        return render_template('normalModeFormEnd.html', basic=session.get('normal_form_basic'), pro=session.get('normal_form_pro'))
+        features = util.data_trans(session.get('normal_form_basic').update(session.get('normal_form_pro')), 'advance')
+        return render_template('normalModeFormEnd.html', features=features)
 
 
 @app.route('/temp', methods=['GET', 'POST'])

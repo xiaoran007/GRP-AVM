@@ -98,12 +98,55 @@
 <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
     <div class="container">
         <div class="section text-center">
-            <h2 class="title">Back to the main page?</h2>
-            <a href="/">
-                <button type="button" class="btn btn-success mt-4">Click here!</button>
-            </a>
+            <h2 class="title">Your property information</h2>
+            <p>&nbsp;</p>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table align-items-center">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Class
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Value
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for feature in features %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-xs">{{ feature.name }}</h6>
+<!--                                        <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>-->
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="text-xs font-weight-bold mb-0">{{ feature.class }}</p>
+<!--                                    <p class="text-xs text-secondary mb-0">Organization</p>-->
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <p class="text-xs font-weight-bold mb-0">{{ feature.value }}</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
