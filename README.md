@@ -17,9 +17,7 @@
 ***
 
 ## **TODO**
-- **Transformers**
-- **Model optimize**
-    * classifier + regressor
+- **Material UI**
 
 ## **Environment**
 ### Packages
@@ -32,7 +30,7 @@ This project uses Python and the following packages are needed:
 * flask
 * bootstrap-flask
 
-For other dependent packages, see Requirements.txt.
+For other dependent packages, see requirements.txt and environment.yml.
 
 ### Virtual Environment
 It is recommended to use a virtual environment and use conda as the manager.
