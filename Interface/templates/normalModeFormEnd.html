@@ -81,7 +81,7 @@
     </nav>
 </header>
 
-<div class="page-header min-vh-80"
+<div class="page-header min-vh-70"
      style="background-image: url('/img/bg.jpg')">
     <span class="mask bg-gradient-dark opacity-6"></span>
     <div class="container">
@@ -89,15 +89,39 @@
             <div class="col-md-8 mx-auto">
                 <div class="text-center">
                     <h1 class="text-white">Here is your result</h1>
-                    <h3 class="text-white">more details in dev</h3>
+                    <h3 class="text-white">The price is {{ price_pred }} USD</h3>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
+<div class="card card-body shadow-xl mt-n8 col-md-9 mx-auto">
     <div class="container">
         <div class="section text-center">
+
+                <h2 class="title">Your Result</h2>
+                <p>&nbsp;</p>
+            </div>
+        <div class="card col-md-8 mx-auto">
+
+
+            <div class="row">
+                <div class="section text-center">
+                    <h4 class="title">property price</h4>
+                    <p class="title"> {{ price }}</p>
+                    <h4 class="title">Why this price</h4>
+                    <p class="title"> {{ description }}</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="container">
+        <div class="section text-center">
+            <p>&nbsp;</p>
             <h2 class="title">Your property information</h2>
             <p>&nbsp;</p>
         </div>
@@ -126,12 +150,12 @@
                                 <td>
                                     <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-xs">{{ feature.name }}</h6>
-<!--                                        <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>-->
+                                        <!--                                        <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>-->
                                     </div>
                                 </td>
                                 <td>
                                     <p class="text-xs font-weight-bold mb-0">{{ feature.class }}</p>
-<!--                                    <p class="text-xs text-secondary mb-0">Organization</p>-->
+                                    <!--                                    <p class="text-xs text-secondary mb-0">Organization</p>-->
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                     <p class="text-xs font-weight-bold mb-0">{{ feature.value }}</p>
@@ -147,23 +171,6 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="section text-center">
-            <p>&nbsp;</p>
-            <h2 class="title">Your Result</h2>
-
-        </div>
-
-        <div class="row">
-            <div class="section text-center">
-                <h4 class="title">Your property price</h4>
-                <h5 class="title"> {{ price }}</h5>
-                <h4 class="title">Prediction description</h4>
-                <h5 class="title"> {{ description }}</h5>
-            </div>
-        </div>
-
-    </div>
 
 </div>
 
