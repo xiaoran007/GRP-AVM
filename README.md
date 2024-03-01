@@ -21,6 +21,7 @@
 
 ## **working branch**
 check out MaterialUIKit.
+check out CP.
 
 ## **Environment**
 ### Packages
@@ -32,6 +33,7 @@ This project uses Python and the following packages are needed:
 * scikit-learn
 * flask
 * bootstrap-flask
+* mapie
 
 For other dependent packages, see requirements.txt and environment.yml.
 
@@ -56,6 +58,12 @@ To install bootstrap-flask
 conda install pip -c conda-forge
 python -m pip install bootstrap-flask
 ```
+
+Some packages need install from conda-forge channel, use following command:
+```shell
+conda install "package-name" -c conda-forge
+```
+
 ## **Object Files**
 Create:
 
