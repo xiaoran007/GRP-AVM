@@ -17,9 +17,7 @@
 ***
 
 ## **TODO**
-- **Transformers**
-- **Model optimize**
-    * classifier + regressor
+- **Material UI**
 
 ## **working branch**
 check out MaterialUIKit.
@@ -33,8 +31,9 @@ This project uses Python and the following packages are needed:
 * pandas
 * scikit-learn
 * flask
+* bootstrap-flask
 
-For other dependent packages, see Requirements.txt.
+For other dependent packages, see requirements.txt and environment.yml.
 
 ### Virtual Environment
 It is recommended to use a virtual environment and use conda as the manager.
@@ -45,12 +44,18 @@ conda create --name AVM python=3.9
 ```
 Then install the packages, if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
 
-transformers can run on CPU mode or GPU mode (pytorch backend or tensorflow backend), if you have Nvidia GPU, GPU mode with pytorch backend is recommended. Install Pytorch and then install transformers with conda:
+Transformers can run on CPU mode or GPU mode (pytorch backend or tensorflow backend), if you have Nvidia GPU, GPU mode with pytorch backend is recommended. Install Pytorch and then install transformers with conda:
 ```shell
 conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
 conda install transformers -c conda-forge
 ```
 Please note, you need first install the Nvidia CUDA toolkits, and then install compatible Pytorch, you can find more information from the [Pytorch website](https://pytorch.org/get-started/previous-versions/).
+
+To install bootstrap-flask
+```shell
+conda install pip -c conda-forge
+python -m pip install bootstrap-flask
+```
 ## **Object Files**
 Create:
 

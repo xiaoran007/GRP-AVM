@@ -36,7 +36,11 @@ class Descriptor(object):
         else:
             df = Descriptor.numpy2df(numpy_arr=self.X, full=self.FULL)
             X_class = self.KMEANS.predict(df)[0]
-            avg_X_in_class = self.AVG[X_class][0]
+            # bug on mac
+            # avg_X_in_class = self.AVG[X_class][0]
+            # print(self.AVG[X_class])
+            # on mac set as this
+            avg_X_in_class = self.AVG[X_class]
             avg_price_in_class = self.AVG[X_class][1]
             if self.FULL is True:
                 text = (f"The expected property price is {'higher' if self.PRICE >= avg_price_in_class else 'lower'} than "
