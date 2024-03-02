@@ -80,17 +80,17 @@ def Test(method='Full', iters=100, train=True):
     if method == 'Full':
         X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
         rf = joblib.load('../object/RF_Full.mdo')
-        mapie_rf = joblib.load('MAPIE_Full.mdo')
+        mapie_rf = joblib.load('../object/MAPIE_Full.mdo')
         full = True
     elif method == 'Easy':
         X_train, y_train, X_test, y_test = Default_Easy(os.path.dirname(__file__))
         rf = joblib.load('../object/RF_Easy.mdo')
-        mapie_rf = joblib.load('MAPIE_Easy.mdo')
+        mapie_rf = joblib.load('../object/MAPIE_Easy.mdo')
         full = False
     else:
         X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
         rf = joblib.load('../object/RF_Full.mdo')
-        mapie_rf = joblib.load('MAPIE_Full.mdo')
+        mapie_rf = joblib.load('../object/MAPIE_Full.mdo')
         full = True
     if train is True:
         X_valid = X_train.to_numpy()
@@ -98,6 +98,7 @@ def Test(method='Full', iters=100, train=True):
     else:
         X_valid = X_test.to_numpy()
         y_valid = y_test.to_numpy()
+    print(type(mapie_rf))
     count = 0
     err_list = list()
     for k in range(iters):
@@ -121,5 +122,5 @@ def Test(method='Full', iters=100, train=True):
 # compare(iters=100)
 # Make(method='Easy')
 # Make(method='Full')
-Test(method='Full', iters=100, train=True)
+Test(method='Full', iters=1, train=True)
 

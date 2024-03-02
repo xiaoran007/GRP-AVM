@@ -1,7 +1,9 @@
+import random
+import joblib
 import pandas as pd
 import numpy as np
 from model import Predictor
-from Datasets.Data import Default
+from Datasets.Data import Default, Default_Easy
 import os
 
 
@@ -63,4 +65,20 @@ def TEST():
     print(High_err)
 
 
-TEST()
+def CPTest(Full=True):
+    if Full is True:
+        X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
+    else:
+        X_train, y_train, X_test, y_test = Default_Easy(os.path.dirname(__file__))
+    X_valid = X_test.to_numpy()
+    y_valid = y_test.to_numpy()
+    for k in range(10):
+        i = random.randint(0, len(X_valid))
+        predictor = Predictor.CpPredictor(X=X_valid[i], full=Full, cwd=os.path.dirname(__file__))
+        predicted_dict = predictor.Predict()
+        print(f'value: {predicted_dict["values"]}, range: {predicted_dict["values_range"]}')
+
+
+CPTest()
+# Make(method='Easy')
+# Make(method='Full')

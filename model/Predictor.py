@@ -80,22 +80,30 @@ class Predictor(object):
 
 
 class CpPredictor(Predictor):
-    def __init__(self, X, model_sel="RF", full=True, cwd='./'):
-        super(CpPredictor, self).__init__(X, model_sel, full)
+    """
+    only one predict one time.
+    """
+    def __init__(self, X, model_sel="RF", full=True, cwd='./', alpha=0.2):
+        super().__init__(X, model_sel, full)
+        self.ALPHA = alpha
+        self.CWD = cwd
         os.chdir(os.path.dirname(__file__))
         print(f"set dir: {os.getcwd()}")
         self.MODEL = self.LoadModel()
-        os.chdir(cwd)
-        print(f"set dir back: {cwd}")
+        print(f'load model type: {type(self.MODEL)}')
+        os.chdir(self.CWD)
+        print(f"set dir back: {self.CWD}")
 
     def Predict(self):
         """
+        only one predict one time.
         :return: dict, key 'status' 0 if success, key 'values' contents return values, key 'values_range' return values range
         """
         if self.CheckModel():
             try:
                 return_dict = dict()
-                predicted_values, mapie_pis = self.MODEL.predict(self.numpy2df(self.X, self.FULL))
+                print(type(self.MODEL))
+                predicted_values, mapie_pis = self.MODEL.predict(self.numpy2df(self.X, self.FULL), alpha=self.ALPHA)
                 return_dict['status'] = 0
                 return_dict['values'] = predicted_values.tolist()
                 values_range = [mapie_pis[0][0][0], mapie_pis[0][1][0]]
@@ -115,7 +123,7 @@ class CpPredictor(Predictor):
 
     def LoadModel(self):
         """
-        :return: model object
+        :return: CP model object
         """
         if self.FULL is True:
             return joblib.load('object/MAPIE_Full.mdo')
