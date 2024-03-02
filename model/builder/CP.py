@@ -24,9 +24,9 @@ def numpy2df(numpy_arr, full):
 
 def check():
     X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
-    rf = RandomForestRegressor(n_jobs=-1, criterion='squared_error', verbose=0)
-    mapie_rf = MapieRegressor(estimator=rf, n_jobs=-1, verbose=0)
-    mapie_rf.fit(X_train, y_train)
+    rf = joblib.load('../object/RF_Full.mdo')
+    mapie_rf = MapieRegressor(estimator=rf, n_jobs=-1, verbose=0, cv='prefit')
+    mapie_rf.fit(X_test, y_test)
     mapie_pred, mapie_pis = mapie_rf.predict(X_test, alpha=0.2)
     print(mapie_pis)
     print(mapie_pred)
@@ -39,6 +39,7 @@ def compare(iters):
     y_test_numpy = y_test.to_numpy()
     mapie_rf = joblib.load('mapie_rf.mdo')
     count = 0
+    err_list = list()
     for i in range(iters):
         mapie_pred, mapie_pis = mapie_rf.predict(numpy2df(X_test_numpy[i], True), alpha=0.2)
         predictor = Predictor(X_test_numpy[i], model_sel='RF', full=True, lang=False, cwd=os.path.dirname(__file__))
@@ -47,10 +48,13 @@ def compare(iters):
         pred_range = [mapie_pis[0][0][0], mapie_pis[0][1][0]]
         if y_test_numpy[i] < pred_range[0] or y_test_numpy[i] > pred_range[1]:
             count = count + 1
+            err_list.append(f"CP: {pred_range[0]} - {pred_range[1]}, True: {y_test_numpy[i]}")
 
     print(count)
+    for i in err_list:
+        print(i)
 
 
-
-compare(iters=10)
+# check()
+compare(iters=100)
 
