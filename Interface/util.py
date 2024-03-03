@@ -21,7 +21,7 @@ def backend(data_array, full):
     pred_price = predictor.Predict()
     print(pred_price)
     descriptor = Descriptor(data_array, pred_price['values'][0], full=full, cwd=os.path.dirname(__file__))
-    text = descriptor.GetDescription()
+    text = descriptor.generateDescription()
     print(text)
     return f"{pred_price['values_range'][0]}-{pred_price['values_range'][1]}", text
 
