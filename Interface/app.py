@@ -109,6 +109,14 @@ def pro_mode_start():
         return "undefined"
 
 
+@app.route('/pro_mode_form', methods=['GET', 'POST'])
+def pro_mode_form():
+    if request.method == 'GET':
+        return render_template('proModeForm.html')
+    elif request.method == 'POST':
+        return "undefined"
+
+
 @app.route('/temp', methods=['GET', 'POST'])
 def temp():
     if request.method == 'GET':
