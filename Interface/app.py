@@ -117,6 +117,14 @@ def pro_mode_form():
         return "undefined"
 
 
+@app.route('/pro_mode_single', methods=['GET', 'POST'])
+def pro_mode_single():
+    if request.method == 'GET':
+        return render_template('proModeSingleResult.html')
+    elif request.method == 'POST':
+        return request.form
+
+
 @app.route('/temp', methods=['GET', 'POST'])
 def temp():
     if request.method == 'GET':
