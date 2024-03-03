@@ -24,7 +24,7 @@
     <!-- Material Kit CSS -->
     <link href="/css/material-kit.css?v=3.0.0" rel="stylesheet"/>
     <!-- js Files -->
-    <!--    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>-->
+<!--    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>-->
     <script src="https://kit.fontawesome.com/1121a19956.js" crossorigin="anonymous"></script>
 </head>
 
@@ -103,49 +103,34 @@
             <div class="col">
                 <div class="card card-frame">
                     <div class="card-body">
-                        <form class="row g-3">
-                            <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputPassword4" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="inputPassword4">
-                            </div>
-                            <div class="col-12">
-                                <label for="inputAddress" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                            </div>
-                            <div class="col-12">
-                                <label for="inputAddress2" class="form-label">Address 2</label>
-                                <input type="text" class="form-control" id="inputAddress2"
-                                       placeholder="Apartment, studio, or floor">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputCity" class="form-label">City</label>
-                                <input type="text" class="form-control" id="inputCity">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="inputState" class="form-label">State</label>
-                                <select id="inputState" class="form-select">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="inputZip" class="form-label">Zip</label>
-                                <input type="text" class="form-control" id="inputZip">
-                            </div>
-                            <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                    <label class="form-check-label" for="gridCheck">
-                                        Check me out
-                                    </label>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Sign in</button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group input-group-outline is-valid my-3">
+                                        <label class="form-label">Success</label>
+                                        <input type="email" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group input-group-outline is-invalid my-3">
+                                        <label class="form-label">Error</label>
+                                        <input type="email" class="form-control">
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -175,5 +160,9 @@
     </div>
 </footer>
 </body>
+
+<script src="/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://demos.creative-tim.com/material-kit/assets/js/material-kit.min.js?v=3.0.4" type="text/javascript"></script>
 
 </html>
