@@ -53,14 +53,61 @@ class Descriptor(object):
                         f"{'decreases' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='building_age', full=False) else 'increases'} the price.")
             return text
 
+    def generateDescription(self):
+        pos_cons_dict = self.generatePosAndCons()
+        if pos_cons_dict['status'] is False:
+            print("Description not generated.")
+            return "Description not generated."
+        else:
+            description = ""
+            if pos_cons_dict['overall'] is 'positive':
+                description = description + "The expected property price is higher than average for this type of property due to the"
+                if len(pos_cons_dict['positive']) == 1:
+                    description = description + f" higher {pos_cons_dict['positive'][0]}"
+                elif len(pos_cons_dict['positive']) > 1:
+                    description = description + f" higher {pos_cons_dict['positive'][0]} and {pos_cons_dict['positive'][1]}"
+                if len(pos_cons_dict['negative']) >= 0:
+                    description = description + f" However, the lower {pos_cons_dict['negative'][0]} may decrease the price we predicted."
+                return description
+            else:
+                description = description + "The expected property price is lower than average for this type of property."
+                if len(pos_cons_dict['positive']) >= 0:
+                    description = description + f" Although the {pos_cons_dict['positive'][0]} is higher than average,"
+                if len(pos_cons_dict['negative']) >= 0:
+                    description = description + f" the lower {pos_cons_dict['negative'][0]} reduced price to a large extent."
+                return description
+
+
+
+
     def generatePosAndCons(self):
+        """
+
+        :return: dict, first check "status" key, if True, then "overall" and "positive" and "negative" keys are returned.
+        """
         if self.KMEANS is None or self.AVG is None:
             print("Object file not load.")
-            return "Descriptor file not load."
+            status = False
+            return {'status': status, 'overall': '', 'positive': [], 'negative': []}
         else:
             df = Descriptor.numpy2df(numpy_arr=self.X, full=self.FULL)
             X_class = self.KMEANS.predict(df)[0]
-            print(self.AVG[X_class])
+            avg_X_in_class = self.AVG[X_class][0]
+            avg_price_in_class = self.AVG[X_class][1]
+            if self.PRICE >= avg_price_in_class:
+                overall = 'positive'
+            else:
+                overall = 'negative'
+            positive = list()
+            negative = list()
+            for i in self.IMPORTANCE:
+                if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name=i, full=self.FULL) is True:
+                    positive.append(i)
+                else:
+                    negative.append(i)
+            status = True
+            return {'status': status, 'overall': overall, 'positive': positive, 'negative': negative}
+
 
 
     @staticmethod
@@ -80,6 +127,14 @@ class Descriptor(object):
 
     @staticmethod
     def compareMeansByFeatureName(avg_list, X, feature_name, full=True):
+        """
+
+        :param avg_list: mean value of features
+        :param X: predicted features
+        :param feature_name: feature name
+        :param full: set True for full features, False for easy features
+        :return: True for positive, False for negative
+        """
         if full is True:
             name_map = {'bedrooms': 0, 'bathrooms': 1, 'sqft_living': 2, 'sqft_lot': 3, 'floors': 4, 'waterfront': 5,
                         'view': 6,
