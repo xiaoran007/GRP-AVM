@@ -101,8 +101,8 @@ def normal_mode_end():
         return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
 
 
-@app.route('/pro_mode_form', methods=['GET', 'POST'])
-def pro_mode_form():
+@app.route('/pro_mode_start', methods=['GET', 'POST'])
+def pro_mode_start():
     if request.method == 'GET':
         return render_template('proModeStart.html')
     elif request.method == 'POST':
