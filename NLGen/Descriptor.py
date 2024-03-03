@@ -60,20 +60,20 @@ class Descriptor(object):
             return "Description not generated."
         else:
             description = ""
-            if pos_cons_dict['overall'] is 'positive':
+            if pos_cons_dict['overall'] == 'positive':
                 description = description + "The expected property price is higher than average for this type of property due to the"
                 if len(pos_cons_dict['positive']) == 1:
                     description = description + f" higher {pos_cons_dict['positive'][0]}"
                 elif len(pos_cons_dict['positive']) > 1:
-                    description = description + f" higher {pos_cons_dict['positive'][0]} and {pos_cons_dict['positive'][1]}"
-                if len(pos_cons_dict['negative']) >= 0:
+                    description = description + f" higher {pos_cons_dict['positive'][0]} and {pos_cons_dict['positive'][1]}."
+                if len(pos_cons_dict['negative']) > 0:
                     description = description + f" However, the lower {pos_cons_dict['negative'][0]} may decrease the price we predicted."
                 return description
             else:
                 description = description + "The expected property price is lower than average for this type of property."
-                if len(pos_cons_dict['positive']) >= 0:
+                if len(pos_cons_dict['positive']) > 0:
                     description = description + f" Although the {pos_cons_dict['positive'][0]} is higher than average,"
-                if len(pos_cons_dict['negative']) >= 0:
+                if len(pos_cons_dict['negative']) > 0:
                     description = description + f" the lower {pos_cons_dict['negative'][0]} reduced price to a large extent."
                 return description
 
@@ -94,6 +94,7 @@ class Descriptor(object):
             X_class = self.KMEANS.predict(df)[0]
             avg_X_in_class = self.AVG[X_class][0]
             avg_price_in_class = self.AVG[X_class][1]
+            print(f'pred price: {self.PRICE}, avg price: {avg_price_in_class}')
             if self.PRICE >= avg_price_in_class:
                 overall = 'positive'
             else:
@@ -101,11 +102,12 @@ class Descriptor(object):
             positive = list()
             negative = list()
             for i in self.IMPORTANCE:
-                if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name=i, full=self.FULL) is True:
+                if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name=i, full=self.FULL):
                     positive.append(i)
                 else:
                     negative.append(i)
             status = True
+            print(f'pos: {len(positive)}, neg: {len(negative)}')
             return {'status': status, 'overall': overall, 'positive': positive, 'negative': negative}
 
 
