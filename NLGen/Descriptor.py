@@ -56,7 +56,6 @@ class Descriptor(object):
                         f"{'decreases' if Descriptor.compareMeansByFeatureName(avg_X_in_class, self.X, feature_name='building_age', full=False) else 'increases'} the price.")
             return text
 
-
     @staticmethod
     def numpy2df(numpy_arr, full):
         if full is True:
@@ -89,3 +88,13 @@ class Descriptor(object):
             return X[name_map[feature_name]] >= avg_list[name_map[feature_name]]
         else:
             return None
+
+    @staticmethod
+    def getFeaturesImportance(full=True):
+        if full is True:
+            feature_importance_order = ['grade', 'sqft_living', 'lat', 'long', 'sqft_living15', 'building_age', 'waterfront',
+                                        'sqft_above', 'bathrooms', 'sqft_lot', 'sqft_lot15', 'view', 'renovated_year',
+                                        'sqft_basement', 'month', 'condition', 'bedrooms', 'floors', 'year']
+        else:
+            feature_importance_order = ['sqft_living', 'lat', 'long', 'sqft_lot', 'building_age', 'bathrooms', 'bedrooms']
+        return feature_importance_order
