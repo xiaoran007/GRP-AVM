@@ -122,7 +122,7 @@ def pro_mode_single():
     if request.method == 'GET':
         return render_template('proModeSingleResult.html')
     elif request.method == 'POST':
-        return request.form
+        return {'length': len(request.form.to_dict().keys()), 'contents': request.form}
 
 
 @app.route('/temp', methods=['GET', 'POST'])
