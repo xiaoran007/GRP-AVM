@@ -17,14 +17,13 @@ month = 6
 
 
 def backend(data_array, full):
-    if full is True:
-        predictor = CpPredictor(data_array, model_sel='RF', full=full, alpha=0.2, cwd=os.path.dirname(__file__))
-        pred_price = predictor.Predict()
-        print(pred_price)
-        descriptor = Descriptor(data_array, pred_price['values'][0], full=full, cwd=os.path.dirname(__file__))
-        text = descriptor.GetDescription()
-        print(text)
-        return f"{pred_price['values_range'][0]}-{pred_price['values_range'][1]}", text
+    predictor = CpPredictor(data_array, model_sel='RF', full=full, alpha=0.2, cwd=os.path.dirname(__file__))
+    pred_price = predictor.Predict()
+    print(pred_price)
+    descriptor = Descriptor(data_array, pred_price['values'][0], full=full, cwd=os.path.dirname(__file__))
+    text = descriptor.GetDescription()
+    print(text)
+    return f"{pred_price['values_range'][0]}-{pred_price['values_range'][1]}", text
 
 
 def data_preprocessing(data_form, full):
@@ -46,6 +45,14 @@ def data_preprocessing(data_form, full):
                 my_array.append(year)
             elif feature_name == 'month':
                 my_array.append(month)
+            else:
+                my_array.append(float(data_form[feature_name]))
+    elif full is False:
+        for feature_name in Easy_feature_names:
+            if feature_name == 'bathrooms':
+                my_array.append(float(data_form.get('bathrooms')) / float(data_form.get('bedrooms')))
+            elif feature_name == 'building_age':
+                my_array.append(year - float(data_form.get('yr_built')))
             else:
                 my_array.append(float(data_form[feature_name]))
     return my_array

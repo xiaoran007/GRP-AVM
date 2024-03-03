@@ -80,7 +80,11 @@ def normal_mode_end():
     if request.method == 'GET':
         print(f"from share {session.get('normal_form_basic')}")
         features = util.data_trans(session.get('normal_form_basic'), 'default')
-        return render_template('normalModeFormEnd.html', features=features)
+        ar = util.data_preprocessing(session.get('normal_form_basic'), full=False)
+        print(ar)
+        pred_price, text = util.backend(ar, full=False)
+        print(f"OK\nPrice: {pred_price}\nText: {text}")
+        return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
     # from pro
     elif request.method == 'POST':
         print(request.form)
