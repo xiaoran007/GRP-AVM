@@ -122,7 +122,25 @@ def pro_mode_single():
     if request.method == 'GET':
         return render_template('proModeSingleResult.html')
     elif request.method == 'POST':
-        return {'length': len(request.form.to_dict().keys()), 'contents': request.form}
+        request_dict = request.form.to_dict()
+        enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = util.get_control_args(request_dict)
+        if enable_full:
+            features = util.data_trans(request_dict, 'default')
+            ar = util.data_preprocessing(request_dict, full=False)
+            print(ar)
+            pred_price, text = util.backend(ar, full=False)
+            print(f"OK\nPrice: {pred_price}\nText: {text}")
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text,
+                                   price_pred=pred_price)
+        else:
+            features = util.data_trans(request_dict, 'advance')
+            ar = util.data_preprocessing(request_dict, full=True)
+            print(ar)
+            pred_price, text = util.backend(ar, full=True)
+            print(f"OK\nPrice: {pred_price}\nText: {text}")
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text,
+                                   price_pred=pred_price)
+
 
 
 @app.route('/temp', methods=['GET', 'POST'])
