@@ -72,6 +72,36 @@ def data_trans(data_dict, data_class):
     return res
 
 
+def get_control_args(request_dict):
+    """
+
+    :param request_dict: request type in dictionary
+    :return: list of control args
+    """
+    if request_dict.get('llm') is not None:
+        enable_llm = True
+    else:
+        enable_llm = False
+    if request_dict.get('full') is not None:
+        enable_full = True
+    else:
+        enable_full = False
+    if request_dict.get('cp') is not None:
+        enable_cp = True
+        cp_values = float(request_dict.get('cp_value'))
+    else:
+        enable_cp = False
+        cp_values = 0.0
+    if request_dict.get('hidden') is not None:
+        enable_hidden = True
+    else:
+        enable_hidden = False
+    if request_dict.get('model') is not None:
+        model_sel = request_dict.get('model')
+    else:
+        model_sel = 'RF'
+    return enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel
+
 class DecodeDate(object):
     def __init__(self, date_str):
         self.DATE = date_str
