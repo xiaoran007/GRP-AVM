@@ -1,3 +1,5 @@
+import time
+
 from NLGen.Descriptor import Descriptor
 from Datasets.Data import Default, Default_Easy
 from model.Predictor import Predictor, CpPredictor
@@ -101,6 +103,12 @@ def get_control_args(request_dict):
     else:
         model_sel = 'RF'
     return enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel
+
+
+def generateID():
+    current_time = str(int(time.time()))
+    time_id = current_time[-6:]
+    return time_id
 
 class DecodeDate(object):
     def __init__(self, date_str):
