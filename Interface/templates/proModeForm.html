@@ -250,26 +250,28 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-check mt-4">
-                                        <input name="enableLLM" class="form-check-input" type="checkbox" value="enable_llm"
-                                               id="enableLLM"
-                                               >
-                                        <label class="custom-control-label" for="enableLLM">Enable LLM</label>
+                                        <input name="llm" class="form-check-input" type="checkbox" value="enable_llm"
+                                               id="llm"
+                                        >
+                                        <label class="custom-control-label" for="llm">Enable LLM</label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-check mt-4">
                                         <input name="full" class="form-check-input" type="checkbox" value="enable_full"
                                                id="full"
-                                               >
+                                        >
                                         <label class="custom-control-label" for="full">Enable Full Prediction</label>
                                     </div>
                                 </div>
+
                                 <div class="col">
                                     <div class="form-check mt-4">
-                                        <input name="cp" class="form-check-input" type="checkbox" value="user_defined"
+                                        <input name="cp" class="form-check-input" type="checkbox" value="enable_cp"
                                                id="cp"
-                                               >
-                                        <label class="custom-control-label" for="cp">Using user-defined confidence levels</label>
+                                        >
+                                        <label class="custom-control-label" for="cp">Using user-defined confidence
+                                            levels</label>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -280,6 +282,25 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input name="hidden" class="form-check-input" type="checkbox"
+                                               value="enable_hidden"
+                                               id="hidden"
+                                        >
+                                        <label class="custom-control-label" for="hidden">Enable Hidden
+                                            Prediction</label>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-2">
+                                    <div class="form-group label-floating">
+                                        <select name="model" class="form-control form-select" id="model">
+                                            <option disabled="" selected="">Select Model Core</option>
+                                            <option value="rf">Random Forest</option>
+                                            <option value="xgb">XGBoost</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col float-end text-end">
                                     <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd'
                                            name='finish' value='Finish'/>
