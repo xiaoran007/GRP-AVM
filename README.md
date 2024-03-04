@@ -21,6 +21,7 @@
 
 ## **working branch**
 check out MaterialUIKit.
+
 check out CP.
 
 ## **Environment**
@@ -32,8 +33,8 @@ This project uses Python and the following packages are needed:
 * pandas
 * scikit-learn
 * flask
-* bootstrap-flask
 * mapie
+* joblib
 
 For other dependent packages, see requirements.txt and environment.yml.
 
