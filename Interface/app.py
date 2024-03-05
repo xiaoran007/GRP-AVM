@@ -185,6 +185,22 @@ def pro_mode_record_result():
             return render_template('proModeNoSuchRecord.html')
 
 
+@app.route('/pro_mode_batch', methods=['GET', 'POST'])
+def pro_mode_batch():
+    if request.method == 'GET':
+        return render_template('proModeBatch.html')
+    elif request.method == 'POST':
+        return "undefined"
+
+
+@app.route('//pro_mode_batch_upload', methods=['GET', 'POST'])
+def pro_mode_batch_upload():
+    if request.method == 'GET':
+        return "undefined"
+    elif request.method == 'POST':
+        return f"{request.files['file'].filename}"
+
+
 @app.route('/temp', methods=['GET', 'POST'])
 def temp():
     if request.method == 'GET':
