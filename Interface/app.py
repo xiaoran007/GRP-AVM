@@ -125,9 +125,11 @@ def pro_mode_single():
         request_dict = request.form.to_dict()
         enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = util.get_control_args(request_dict)
         if enable_hidden:
-            rID = 'This prediction will not be recorded.'
+            rID = '******'
+            rID_str = 'This prediction will not be recorded.'
         else:
-            rID = f"Result ID is {util.generateID()}"
+            rID = util.generateID()
+            rID_str = f"Result ID is {rID}"
         if enable_full:
             features = util.data_trans(request_dict, 'advance')
             ar = util.data_preprocessing(request_dict, full=True)
@@ -135,7 +137,7 @@ def pro_mode_single():
             pred_price, text = util.backend(ar, full=True)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
             return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text,
-                                   rID=rID)
+                                   rID=rID_str)
         else:
             features = util.data_trans(request_dict, 'default')
             ar = util.data_preprocessing(request_dict, full=False)
@@ -143,7 +145,7 @@ def pro_mode_single():
             pred_price, text = util.backend(ar, full=False)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
             return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text,
-                                   rID=rID)
+                                   rID=rID_str)
 
 
 
