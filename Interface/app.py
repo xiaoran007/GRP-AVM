@@ -1,6 +1,7 @@
 import joblib
 from flask import Flask, render_template, request, flash, g, redirect, url_for, session
 import util
+import json
 
 app = Flask(__name__,   static_url_path='',
             static_folder='static',
@@ -138,7 +139,10 @@ def pro_mode_single():
             pred_price, text = util.backend(ar, full=True)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
             if not enable_hidden:
+                rec_list = json.load(open('records/rec.json', 'r'))
                 joblib.dump({'rID': rID, 'status': [enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], 'features': features, 'price': pred_price, 'text': text}, f'./records/{rID}.record')
+                rec_list.append(rID)
+                json.dump(rec_list, open('records/rec.json', 'w'))
             return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text,
                                    rID=rID_str)
         else:
@@ -148,8 +152,11 @@ def pro_mode_single():
             pred_price, text = util.backend(ar, full=False)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
             if not enable_hidden:
+                rec_list = json.load(open('records/rec.json', 'r'))
                 joblib.dump({'rID': rID, 'status': [enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], 'features': features, 'price': pred_price, 'text': text},
                         f'./records/{rID}.record')
+                rec_list.append(rID)
+                json.dump(rec_list, open('records/rec.json', 'w'))
             return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text,
                                    rID=rID_str)
 
@@ -159,6 +166,15 @@ def pro_mode_record_search():
     if request.method == 'GET':
         return render_template('proModeRecordSearch.html')
     elif request.method == 'POST':
+        return "undefined"
+
+
+@app.route('/pro_mode_record_result', methods=['GET', 'POST'])
+def pro_mode_record_result():
+    if request.method == 'GET':
+        return "undefined"
+    elif request.method == 'POST':
+        record_id = request.form.get('rID')
         return "undefined"
 
 
