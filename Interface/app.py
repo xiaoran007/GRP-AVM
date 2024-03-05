@@ -182,7 +182,7 @@ def pro_mode_record_result():
             return render_template('proModeRecordResult.html', features=record_values.get('features'), price=record_values.get('price'), description=record_values.get('text'),
                                    rID=record_values.get('rID'), pro_settings=f'{pro_settings_str}')
         else:
-            return "no such record"
+            return render_template('proModeNoSuchRecord.html')
 
 
 @app.route('/temp', methods=['GET', 'POST'])
