@@ -202,7 +202,31 @@ def pro_mode_batch_upload():
             user_file = request.files['file']
             save_path = './upload/'
             user_file.save(save_path + user_file.filename)
-            return f"save file to {save_path}{user_file.filename}"
+            file_contents_list = util.handleFile(save_path + user_file.filename)
+            request_dict = request.form.to_dict()
+            enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = util.get_control_args(
+                request_dict)
+            if enable_full:
+                if len(file_contents_list) != 0:
+                    predict_results = list()
+                    index = 0
+                    for i in file_contents_list:
+                        pred_price, text = util.backend(i, full=True)
+                        predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': 'advance'})
+                        index += 1
+                else:
+                    predict_results = []
+            else:
+                if len(file_contents_list) != 0:
+                    predict_results = list()
+                    index = 0
+                    for i in file_contents_list:
+                        pred_price, text = util.backend(i, full=False)
+                        predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': 'default'})
+                        index += 1
+                else:
+                    predict_results = []
+            return render_template('proModeBatchResult.html', lens=len(file_contents_list), results=predict_results)
         else:
             return render_template('proModeBatchError.html')
 

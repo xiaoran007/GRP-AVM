@@ -5,6 +5,7 @@ from Datasets.Data import Default, Default_Easy
 from model.Predictor import Predictor, CpPredictor
 import os
 import json
+import pandas as pd
 
 
 Full_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
@@ -118,6 +119,20 @@ def checkIfRecordExists(rID):
         return True
     else:
         return False
+
+
+def handleFile(file_path):
+    """
+
+    :param file_path: file path to the csv file
+    :return: numpy array of the csv file contents
+    """
+    if os.path.isfile(file_path):
+        df = pd.read_csv(file_path)
+        return df.to_numpy()
+    else:
+        return []
+
 
 class DecodeDate(object):
     def __init__(self, date_str):
