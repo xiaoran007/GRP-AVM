@@ -198,7 +198,7 @@ def pro_mode_batch_upload():
     if request.method == 'GET':
         return "undefined"
     elif request.method == 'POST':
-        return f"{request.files['file'].filename}"
+        return f"{request.files['file'].filename}, {request.form.to_dict()}"
 
 
 @app.route('/temp', methods=['GET', 'POST'])

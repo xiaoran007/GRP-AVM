@@ -100,28 +100,111 @@
             </div>
         </div>
         <div class="row">
-            <div class="col col-sm-4 mx-auto">
+            <div class="col col-sm-10 mx-auto">
                 <div class="card card-frame">
                     <div class="card-body">
-                        <div class="section text-center">
-                            <h2 class="title">Select a file</h2>
-                            <form action="/pro_mode_batch_upload" method="post" enctype="multipart/form-data">
+                        <!--                        <div class="section text-center">-->
+                        <form action="/pro_mode_batch_upload" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="text-start">
+                                    <h6>Pro settings</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col">
+                                    <div class="form-check mt-4">
+                                        <input name="full" class="form-check-input" type="checkbox"
+                                               value="enable_full"
+                                               id="full"
+                                        >
+                                        <label class="custom-control-label" for="full">Enable Full
+                                            Prediction</label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-check mt-4">
+                                        <input name="cp" class="form-check-input" type="checkbox" value="enable_cp"
+                                               id="cp"
+                                        >
+                                        <label class="custom-control-label" for="cp">Using user-defined confidence
+                                            levels</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="cp_value" class="form-label">Confidence level</label>
+                                        <input name="cp_value" id="cp_value" type="number" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input name="llm" class="form-check-input" type="checkbox"
+                                               value="enable_llm"
+                                               id="llm"
+                                        >
+                                        <label class="custom-control-label" for="llm">Enable LLM</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input name="hidden" class="form-check-input" type="checkbox"
+                                               value="enable_hidden"
+                                               id="hidden"
+                                        >
+                                        <label class="custom-control-label" for="hidden">Enable Hidden
+                                            Prediction</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group label-floating">
+                                        <select name="model" class="form-control form-select" id="model">
+                                            <option disabled="" selected="">Select Model Core</option>
+                                            <option value="RF">Random Forest</option>
+                                            <option value="XGB">XGBoost</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-start">
+                                    <h6>&nbsp;</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-start">
+                                    <h6>Select data file</h6>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-group">
-                                    <input type="file" class="form-control" onchange="updateFileName();" id="file" style="display: none;" name="file">
-                                    <input type="text" class="form-control" id="file-name" readonly placeholder="Select file..." aria-label="File browser">
-<!--                                    <label id="file-label"></label>-->
-                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('file').click()">Browse</button>
+                                    <input type="file" class="form-control" onchange="updateFileName();" id="file"
+                                           style="display: none;" name="file">
+                                    <input type="text" class="form-control" id="file-name" readonly
+                                           placeholder="Select file..." aria-label="File browser">
+                                    <button type="button" class="btn btn-primary"
+                                            onclick="document.getElementById('file').click()">Browse
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-start">
+                                    <h6>&nbsp;</h6>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
+
+
 </div>
 
 
@@ -143,14 +226,14 @@
 </footer>
 
 <script>
-        function updateFileName() {
-            var fileInput = document.getElementById('file');
-            var fileName = fileInput.files[0].name;
-            var fileLabel = document.getElementById('file-name');
-            fileLabel.placeholder = "";
-            fileLabel.value = fileName;
-        }
-    </script>
+    function updateFileName() {
+        var fileInput = document.getElementById('file');
+        var fileName = fileInput.files[0].name;
+        var fileLabel = document.getElementById('file-name');
+        fileLabel.placeholder = "";
+        fileLabel.value = "Selected file: " + fileName;
+    }
+</script>
 
 </body>
 
