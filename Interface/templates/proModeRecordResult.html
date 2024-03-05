@@ -88,8 +88,8 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <div class="text-center">
-                    <h1 class="text-white">Pro Mode Result Page</h1>
-                    <h3 class="text-white">{{ rID }}</h3>
+                    <h1 class="text-white">Historical Prediction</h1>
+                    <h3 class="text-white">For Result ID {{ rID }}</h3>
                 </div>
             </div>
         </div>
@@ -98,31 +98,33 @@
 <div class="card card-body shadow-xl mt-n8 col-md-9 mx-auto">
     <div class="container">
         <div class="section text-center">
-
-                <h2 class="title">Your Result</h2>
+                <h2 class="title">Result</h2>
                 <p>&nbsp;</p>
             </div>
         <div class="card col-md-8 mx-auto">
-
-
             <div class="row">
                 <div class="section text-center">
-                    <h4 class="title">property price</h4>
+                    <h4 class="title">Property price</h4>
                     <p class="title"> {{ price }}</p>
                     <h4 class="title">Why this price</h4>
                     <p class="title"> {{ description }}</p>
                 </div>
             </div>
         </div>
-
-
+        <div class="card col-md-8 mx-auto">
+            <div class="row">
+                <div class="section text-center">
+                    <h4 class="title">Pro settings</h4>
+                    <p class="title"> {{ pro_settings }}</p>
+                </div>
+            </div>
+        </div>
     </div>
-
 
     <div class="container">
         <div class="section text-center">
             <p>&nbsp;</p>
-            <h2 class="title">Your property information</h2>
+            <h2 class="title">Property information</h2>
             <p>&nbsp;</p>
         </div>
     </div>
