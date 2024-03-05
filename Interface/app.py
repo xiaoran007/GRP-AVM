@@ -198,7 +198,18 @@ def pro_mode_batch_upload():
     if request.method == 'GET':
         return "undefined"
     elif request.method == 'POST':
-        return f"{request.files['file'].filename}, {request.form.to_dict()}"
+        if 'file' in request.files:
+            user_file = request.files['file']
+            if user_file.filename == '':
+                return render_template('proModeBatchError.html')
+            else:
+                if user_file:
+                    save_path = './upload/'
+                    user_file.save(save_path + user_file.filename)
+                else:
+                    return render_template('proModeBatchError.html')
+        else:
+            return render_template('proModeBatchError.html')
 
 
 @app.route('/temp', methods=['GET', 'POST'])
