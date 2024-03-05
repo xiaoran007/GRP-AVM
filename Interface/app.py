@@ -193,7 +193,7 @@ def pro_mode_batch():
         return "undefined"
 
 
-@app.route('//pro_mode_batch_upload', methods=['GET', 'POST'])
+@app.route('/pro_mode_batch_upload', methods=['GET', 'POST'])
 def pro_mode_batch_upload():
     if request.method == 'GET':
         return "undefined"
