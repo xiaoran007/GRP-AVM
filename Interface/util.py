@@ -4,6 +4,7 @@ from NLGen.Descriptor import Descriptor
 from Datasets.Data import Default, Default_Easy
 from model.Predictor import Predictor, CpPredictor
 import os
+import json
 
 
 Full_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
@@ -109,6 +110,14 @@ def generateID():
     current_time = str(int(time.time()))
     time_id = current_time[-6:]
     return time_id
+
+
+def checkIfRecordExists(rID):
+    rec_list = json.load(open('records/rec.json', 'r'))
+    if rID in rec_list:
+        return True
+    else:
+        return False
 
 class DecodeDate(object):
     def __init__(self, date_str):
