@@ -89,7 +89,7 @@
             <div class="col-md-8 mx-auto">
                 <div class="text-center">
                     <h1 class="text-white">Historical Prediction</h1>
-                    <h5 class="text-white">In this page, you can use record ID to search a record</h5>
+                    <h5 class="text-white">In this page, you can use result ID to search a record</h5>
                 </div>
             </div>
         </div>
@@ -100,21 +100,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col col-sm-4 mx-auto">
                 <div class="card card-frame">
                     <div class="card-body">
                         <div class="section text-center">
-                            <h2 class="title">Single Prediction</h2>
+                            <h2 class="title">Result ID</h2>
+                            <form action="/pro_mode_record_result" method="POST">
+                                <div class="input-group input-group-static my-3">
+                                        <label for="rID" class="form-label">ID</label>
+                                        <input name="rID" id="rID" type="number" class="form-control">
+                                    </div>
+                            </form>
                             <a href="/pro_mode_form" target="_blank" rel="noopener noreferrer">
 <!--                                <button type="button" class="btn btn-success mt-4">Try it!</button>-->
                                 <button class="btn btn-icon btn-success mt-4" type="button">
                                     <span class="btn-inner--icon"><i class="fa-solid fa-bomb"></i></span>
-                                    <span class="btn-inner--text">Create!</span>
+                                    <span class="btn-inner--text">Search!</span>
                                 </button>
                             </a>
-                            <p>🦾 Adjust confidence level freely! 🦾</p>
-                            <p>🚀 Utilizing large language models! 🚀</p>
-                            <p>📑 Create a new prediction case! 📑</p>
                         </div>
                     </div>
                 </div>
@@ -145,5 +148,10 @@
     </div>
 </footer>
 </body>
+
+<script src="/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://demos.creative-tim.com/material-kit/assets/js/material-kit.min.js?v=3.0.4"
+        type="text/javascript"></script>
 
 </html>
