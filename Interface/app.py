@@ -175,7 +175,14 @@ def pro_mode_record_result():
         return "undefined"
     elif request.method == 'POST':
         record_id = request.form.get('rID')
-        return "undefined"
+        if util.checkIfRecordExists(record_id):
+            record_values = joblib.load(f'./records/{record_id}.record')
+            pro_settings = record_values.get('status')
+            pro_settings_str = f'enable_llm: {pro_settings[0]}, enable_full: {pro_settings[1]}, enable_cp: {pro_settings[2]}, cp_values: {pro_settings[3]}, enable_hidden: {pro_settings[4]}, model_sel: {pro_settings[5]}'
+            return render_template('proModeRecordResult.html', features=record_values.get('features'), price=record_values.get('price'), description=record_values.get('text'),
+                                   rID=record_values.get('rID'), pro_settings=f'{pro_settings_str}')
+        else:
+            return "no such record"
 
 
 @app.route('/temp', methods=['GET', 'POST'])
