@@ -198,16 +198,11 @@ def pro_mode_batch_upload():
     if request.method == 'GET':
         return "undefined"
     elif request.method == 'POST':
-        if 'file' in request.files:
+        if 'file' in request.files and request.files['file'].filename != '' and request.files['file']:
             user_file = request.files['file']
-            if user_file.filename == '':
-                return render_template('proModeBatchError.html')
-            else:
-                if user_file:
-                    save_path = './upload/'
-                    user_file.save(save_path + user_file.filename)
-                else:
-                    return render_template('proModeBatchError.html')
+            save_path = './upload/'
+            user_file.save(save_path + user_file.filename)
+            return f"save file to {save_path}{user_file.filename}"
         else:
             return render_template('proModeBatchError.html')
 
