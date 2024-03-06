@@ -17,12 +17,16 @@
 ***
 
 ## **TODO**
-- **Material UI**
+- **Document**
+- **Test**
 
 ## **working branch**
-check out MaterialUIKit.
+- **MaterialUIKit**
+- **CP**
+- **readmore**
+- **tryPDF**
 
-check out CP.
+
 
 ## **Fix Import Error**
 If you try to start this application in command line by this command:
@@ -37,6 +41,8 @@ sys.path.append('../')
 sys.path.append('./')
 ```
 then you can start application.
+
+Current main and MaterialUIKit branch already fixed this issue.
 
 ## **Environment**
 ### Packages
@@ -59,6 +65,8 @@ Create a virtual environment:
 ```shell
 conda create --name AVM python=3.9
 ```
+You can use other python version, but python 3.9 is recommended and pre-tested.
+
 Then install the packages, if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
 
 Transformers can run on CPU mode or GPU mode (pytorch backend or tensorflow backend), if you have Nvidia GPU, GPU mode with pytorch backend is recommended. Install Pytorch and then install transformers with conda:
@@ -68,18 +76,30 @@ conda install transformers -c conda-forge
 ```
 Please note, you need first install the Nvidia CUDA toolkits, and then install compatible Pytorch, you can find more information from the [Pytorch website](https://pytorch.org/get-started/previous-versions/).
 
-To install bootstrap-flask
-```shell
-conda install pip -c conda-forge
-python -m pip install bootstrap-flask
-```
-
 Some packages need install from conda-forge channel, use following command:
 ```shell
 conda install "package-name" -c conda-forge
 ```
 
+To install bootstrap-flask (optional)
+```shell
+conda install pip -c conda-forge
+python -m pip install bootstrap-flask
+```
+
 ## **Object Files**
+We packaged our model as object file, which can be load or dump by joblib library.
+
+Please note that pre-trained object files are not stored in this repository.
+
+Object files should locate in:
+```shell
+./model/object # model object files (RF_Full.mdo) 
+./NLGen/class # class object files (class_avg_Full.mdo and kmeans_model_full.mdo)
+```
+
+If you are interested in create your own model object file, follow this:
+
 Create:
 
 ```python
@@ -93,12 +113,4 @@ Load and use:
 import joblib
 
 my_object = joblib.load("path")
-```
-
-Please note that pre-trained object files are not stored in this repository.
-
-Object files should locate in:
-```shell
-./model/object # model object files (RF_Full.mdo) 
-./NLGen/class # class object files (class_avg_Full.mdo and kmeans_model_full.mdo)
 ```
