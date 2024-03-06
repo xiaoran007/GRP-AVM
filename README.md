@@ -30,10 +30,11 @@ If you try to start this application in command line by this command:
 python app.py
 ```
 you may found some import errors (package not found), to fix it, you need add package path to import search path
-to app.py before all other import lines:
+in app.py before all other import lines:
 ```python
 import sys
-sys.path.append('..')
+sys.path.append('../')
+sys.path.append('./')
 ```
 then you can start application.
 
