@@ -3,6 +3,9 @@
 
 # model object files
 *.mdo
+*.record
+*.json
+upload/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

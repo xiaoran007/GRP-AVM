@@ -1,7 +1,11 @@
+import time
+
 from NLGen.Descriptor import Descriptor
 from Datasets.Data import Default, Default_Easy
 from model.Predictor import Predictor, CpPredictor
 import os
+import json
+import pandas as pd
 
 
 Full_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
@@ -21,7 +25,7 @@ def backend(data_array, full):
     pred_price = predictor.Predict()
     print(pred_price)
     descriptor = Descriptor(data_array, pred_price['values'][0], full=full, cwd=os.path.dirname(__file__))
-    text = descriptor.GetDescription()
+    text = descriptor.generateDescription()
     print(text)
     return f"{pred_price['values_range'][0]}-{pred_price['values_range'][1]}", text
 
@@ -70,6 +74,64 @@ def data_trans(data_dict, data_class):
         row['class'] = data_class
         res.append(row)
     return res
+
+
+def get_control_args(request_dict):
+    """
+
+    :param request_dict: request type in dictionary
+    :return: list of control args
+    """
+    if request_dict.get('llm') is not None:
+        enable_llm = True
+    else:
+        enable_llm = False
+    if request_dict.get('full') is not None:
+        enable_full = True
+    else:
+        enable_full = False
+    if request_dict.get('cp') is not None:
+        enable_cp = True
+        cp_values = float(request_dict.get('cp_value'))
+    else:
+        enable_cp = False
+        cp_values = 0.0
+    if request_dict.get('hidden') is not None:
+        enable_hidden = True
+    else:
+        enable_hidden = False
+    if request_dict.get('model') is not None:
+        model_sel = request_dict.get('model')
+    else:
+        model_sel = 'RF'
+    return enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel
+
+
+def generateID():
+    current_time = str(int(time.time()))
+    time_id = current_time[-6:]
+    return time_id
+
+
+def checkIfRecordExists(rID):
+    rec_list = json.load(open('records/rec.json', 'r'))
+    if rID in rec_list:
+        return True
+    else:
+        return False
+
+
+def handleFile(file_path):
+    """
+
+    :param file_path: file path to the csv file
+    :return: numpy array of the csv file contents
+    """
+    if os.path.isfile(file_path):
+        df = pd.read_csv(file_path)
+        return df.to_numpy()
+    else:
+        return []
 
 
 class DecodeDate(object):

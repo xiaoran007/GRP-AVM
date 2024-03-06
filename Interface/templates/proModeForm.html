@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Pro Mode</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/teamlogo.png"/>
+    <link rel="icon" type="image/png" href="/img/teamlogo.png"/>
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link id="pagestyle" href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=3.0.4"
+          rel="stylesheet"/>
+    <!-- Material Kit CSS -->
+    <link href="/css/material-kit.css?v=3.0.0" rel="stylesheet"/>
+    <!-- js Files -->
+    <!--    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>-->
+    <script src="https://kit.fontawesome.com/1121a19956.js" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+<!-- -------- START HEADER 1 w/ text and image on right ------- -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-absolute bg-transparent shadow-none">
+        <div class="container">
+            <a class="navbar-brand text-white" href="http://cslinux.nottingham.edu.cn/~Team202313" target="_blank"
+               rel="noopener noreferrer">GRP Team 13</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header-2"
+                    aria-controls="navbar-header-2" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-header-2">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="http://cslinux.nottingham.edu.cn/~Team202313"
+                           target="_blank" rel="noopener noreferrer">
+                            About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/indev">
+                            Contact Us
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="https://csprojects.nottingham.edu.cn">
+                            <i class="fab fa-gitlab"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-2" href="https://github.com">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/indev">
+                            <i class="fab fa-codepen"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="page-header min-vh-100" style="background-image: url('/img/bg_pro1.jpg')">
+    <span class="mask bg-gradient-dark opacity-4"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="text-center">
+                    <h1 class="text-white">Single Prediction</h1>
+                    <h5 class="text-white">In professional mode, you are given higher control permissions.</h5>
+                </div>
+            </div>
+        </div>
+        <div class="w-100"></div>
+        <div class="row">
+            <div class="text-center">
+                <p>&nbsp;</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card card-frame">
+                    <div class="card-body">
+                        <form action="/pro_mode_single" method="POST">
+                            <div class="row">
+                                <div class="text-start">
+                                    <h6>Location</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="zipcode" class="form-label">Zipcode</label>
+                                        <input name="zipcode" id="zipcode" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="lat" class="form-label">Lat</label>
+                                        <input name="lat" id="lat" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="long" class="form-label">Long</label>
+                                        <input name="long" id="long" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="waterfront" class="form-label">Is waterfront?</label>
+                                        <input name="waterfront" id="waterfront" type="number" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-start">
+                                    <h6>Basic</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="bedrooms" class="form-label">Bedrooms number</label>
+                                        <input name="bedrooms" id="bedrooms" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="bathrooms" class="form-label">Bathrooms number</label>
+                                        <input name="bathrooms" id="bathrooms" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="floors" class="form-label">Floors number</label>
+                                        <input name="floors" id="floors" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="yr_built" class="form-label">Built year</label>
+                                        <input name="yr_built" id="yr_built" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="yr_renovated" class="form-label">Renovated year</label>
+                                        <input name="yr_renovated" id="yr_renovated" type="number" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="sqft_living" class="form-label">Living space (in ft square)</label>
+                                        <input name="sqft_living" id="sqft_living" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="sqft_lot" class="form-label">Lot space (in ft square)</label>
+                                        <input name="sqft_lot" id="sqft_lot" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="sqft_above" class="form-label">Above basement space (in ft
+                                            square)</label>
+                                        <input name="sqft_above" id="sqft_above" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="sqft_basement" class="form-label">Basement space (in ft
+                                            square)</label>
+                                        <input name="sqft_basement" id="sqft_basement" type="number"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-start">
+                                    <h6>Advance</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="view" class="form-label">View number</label>
+                                        <input name="view" id="view" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="condition" class="form-label">Condition</label>
+                                        <input name="condition" id="condition" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="grade" class="form-label">grade</label>
+                                        <input name="grade" id="grade" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="sqft_living15" class="form-label">Living space in 2015 (in ft
+                                            square)</label>
+                                        <input name="sqft_living15" id="sqft_living15" type="number"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="sqft_lot15" class="form-label">Lot space in 2015 (in ft
+                                            square)</label>
+                                        <input name="sqft_lot15" id="sqft_lot15" type="number" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-start">
+                                    <h6>Pro settings</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-check mt-4">
+                                        <input name="llm" class="form-check-input" type="checkbox" value="enable_llm"
+                                               id="llm"
+                                        >
+                                        <label class="custom-control-label" for="llm">Enable LLM</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check mt-4">
+                                        <input name="full" class="form-check-input" type="checkbox" value="enable_full"
+                                               id="full"
+                                        >
+                                        <label class="custom-control-label" for="full">Enable Full Prediction</label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-check mt-4">
+                                        <input name="cp" class="form-check-input" type="checkbox" value="enable_cp"
+                                               id="cp"
+                                        >
+                                        <label class="custom-control-label" for="cp">Using user-defined confidence
+                                            levels</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-static my-3">
+                                        <label for="cp_value" class="form-label">Confidence level</label>
+                                        <input name="cp_value" id="cp_value" type="number" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input name="hidden" class="form-check-input" type="checkbox"
+                                               value="enable_hidden"
+                                               id="hidden"
+                                        >
+                                        <label class="custom-control-label" for="hidden">Enable Hidden
+                                            Prediction</label>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-2">
+                                    <div class="form-group label-floating">
+                                        <select name="model" class="form-control form-select" id="model">
+                                            <option disabled="" selected="">Select Model Core</option>
+                                            <option value="RF">Random Forest</option>
+                                            <option value="XGB">XGBoost</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col float-end text-end">
+                                    <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd'
+                                           name='finish' value='Finish'/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<footer class="footer pt-0 mt-0">
+    <div class="container">
+        <div class="text-center">
+            <p class="text-dark my-1 text-sm font-weight-normal">
+                All rights reserved. Copyright ©
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                GRP Team 13
+            </p>
+            <p class="text-dark my-1 text-sm font-weight">
+                Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+
+<script src="/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://demos.creative-tim.com/material-kit/assets/js/material-kit.min.js?v=3.0.4"
+        type="text/javascript"></script>
+
+</html>
