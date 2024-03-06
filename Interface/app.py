@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../")
 import joblib
 from flask import Flask, render_template, request, flash, g, redirect, url_for, session
 import util
