@@ -44,6 +44,15 @@ then you can start application.
 
 Current main and MaterialUIKit branch already fixed this issue.
 
+## **OS and Platform Support**
+This application is developed on macOS platform, and tested on MS Windows 10 and Ubuntu 22.04.
+
+The webUI is developed on Chrome browser, and tested on MS Edge (chromium core) and Apple safari.
+
+Some functionalities of this application rely on a general purpose computing framework, and we tested CPU and Nvidia CUDA framework, but AMD ROCm and other framework may also work well.
+
+For the architecture, only amd64 (x86_64) is tested, but Apple M (arm64) my also works well.
+
 ## **Environment**
 ### Packages
 This project uses Python and the following packages are needed:
@@ -114,3 +123,6 @@ import joblib
 
 my_object = joblib.load("path")
 ```
+
+## **LLM Model Files**
+For more details, see huggingface website.
