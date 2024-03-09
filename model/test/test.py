@@ -72,11 +72,13 @@ def CPTest(Full=True):
         X_train, y_train, X_test, y_test = Default_Easy(os.path.dirname(__file__))
     X_valid = X_test.to_numpy()
     y_valid = y_test.to_numpy()
-    for k in range(10):
+    predictor = Predictor.CpPredictor(X=None, full=Full, cwd=os.path.dirname(__file__))
+    results = list()
+    for k in range(100):
         i = random.randint(0, len(X_valid))
-        predictor = Predictor.CpPredictor(X=X_valid[i], full=Full, cwd=os.path.dirname(__file__))
-        predicted_dict = predictor.Predict()
+        predicted_dict = predictor.PredictByX(X_valid[i])
         print(f'value: {predicted_dict["values"]}, range: {predicted_dict["values_range"]}')
+        results.append(f'value: {predicted_dict["values"]}, range: {predicted_dict["values_range"]}')
 
 
 CPTest()
