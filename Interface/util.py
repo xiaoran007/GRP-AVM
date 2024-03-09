@@ -134,10 +134,7 @@ class BackendEventHandler(object):
             alpha = 0.2
         pred_price, text = self.handleRequest(x, full=enable_full, alpha=alpha)
         rID_str = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], price=pred_price, description=text, features=features)
-        return features, pred_price, text
-
-
-
+        return features, pred_price, text, rID_str
 
     def handleRequest(self, X, full=True, alpha=0.2):
         """

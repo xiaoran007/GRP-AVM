@@ -83,12 +83,8 @@ def normal_mode_end():
         return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
     # from pro
     elif request.method == 'POST':
-        print(request.form)
         session['normal_form_pro'] = request.form.to_dict()
-        print(f"from share basic: {session.get('normal_form_basic')}")
-        print(f"from share pro: {session.get('normal_form_pro')}")
         combined = {**session.get('normal_form_basic'), **(session.get('normal_form_pro'))}
-        print(combined)
         features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=combined,
                                                                         full=True, alpha=0.2)
         print(f"OK\nPrice: {pred_price}\nText: {text}")
@@ -117,40 +113,9 @@ def pro_mode_single():
         return render_template('proModeSingleResult.html')
     elif request.method == 'POST':
         request_dict = request.form.to_dict()
-        enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = util.get_control_args(request_dict)
-        if enable_hidden:
-            rID = '******'
-            rID_str = 'This prediction will not be recorded.'
-        else:
-            rID = util.generateID()
-            rID_str = f"Result ID is {rID}"
-        if enable_full:
-            features = util.data_trans(request_dict, 'advance')
-            ar = util.data_preprocessing(request_dict, full=True)
-            print(ar)
-            pred_price, text = util.backend(ar, full=True)
-            print(f"OK\nPrice: {pred_price}\nText: {text}")
-            if not enable_hidden:
-                rec_list = json.load(open('records/rec.json', 'r'))
-                joblib.dump({'rID': rID, 'status': [enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], 'features': features, 'price': pred_price, 'text': text}, f'./records/{rID}.record')
-                rec_list.append(rID)
-                json.dump(rec_list, open('records/rec.json', 'w'))
-            return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text,
-                                   rID=rID_str)
-        else:
-            features = util.data_trans(request_dict, 'default')
-            ar = util.data_preprocessing(request_dict, full=False)
-            print(ar)
-            pred_price, text = util.backend(ar, full=False)
-            print(f"OK\nPrice: {pred_price}\nText: {text}")
-            if not enable_hidden:
-                rec_list = json.load(open('records/rec.json', 'r'))
-                joblib.dump({'rID': rID, 'status': [enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], 'features': features, 'price': pred_price, 'text': text},
-                        f'./records/{rID}.record')
-                rec_list.append(rID)
-                json.dump(rec_list, open('records/rec.json', 'w'))
-            return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text,
-                                   rID=rID_str)
+        features, pred_price, text, rID_str = backendHandler.HandleProSingleRequest(form_dict=request_dict)
+        return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text, rID=rID_str)
+
 
 
 @app.route('/pro_mode_record_search', methods=['GET', 'POST'])
