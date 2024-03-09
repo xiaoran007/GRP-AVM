@@ -77,8 +77,15 @@ class Descriptor(object):
                     description = description + f" the lower {pos_cons_dict['negative'][0]} reduced price to a large extent."
                 return description
 
-
-
+    def GenerateDescription(self, X, predicted_price):
+        """
+        :param X: numpy array of X
+        :param predicted_price: predicted price
+        :return: description
+        """
+        self.X = X
+        self.PRICE = predicted_price
+        return self.generateDescription()
 
     def generatePosAndCons(self):
         """
@@ -109,8 +116,6 @@ class Descriptor(object):
             status = True
             print(f'pos: {len(positive)}, neg: {len(negative)}')
             return {'status': status, 'overall': overall, 'positive': positive, 'negative': negative}
-
-
 
     @staticmethod
     def numpy2df(numpy_arr, full):
