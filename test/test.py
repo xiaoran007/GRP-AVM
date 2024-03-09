@@ -38,7 +38,7 @@ def FULL_TEST():
     for i in range(10):
         sel_index = random.randint(0, len(X_test_numpy))
         pred_price = predictor.PredictByX(X=X_test_numpy[sel_index], ALPHA=0.2)
-        text = descriptor.GenerateDescription(X=X_test_numpy[sel_index], predicted_price=pred_price['values'][0])
+        text = descriptor.GenerateDescription(X=X_test_numpy[sel_index], predicted_price=pred_price['values'][0], full=True)
         true_price = true_prices[sel_index]
         p.append(pred_price['values'][0])
         text_dict.append(text)

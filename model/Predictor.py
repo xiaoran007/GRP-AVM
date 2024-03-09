@@ -57,17 +57,22 @@ class Predictor(object):
 
     @staticmethod
     def numpy2df(numpy_arr, full):
-        if full is True:
+        if len(numpy_arr) == 7 and full is False:
+            feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
+            df = pd.DataFrame([numpy_arr])
+            df.columns = feature_name
+        else:
             feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
                             'condition',
                             'grade',
                             'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long',
                             'sqft_living15',
                             'sqft_lot15', 'year', 'month']
-        else:
-            feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
-        df = pd.DataFrame([numpy_arr])
-        df.columns = feature_name
+            df = pd.DataFrame([numpy_arr])
+            df.columns = feature_name
+            if full is False:
+                df = df[['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']]
+                print(df)
         return df
 
     def LoadModel(self):
