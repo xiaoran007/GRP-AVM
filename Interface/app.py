@@ -117,7 +117,6 @@ def pro_mode_single():
         return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text, rID=rID_str)
 
 
-
 @app.route('/pro_mode_record_search', methods=['GET', 'POST'])
 def pro_mode_record_search():
     if request.method == 'GET':
@@ -131,13 +130,10 @@ def pro_mode_record_result():
     if request.method == 'GET':
         return "undefined"
     elif request.method == 'POST':
-        record_id = request.form.get('rID')
-        if util.checkIfRecordExists(record_id):
-            record_values = joblib.load(f'./records/{record_id}.record')
-            pro_settings = record_values.get('status')
-            pro_settings_str = f'enable_llm: {pro_settings[0]}, enable_full: {pro_settings[1]}, enable_cp: {pro_settings[2]}, cp_values: {pro_settings[3]}, enable_hidden: {pro_settings[4]}, model_sel: {pro_settings[5]}'
-            return render_template('proModeRecordResult.html', features=record_values.get('features'), price=record_values.get('price'), description=record_values.get('text'),
-                                   rID=record_values.get('rID'), pro_settings=f'{pro_settings_str}')
+        result = backendHandler.HandleRecordSearch(rID=request.form.get('rID'))
+        if result.get('status'):
+            features, price, description, rID, pro_settings_str = result.get('values')
+            return render_template('proModeRecordResult.html', features=features, price=price, description=description, rID=rID, pro_settings=pro_settings_str)
         else:
             return render_template('proModeNoSuchRecord.html')
 

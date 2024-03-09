@@ -50,12 +50,20 @@ class RecordEventHandler(object):
         else:
             return 'This prediction will not be recorded.'
 
-    def checkIfRecordExists(self, rID):
+    @staticmethod
+    def checkIfRecordExists(rID):
         rec_list = json.load(open('records/rec.json', 'r'))
         if rID in rec_list:
             return True
         else:
             return False
+
+    def SearchRecord(self, rID):
+        if self.checkIfRecordExists(rID):
+            record_values = joblib.load(f'./records/{rID}.record')
+            return record_values
+        else:
+            return None
 
 
 class ProSettingsEventHandler(object):
@@ -105,6 +113,7 @@ class BackendEventHandler(object):
         self.EasyRFPredictor = CpPredictor(X=None, model_sel='RF', full=False, alpha=0.2, cwd=os.path.dirname(__file__))
         self.FullDescriptor = Descriptor(X=None, predicted_price=None, full=True, cwd=os.path.dirname(__file__))
         self.EasyDescriptor = Descriptor(X=None, predicted_price=None, full=False, cwd=os.path.dirname(__file__))
+        self.RecordSearcher = RecordEventHandler()
 
     def HandleNormalRequest(self, form_dict, full=True, alpha=0.2):
         if full:
@@ -149,6 +158,19 @@ class BackendEventHandler(object):
         print(pred_price)
         print(text)
         return f"{int(round(pred_price['values_range'][0], -2))}-{int(round(pred_price['values_range'][1], -2))}", text
+
+    def HandleRecordSearch(self, rID):
+        record_values = self.RecordSearcher.SearchRecord(rID)
+        if record_values is not None:
+            pro_settings = record_values.get('status')
+            pro_settings_str = f'enable_llm: {pro_settings[0]}, enable_full: {pro_settings[1]}, enable_cp: {pro_settings[2]}, cp_values: {pro_settings[3]}, enable_hidden: {pro_settings[4]}, model_sel: {pro_settings[5]}'
+            features = record_values.get('features')
+            price = record_values.get('price')
+            description = record_values.get('text')
+            rID = record_values.get('rID')
+            return {'status': True, 'values': [features, price, description, rID, pro_settings_str]}
+        else:
+            return {'status': False, 'values': None}
 
     @staticmethod
     def DataPreprocessing(data_form, full):
