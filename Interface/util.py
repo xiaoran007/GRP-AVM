@@ -1,5 +1,4 @@
 import time
-
 from NLGen.Descriptor import Descriptor
 from Datasets.Data import Default, Default_Easy
 from model.Predictor import Predictor, CpPredictor
@@ -7,17 +6,75 @@ import os
 import json
 import pandas as pd
 
-
 Full_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
-                            'condition',
-                            'grade',
-                            'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long',
-                            'sqft_living15',
-                            'sqft_lot15', 'year', 'month']
+                      'condition',
+                      'grade',
+                      'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long',
+                      'sqft_living15',
+                      'sqft_lot15', 'year', 'month']
 
 Easy_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
 year = 2014
 month = 6
+
+
+class RecordEventHandler(object):
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def generateID():
+        current_time = str(int(time.time()))
+        time_id = current_time[-6:]
+        return time_id
+
+    def checkIfRecordExists(rID):
+        rec_list = json.load(open('records/rec.json', 'r'))
+        if rID in rec_list:
+            return True
+        else:
+            return False
+
+
+class ProSettingsEventHandler(object):
+    """
+    handler for pro settings
+    """
+    def __init__(self, request_dict):
+        """
+
+        :param request_dict: request form in dict
+        """
+        self.requestDict = request_dict
+
+    def getControlArgs(self):
+        """
+
+        :return: list of control args in "enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel"
+        """
+        if self.requestDict.get('llm') is not None:
+            enable_llm = True
+        else:
+            enable_llm = False
+        if self.requestDict.get('full') is not None:
+            enable_full = True
+        else:
+            enable_full = False
+        if self.requestDict.get('cp') is not None:
+            enable_cp = True
+            cp_values = float(self.requestDict.get('cp_value'))
+        else:
+            enable_cp = False
+            cp_values = 0.0
+        if self.requestDict.get('hidden') is not None:
+            enable_hidden = True
+        else:
+            enable_hidden = False
+        if self.requestDict.get('model') is not None:
+            model_sel = self.requestDict.get('model')
+        else:
+            model_sel = 'RF'
+        return enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel
 
 
 def backend(data_array, full):
