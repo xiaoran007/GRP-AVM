@@ -77,6 +77,11 @@ class ProSettingsEventHandler(object):
         return enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel
 
 
+class BackendEventHandler(object):
+    def __init__(self):
+        pass
+
+
 def backend(data_array, full):
     predictor = CpPredictor(data_array, model_sel='RF', full=full, alpha=0.2, cwd=os.path.dirname(__file__))
     pred_price = predictor.Predict()
@@ -190,22 +195,3 @@ def handleFile(file_path):
     else:
         return []
 
-
-class DecodeDate(object):
-    def __init__(self, date_str):
-        self.DATE = date_str
-        self.YEAR, self.MONTH, self.DAY = DecodeDate.decode_date(self.DATE)
-
-    @staticmethod
-    def decode_date(date_str):
-        context = date_str.split('-')
-        return int(context[0]), int(context[1]), int(context[2])
-
-    def getYear(self):
-        return self.YEAR
-
-    def getMonth(self):
-        return self.MONTH
-
-    def getDay(self):
-        return self.DAY
