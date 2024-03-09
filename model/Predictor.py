@@ -47,6 +47,14 @@ class Predictor(object):
             return_dict['values'] = 'Model unload.'
             return return_dict
 
+    def PredictByX(self, X):
+        """
+
+        :param X: numpy array, 19 columns if lofi is False, 7 columns if lofi is True
+        """
+        self.X = X
+        return self.Predict()
+
     @staticmethod
     def numpy2df(numpy_arr, full):
         if full is True:
@@ -120,6 +128,14 @@ class CpPredictor(Predictor):
             return_dict['status'] = -2
             return_dict['values'] = 'Model unload.'
             return return_dict
+
+    def PredictByX(self, X):
+        """
+
+        :param X: numpy array, 19 columns if lofi is False, 7 columns if lofi is True
+        """
+        self.X = X
+        return self.Predict()
 
     def LoadModel(self):
         """
