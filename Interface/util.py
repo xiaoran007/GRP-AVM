@@ -145,19 +145,58 @@ class BackendEventHandler(object):
         rID_str = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], price=pred_price, description=text, features=features)
         return features, pred_price, text, rID_str
 
+    def HandleProBatchRequest(self, form_dict, file_path):
+        proSettingsHandler = ProSettingsEventHandler(request_dict=form_dict)
+        enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = proSettingsHandler.getControlArgs()
+        properties = self.handleFile(file_path)
+        if enable_cp:
+            alpha = 1 - cp_values
+        else:
+            alpha = 0.2
+        if enable_full:
+            print("set full")
+            pred_type = 'advance'
+        else:
+            print("set easy")
+            pred_type = 'default'
+        if len(properties) != 0:
+            predict_results = list()
+            index = 0
+            for i in properties:
+                pred_price, text = self.handleRequest(i, full=enable_full, alpha=alpha)
+                predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': pred_type})
+                index += 1
+        else:
+            predict_results = []
+        return len(predict_results), predict_results
+
     def handleRequest(self, X, full=True, alpha=0.2):
         """
         round the price to 100
         """
+        print(full)
         if full:
             pred_price = self.FullRFPredictor.PredictByX(X=X, ALPHA=alpha)
-            text = self.FullDescriptor.GenerateDescription(X=X, predicted_price=pred_price['values'][0])
+            text = self.FullDescriptor.GenerateDescription(X=X, predicted_price=pred_price['values'][0], full=full)
         else:
             pred_price = self.EasyRFPredictor.PredictByX(X=X, ALPHA=alpha)
-            text = self.EasyDescriptor.GenerateDescription(X=X, predicted_price=pred_price['values'][0])
+            text = self.EasyDescriptor.GenerateDescription(X=X, predicted_price=pred_price['values'][0], full=full)
         print(pred_price)
         print(text)
         return f"{int(round(pred_price['values_range'][0], -2))}-{int(round(pred_price['values_range'][1], -2))}", text
+
+    @staticmethod
+    def handleFile(file_path):
+        """
+
+        :param file_path: file path to the csv file
+        :return: numpy array of the csv file contents
+        """
+        if os.path.isfile(file_path):
+            df = pd.read_csv(file_path)
+            return df.to_numpy()
+        else:
+            return []
 
     def HandleRecordSearch(self, rID):
         record_values = self.RecordSearcher.SearchRecord(rID)
