@@ -11,6 +11,10 @@ app = Flask(__name__,   static_url_path='',
             template_folder='templates')
 app.secret_key = 'my_secret_key'
 
+print("Loading model...")
+backendHandler = util.BackendEventHandler()
+print("Init ok!")
+
 
 @app.route('/', methods=['GET', 'POST'])
 def pro_mode():
@@ -74,11 +78,7 @@ def normal_mode_pro():
 def normal_mode_end():
     # from basic
     if request.method == 'GET':
-        print(f"from share {session.get('normal_form_basic')}")
-        features = util.data_trans(session.get('normal_form_basic'), 'default')
-        ar = util.data_preprocessing(session.get('normal_form_basic'), full=False)
-        print(ar)
-        pred_price, text = util.backend(ar, full=False)
+        features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
         print(f"OK\nPrice: {pred_price}\nText: {text}")
         return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
     # from pro
@@ -89,10 +89,8 @@ def normal_mode_end():
         print(f"from share pro: {session.get('normal_form_pro')}")
         combined = {**session.get('normal_form_basic'), **(session.get('normal_form_pro'))}
         print(combined)
-        features = util.data_trans(combined, 'advance')
-        ar = util.data_preprocessing(combined, full=True)
-        print(ar)
-        pred_price, text = util.backend(ar, full=True)
+        features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=combined,
+                                                                        full=True, alpha=0.2)
         print(f"OK\nPrice: {pred_price}\nText: {text}")
         return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
 

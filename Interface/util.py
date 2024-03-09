@@ -151,7 +151,7 @@ class BackendEventHandler(object):
             text = self.EasyDescriptor.GenerateDescription(X=X, predicted_price=pred_price['values'][0])
         print(pred_price)
         print(text)
-        return f"{round(pred_price['values_range'][0], -2)}-{round(pred_price['values_range'][1], -2)}", text
+        return f"{int(round(pred_price['values_range'][0], -2))}-{int(round(pred_price['values_range'][1], -2))}", text
 
     @staticmethod
     def DataPreprocessing(data_form, full):
