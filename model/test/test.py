@@ -76,7 +76,7 @@ def CPTest(Full=True):
     results = list()
     for k in range(100):
         i = random.randint(0, len(X_valid))
-        predicted_dict = predictor.PredictByX(X_valid[i])
+        predicted_dict = predictor.PredictByX(X_valid[i], ALPHA=0.5)
         print(f'value: {predicted_dict["values"]}, range: {predicted_dict["values_range"]}')
         results.append(f'value: {predicted_dict["values"]}, range: {predicted_dict["values_range"]}')
 

@@ -129,12 +129,14 @@ class CpPredictor(Predictor):
             return_dict['values'] = 'Model unload.'
             return return_dict
 
-    def PredictByX(self, X):
+    def PredictByX(self, X, ALPHA=0.2):
         """
 
         :param X: numpy array, 19 columns if lofi is False, 7 columns if lofi is True
+        :param ALPHA: float, default 0.2, 1 - confidence level
         """
         self.X = X
+        self.ALPHA = ALPHA
         return self.Predict()
 
     def LoadModel(self):
