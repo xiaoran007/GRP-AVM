@@ -1,158 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Temp</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/teamlogo.png"/>
-    <link rel="icon" type="image/png" href="/img/teamlogo.png"/>
-
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link id="pagestyle" href="https://demos.creative-tim.com/material-kit/assets/css/material-kit.min.css?v=3.0.4"
-          rel="stylesheet"/>
-    <!-- Material Kit CSS -->
-    <link href="/css/material-kit.css?v=3.0.0" rel="stylesheet"/>
-    <!-- js Files -->
-    <!--    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>-->
-    <script src="https://kit.fontawesome.com/1121a19956.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoomable Webpage</title>
+    <style>
+        #content {
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
-
-
 <body>
-<!-- -------- START HEADER 1 w/ text and image on right ------- -->
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-absolute bg-transparent shadow-none">
-        <div class="container">
-            <a class="navbar-brand text-white" href="http://cslinux.nottingham.edu.cn/~Team202313" target="_blank"
-               rel="noopener noreferrer">GRP Team 13</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header-2"
-                    aria-controls="navbar-header-2" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar-header-2">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/">
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="http://cslinux.nottingham.edu.cn/~Team202313"
-                           target="_blank" rel="noopener noreferrer">
-                            About Us
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/indev">
-                            Contact Us
-                        </a>
-                    </li>
-                </ul>
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
 
-                <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="https://csprojects.nottingham.edu.cn">
-                            <i class="fab fa-gitlab"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white mx-2" href="https://github.com">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/indev">
-                            <i class="fab fa-codepen"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<div class="page-header min-vh-100" style="background-image: url('/img/bg_pro1.jpg')">
-    <span class="mask bg-gradient-dark opacity-4"></span>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <div class="text-center">
-                    <h1 class="text-white">Welcome</h1>
-                    <h5 class="text-white">In professional mode, you are given higher control permissions.</h5>
-                </div>
-            </div>
-        </div>
-        <div class="w-100"></div>
-        <div class="row">
-            <div class="text-center">
-                <p>&nbsp;</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-4 mx-auto">
-                <div class="card card-frame">
-                    <div class="card-body text-center">
-                        <div class="section text-center">
-                            <form action="/upload" method="post" enctype="multipart/form-data">
-                                <div class="input-group">
-                                    <input type="file" class="form-control" onchange="updateFileName();" id="file" style="display: none;" name="file">
-                                    <input type="text" class="form-control" id="file-name" readonly placeholder="Select file..." aria-label="File browser">
-<!--                                    <label id="file-label"></label>-->
-                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('file').click()">Browse</button>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+    <div id="content">
+        <h1>Zoomable Webpage</h1>
+        <p>This webpage can be zoomed in and out using JavaScript.</p>
     </div>
-</div>
 
+    <script>
+        var scale = 1;
 
-<footer class="footer pt-0 mt-0">
-    <div class="container">
-        <div class="text-center">
-            <p class="text-dark my-1 text-sm font-weight-normal">
-                All rights reserved. Copyright ©
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>
-                GRP Team 13
-            </p>
-            <p class="text-dark my-1 text-sm font-weight">
-                Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
-            </p>
-        </div>
-    </div>
-</footer>
+        function zoomIn() {
+            scale += 0.1;
+            document.getElementById('content').style.transform = 'scale(' + scale + ')';
+        }
 
-<script>
-        function updateFileName() {
-            var fileInput = document.getElementById('file');
-            var fileName = fileInput.files[0].name;
-            var fileLabel = document.getElementById('file-name');
-            fileLabel.placeholder = "";
-            fileLabel.value = fileName;
+        function zoomOut() {
+            if (scale > 0.1) {
+                scale -= 0.1;
+                document.getElementById('content').style.transform = 'scale(' + scale + ')';
+            }
         }
     </script>
-
 </body>
-
-
-
 </html>
