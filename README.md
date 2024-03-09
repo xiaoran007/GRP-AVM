@@ -27,6 +27,18 @@
 - **tryPDF**
 
 
+## **Compatibility on low-resolution devices**
+This application is designed for the devices that the resolution is higher than 1080p (width is higher than 1920px). If you are planed to use this application on low-resolution devices, you may found some compatibility issues. You can use browser's resize (scale) method to resize the webUI, main-stream web browsers (chrome, safari, edge, firefox) both support this feature. 
+
+For Windows and UNIX users:
+```shell
+Ctrl and + to zoom in, Ctrl and - to zoom out
+```
+For macOS users:
+```shell
+Command and + to zoom in, Command and - to zoom out
+```
+
 
 ## **Fix Import Error**
 If you try to start this application in command line by this command:
