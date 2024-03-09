@@ -20,15 +20,6 @@ def pro_mode():
         return "undefined"
 
 
-@app.route('/result', methods=['POST'])
-def pro_result():
-    if request.method == 'POST':
-        print(request.form)
-        ar = util.data_preprocessing(request.form, full=True)
-        print(ar)
-        pred_price, text = util.backend(ar, full=True)
-        return f"OK\nPrice: {pred_price}\nText: {text}"
-
 
 @app.route('/indev', methods=['GET', 'POST'])
 def indev():
