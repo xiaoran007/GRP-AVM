@@ -136,7 +136,13 @@ class ProSettingsEventHandler(object):
 
 
 class BackendEventHandler(object):
+    """
+    This class handles the backend events.
+    """
     def __init__(self):
+        """
+        Initialize the BackendEventHandler class. Pre-load the object files.
+        """
         self.FullRFPredictor = CpPredictor(X=None, model_sel='RF', full=True, alpha=0.2, cwd=os.path.dirname(__file__))
         self.EasyRFPredictor = CpPredictor(X=None, model_sel='RF', full=False, alpha=0.2, cwd=os.path.dirname(__file__))
         self.FullDescriptor = Descriptor(X=None, predicted_price=None, full=True, cwd=os.path.dirname(__file__))
@@ -144,6 +150,13 @@ class BackendEventHandler(object):
         self.RecordSearcher = RecordEventHandler()
 
     def HandleNormalRequest(self, form_dict, full=True, alpha=0.2):
+        """
+        Handle the normal request.
+        :param form_dict: dict, request form in dict
+        :param full: bool, set True to use full model.
+        :param alpha: float, The alpha value for the CP predictor.
+        :return: features, pred_price, text
+        """
         if full:
             features = self.DataTrans(form_dict, data_class='advance')
         else:
@@ -153,6 +166,11 @@ class BackendEventHandler(object):
         return features, pred_price, text
 
     def HandleProSingleRequest(self, form_dict):
+        """
+        Handle the pro single request.
+        :param form_dict: dict, request form in dict
+        :return: features, pred_price, text
+        """
         proSettingsHandler = ProSettingsEventHandler(request_dict=form_dict)
         recordHandler = RecordEventHandler()
         enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = proSettingsHandler.getControlArgs()
@@ -174,6 +192,12 @@ class BackendEventHandler(object):
         return features, pred_price, text, rID_str
 
     def HandleProBatchRequest(self, form_dict, file_path):
+        """
+        Handle the pro batch request.
+        :param form_dict: dict, request form in dict
+        :param file_path: str, the file path of the request file
+        :return: predicts_length, predict_results
+        """
         proSettingsHandler = ProSettingsEventHandler(request_dict=form_dict)
         enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = proSettingsHandler.getControlArgs()
         properties = self.handleFile(file_path)
@@ -200,7 +224,12 @@ class BackendEventHandler(object):
 
     def handleRequest(self, X, full=True, alpha=0.2):
         """
-        round the price to 100
+        Handle one request, this method is used by HandleNormalRequest, HandleProSingleRequest and HandleProBatchRequest.
+        round the price to 100.
+        :param X: numpy array, the features
+        :param full: bool, set True to use full model.
+        :param alpha: float, The alpha value for the CP predictor.
+        :return: pred_price, text
         """
         print(full)
         if full:
@@ -216,7 +245,7 @@ class BackendEventHandler(object):
     @staticmethod
     def handleFile(file_path):
         """
-
+        Handle a file.
         :param file_path: file path to the csv file
         :return: numpy array of the csv file contents
         """
@@ -227,6 +256,11 @@ class BackendEventHandler(object):
             return []
 
     def HandleRecordSearch(self, rID):
+        """
+        Handle a record search event.
+        :param rID: str, the record ID
+        :return: record_values, or None if the record does not exist.
+        """
         record_values = self.RecordSearcher.SearchRecord(rID)
         if record_values is not None:
             pro_settings = record_values.get('status')
@@ -241,6 +275,12 @@ class BackendEventHandler(object):
 
     @staticmethod
     def DataPreprocessing(data_form, full):
+        """
+        Preprocess the input data.
+        :param data_form: dict, the input data
+        :param full: bool, set True to use full model.
+        :return: numpy array of the preprocessed data
+        """
         my_array = list()
         if full:
             for feature_name in Full_feature_names:
