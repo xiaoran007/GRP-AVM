@@ -6,6 +6,9 @@ import pandas as pd
 
 
 class Predictor(object):
+    """
+    This class is used for predicting price of houses.
+    """
 
     def __init__(self, X, model_sel="RF", full=True, lang=False, cwd='./'):
         """
@@ -26,6 +29,7 @@ class Predictor(object):
 
     def Predict(self):
         """
+        Used by PredictByX().
         :return: dict, key 'status' 0 if success, key 'values' contents return values
         """
         if self.CheckModel():
@@ -49,7 +53,7 @@ class Predictor(object):
 
     def PredictByX(self, X):
         """
-
+        Predict the price using the given X, calling the method will change the object's default X value.
         :param X: numpy array, 19 columns if lofi is False, 7 columns if lofi is True
         """
         self.X = X
@@ -57,6 +61,12 @@ class Predictor(object):
 
     @staticmethod
     def numpy2df(numpy_arr, full):
+        """
+        Convert a numpy array to a pandas dataframe.
+        :param numpy_arr: numpy array, 19 columns or 7 columns.
+        :param full: Bool, set True if full model is needed
+        :return: pandas dataframe with columns name.
+        """
         if len(numpy_arr) == 7 and full is False:
             feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
             df = pd.DataFrame([numpy_arr])
@@ -77,6 +87,7 @@ class Predictor(object):
 
     def LoadModel(self):
         """
+        Load the model, use self.model_sel to select the model type.
         :return: model object
         """
         if self.model_sel == 'RF':
@@ -84,6 +95,7 @@ class Predictor(object):
 
     def CheckModel(self):
         """
+        Check if the model is loaded.
         :return: Bool, True if model already loaded
         """
         if self.MODEL is None:
