@@ -21,7 +21,13 @@ month = 6
 
 
 class RecordEventHandler(object):
+    """
+    This class handles the recording of predictions made by the code assistant.
+    """
     def __init__(self):
+        """
+        Initialize the RecordEventHandler class.
+        """
         self.enable = True
 
     def setEnable(self):
@@ -31,6 +37,10 @@ class RecordEventHandler(object):
         self.enable = False
 
     def generateID(self):
+        """
+        Generate a unique ID for each prediction.
+        :return: string, unique ID
+        """
         if self.enable:
             current_time = str(int(time.time()))
             rID = current_time[-6:]
@@ -39,6 +49,14 @@ class RecordEventHandler(object):
         return rID
 
     def HandleEvent(self, status, price, description, features):
+        """
+        Record a prediction event.
+        :param status: list, A list of boolean values indicating the status of the LLM, full model, CP, hidden, and model selection.
+        :param price: float, The predicted price.
+        :param description: str, The predicted description.
+        :param features: list, The input features.
+        :return: str, The result ID if enable.
+        """
         if self.enable:
             rID = self.generateID()
             rec_list = json.load(open('records/rec.json', 'r'))
@@ -52,6 +70,11 @@ class RecordEventHandler(object):
 
     @staticmethod
     def checkIfRecordExists(rID):
+        """
+        Check if the record exists.
+        :param rID: str, The record ID.
+        :return: bool, True if the record exists.
+        """
         rec_list = json.load(open('records/rec.json', 'r'))
         if rID in rec_list:
             return True
@@ -59,6 +82,11 @@ class RecordEventHandler(object):
             return False
 
     def SearchRecord(self, rID):
+        """
+        Search the record.
+        :param rID: str, The record ID.
+        :return: dict, The record values, if rID not exists, return None.
+        """
         if self.checkIfRecordExists(rID):
             record_values = joblib.load(f'./records/{rID}.record')
             return record_values
