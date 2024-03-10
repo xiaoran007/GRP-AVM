@@ -100,14 +100,14 @@ class ProSettingsEventHandler(object):
     """
     def __init__(self, request_dict):
         """
-
+        Initialize the ProSettingsEventHandler class.
         :param request_dict: request form in dict
         """
         self.requestDict = request_dict
 
     def getControlArgs(self):
         """
-
+        Get the control args.
         :return: list of control args in "enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel"
         """
         if self.requestDict.get('llm') is not None:
