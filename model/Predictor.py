@@ -106,9 +106,16 @@ class Predictor(object):
 
 class CpPredictor(Predictor):
     """
-    only one predict one time.
+    Child class of Predictor, used for predicting range price of properties.
     """
     def __init__(self, X, model_sel="RF", full=True, cwd='./', alpha=0.2):
+        """
+        :param X: numpy array, 19 or 7 columns.
+        :param model_sel: string, model type, default is 'RF'.
+        :param full: Bool, set True if full model is needed.
+        :param cwd: string, caller file path, use os.path.dirname(__file__)
+        :param alpha: float, alpha value used by CP, default is 0.2.
+        """
         super().__init__(X, model_sel, full)
         self.ALPHA = alpha
         self.CWD = cwd
@@ -121,7 +128,7 @@ class CpPredictor(Predictor):
 
     def Predict(self):
         """
-        only one predict one time.
+        only one predict one time. used by PredictByX().
         :return: dict, key 'status' 0 if success, key 'values' contents return values, key 'values_range' return values range
         """
         if self.CheckModel():
@@ -148,9 +155,10 @@ class CpPredictor(Predictor):
 
     def PredictByX(self, X, ALPHA=0.2):
         """
-
+        Predict the range price using the given X, calling the method will change the object's default X value and ALPHA value.'
         :param X: numpy array, 19 columns if lofi is False, 7 columns if lofi is True
         :param ALPHA: float, default 0.2, 1 - confidence level
+        :return: dict, key 'status' 0 if success, key 'values' contents return
         """
         self.X = X
         self.ALPHA = ALPHA
