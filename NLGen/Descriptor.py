@@ -5,7 +5,16 @@ import os
 
 
 class Descriptor(object):
+    """
+    This class provides a description of how the price is predicted.
+    """
     def __init__(self, X, predicted_price, full=True, cwd='./'):
+        """
+        :param X: numpy array, 19 or 7 columns.
+        :param predicted_price: predicted price, by Predictor.
+        :param full: Bool, set True if full model is needed.
+        :param cwd: string, caller file path, use os.path.dirname(__file__)
+        """
         self.X = X
         self.FULL = full
         self.PRICE = predicted_price
@@ -20,6 +29,9 @@ class Descriptor(object):
         print(f"set dir back: {cwd}")
 
     def LoadObject(self):
+        """
+        Load the object models.
+        """
         try:
             if self.FULL is True:
                 self.KMEANS = joblib.load('./class/kmeans_model_Full.mdo')
@@ -31,6 +43,9 @@ class Descriptor(object):
             print('Error: ', e)
 
     def GetDescription(self):
+        """
+        Old method. Not used in current version.
+        """
         if self.KMEANS is None or self.AVG is None:
             print("Object file not load.")
             return
@@ -54,6 +69,10 @@ class Descriptor(object):
             return text
 
     def generateDescription(self):
+        """
+        Generate the description. Used by method GenerateDescription().
+        :return: str, description
+        """
         pos_cons_dict = self.generatePosAndCons()
         if pos_cons_dict['status'] is False:
             print("Description not generated.")
@@ -79,10 +98,11 @@ class Descriptor(object):
 
     def GenerateDescription(self, X, predicted_price, full=True):
         """
+        Generate the description based on input X and predicted price. Use this method will change the default value of X, PRICE and FULL.
         :param X: numpy array of X
         :param predicted_price: predicted price
         :param full: bool, if True, then generate description for full dataset, else generate description for easy dataset
-        :return: description
+        :return: str, description
         """
         self.X = X
         self.PRICE = predicted_price
@@ -91,7 +111,7 @@ class Descriptor(object):
 
     def generatePosAndCons(self):
         """
-
+        Generate the list of positive and negative features.
         :return: dict, first check "status" key, if True, then "overall" and "positive" and "negative" keys are returned.
         """
         if self.KMEANS is None or self.AVG is None:
@@ -121,6 +141,11 @@ class Descriptor(object):
 
     @staticmethod
     def numpy2df(numpy_arr, full):
+        """
+        Convert the numpy array to pandas dataframe.
+        :param numpy_arr: numpy array, 19 or 7 columns.
+        :param full: set True for full features, False for easy features
+        """
         if len(numpy_arr) == 7 and full is False:
             feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
             df = pd.DataFrame([numpy_arr])
@@ -142,12 +167,12 @@ class Descriptor(object):
     @staticmethod
     def compareMeansByFeatureName(avg_list, X, feature_name, full=True):
         """
-
-        :param avg_list: mean value of features
-        :param X: predicted features
-        :param feature_name: feature name
-        :param full: set True for full features, False for easy features
-        :return: True for positive, False for negative
+        Compares the mean value of a feature in the predicted dataset to the mean value of the same feature in the average dataset.
+        :param avg_list: list, mean value of features
+        :param X: numpy array, predicted features
+        :param feature_name: str, feature name
+        :param full: bool, set True for full features, False for easy features
+        :return: bool, True for positive, False for negative
         """
         if full is True:
             name_map = {'bedrooms': 0, 'bathrooms': 1, 'sqft_living': 2, 'sqft_lot': 3, 'floors': 4, 'waterfront': 5,
@@ -167,6 +192,11 @@ class Descriptor(object):
 
     @staticmethod
     def getFeaturesImportance(full=True):
+        """
+        Get the features importance ordered list.
+        :param full: set True for full features, False for easy features
+        :return: list, features importance ordered list
+        """
         if full is True:
             feature_importance_order = ['grade', 'sqft_living', 'lat', 'long', 'sqft_living15', 'building_age', 'waterfront',
                                         'sqft_above', 'bathrooms', 'sqft_lot', 'sqft_lot15', 'view', 'renovated_year',
