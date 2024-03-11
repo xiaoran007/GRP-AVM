@@ -11,6 +11,10 @@ app = Flask(__name__,   static_url_path='',
             template_folder='templates')
 app.secret_key = 'my_secret_key'
 
+print("Loading model...")
+backendHandler = util.BackendEventHandler()
+print("Init ok!")
+
 
 @app.route('/', methods=['GET', 'POST'])
 def pro_mode():
@@ -19,15 +23,6 @@ def pro_mode():
     elif request.method == 'POST':
         return "undefined"
 
-
-@app.route('/result', methods=['POST'])
-def pro_result():
-    if request.method == 'POST':
-        print(request.form)
-        ar = util.data_preprocessing(request.form, full=True)
-        print(ar)
-        pred_price, text = util.backend(ar, full=True)
-        return f"OK\nPrice: {pred_price}\nText: {text}"
 
 
 @app.route('/indev', methods=['GET', 'POST'])
@@ -83,25 +78,15 @@ def normal_mode_pro():
 def normal_mode_end():
     # from basic
     if request.method == 'GET':
-        print(f"from share {session.get('normal_form_basic')}")
-        features = util.data_trans(session.get('normal_form_basic'), 'default')
-        ar = util.data_preprocessing(session.get('normal_form_basic'), full=False)
-        print(ar)
-        pred_price, text = util.backend(ar, full=False)
+        features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
         print(f"OK\nPrice: {pred_price}\nText: {text}")
         return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
     # from pro
     elif request.method == 'POST':
-        print(request.form)
         session['normal_form_pro'] = request.form.to_dict()
-        print(f"from share basic: {session.get('normal_form_basic')}")
-        print(f"from share pro: {session.get('normal_form_pro')}")
         combined = {**session.get('normal_form_basic'), **(session.get('normal_form_pro'))}
-        print(combined)
-        features = util.data_trans(combined, 'advance')
-        ar = util.data_preprocessing(combined, full=True)
-        print(ar)
-        pred_price, text = util.backend(ar, full=True)
+        features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=combined,
+                                                                        full=True, alpha=0.2)
         print(f"OK\nPrice: {pred_price}\nText: {text}")
         return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
 
@@ -128,40 +113,8 @@ def pro_mode_single():
         return render_template('proModeSingleResult.html')
     elif request.method == 'POST':
         request_dict = request.form.to_dict()
-        enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = util.get_control_args(request_dict)
-        if enable_hidden:
-            rID = '******'
-            rID_str = 'This prediction will not be recorded.'
-        else:
-            rID = util.generateID()
-            rID_str = f"Result ID is {rID}"
-        if enable_full:
-            features = util.data_trans(request_dict, 'advance')
-            ar = util.data_preprocessing(request_dict, full=True)
-            print(ar)
-            pred_price, text = util.backend(ar, full=True)
-            print(f"OK\nPrice: {pred_price}\nText: {text}")
-            if not enable_hidden:
-                rec_list = json.load(open('records/rec.json', 'r'))
-                joblib.dump({'rID': rID, 'status': [enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], 'features': features, 'price': pred_price, 'text': text}, f'./records/{rID}.record')
-                rec_list.append(rID)
-                json.dump(rec_list, open('records/rec.json', 'w'))
-            return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text,
-                                   rID=rID_str)
-        else:
-            features = util.data_trans(request_dict, 'default')
-            ar = util.data_preprocessing(request_dict, full=False)
-            print(ar)
-            pred_price, text = util.backend(ar, full=False)
-            print(f"OK\nPrice: {pred_price}\nText: {text}")
-            if not enable_hidden:
-                rec_list = json.load(open('records/rec.json', 'r'))
-                joblib.dump({'rID': rID, 'status': [enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], 'features': features, 'price': pred_price, 'text': text},
-                        f'./records/{rID}.record')
-                rec_list.append(rID)
-                json.dump(rec_list, open('records/rec.json', 'w'))
-            return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text,
-                                   rID=rID_str)
+        features, pred_price, text, rID_str = backendHandler.HandleProSingleRequest(form_dict=request_dict)
+        return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text, rID=rID_str)
 
 
 @app.route('/pro_mode_record_search', methods=['GET', 'POST'])
@@ -177,13 +130,10 @@ def pro_mode_record_result():
     if request.method == 'GET':
         return "undefined"
     elif request.method == 'POST':
-        record_id = request.form.get('rID')
-        if util.checkIfRecordExists(record_id):
-            record_values = joblib.load(f'./records/{record_id}.record')
-            pro_settings = record_values.get('status')
-            pro_settings_str = f'enable_llm: {pro_settings[0]}, enable_full: {pro_settings[1]}, enable_cp: {pro_settings[2]}, cp_values: {pro_settings[3]}, enable_hidden: {pro_settings[4]}, model_sel: {pro_settings[5]}'
-            return render_template('proModeRecordResult.html', features=record_values.get('features'), price=record_values.get('price'), description=record_values.get('text'),
-                                   rID=record_values.get('rID'), pro_settings=f'{pro_settings_str}')
+        result = backendHandler.HandleRecordSearch(rID=request.form.get('rID'))
+        if result.get('status'):
+            features, price, description, rID, pro_settings_str = result.get('values')
+            return render_template('proModeRecordResult.html', features=features, price=price, description=description, rID=rID, pro_settings=pro_settings_str)
         else:
             return render_template('proModeNoSuchRecord.html')
 
@@ -205,31 +155,8 @@ def pro_mode_batch_upload():
             user_file = request.files['file']
             save_path = './upload/'
             user_file.save(save_path + user_file.filename)
-            file_contents_list = util.handleFile(save_path + user_file.filename)
-            request_dict = request.form.to_dict()
-            enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = util.get_control_args(
-                request_dict)
-            if enable_full:
-                if len(file_contents_list) != 0:
-                    predict_results = list()
-                    index = 0
-                    for i in file_contents_list:
-                        pred_price, text = util.backend(i, full=True)
-                        predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': 'advance'})
-                        index += 1
-                else:
-                    predict_results = []
-            else:
-                if len(file_contents_list) != 0:
-                    predict_results = list()
-                    index = 0
-                    for i in file_contents_list:
-                        pred_price, text = util.backend(i, full=False)
-                        predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': 'default'})
-                        index += 1
-                else:
-                    predict_results = []
-            return render_template('proModeBatchResult.html', lens=len(file_contents_list), results=predict_results)
+            results_len, results = backendHandler.HandleProBatchRequest(request.form.to_dict(), save_path + user_file.filename)
+            return render_template('proModeBatchResult.html', lens=results_len, results=results)
         else:
             return render_template('proModeBatchError.html')
 
