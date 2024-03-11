@@ -48,7 +48,7 @@ class RecordEventHandler(object):
             rID = '******'
         return rID
 
-    def HandleEvent(self, status, price, description, features, model_sel):
+    def HandleEvent(self, status, price, description, features, model_sel, confidence_level):
         """
         Record a prediction event.
         :param status: list, A list of boolean values indicating the status of the LLM, full model, CP, hidden, and model selection.
@@ -56,13 +56,14 @@ class RecordEventHandler(object):
         :param description: str, The predicted description.
         :param features: list, The input features.
         :param model_sel: str, The model selection. [RF, XGB, LGBM]
+        :param confidence_level: float, The confidence level.
         :return: str, The result ID if enable.
         """
         if self.enable:
             rID = self.generateID()
             rec_list = json.load(open('records/rec.json', 'r'))
             joblib.dump({'rID': rID, 'status': status,
-                         'features': features, 'price': price, 'text': description, 'model_sel': model_sel}, f'./records/{rID}.record')
+                         'features': features, 'price': price, 'text': description, 'model_sel': model_sel, 'confidence_level': confidence_level}, f'./records/{rID}.record')
             rec_list.append(rID)
             json.dump(rec_list, open('records/rec.json', 'w'))
             return f"Result ID is {rID}"
@@ -174,7 +175,7 @@ class BackendEventHandler(object):
         """
         Handle the pro single request.
         :param form_dict: dict, request form in dict
-        :return: features, pred_price, text, rID_str, model_sel
+        :return: features, pred_price, text, rID_str, model_sel, confidence_level
         """
         proSettingsHandler = ProSettingsEventHandler(request_dict=form_dict)
         recordHandler = RecordEventHandler()
@@ -192,16 +193,17 @@ class BackendEventHandler(object):
             alpha = 1 - cp_values
         else:
             alpha = 0.2
+            cp_values = 0.8
         pred_price, text = self.handleRequest(x, model_sel=model_sel, full=enable_full, alpha=alpha)
-        rID_str = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], price=pred_price, description=text, features=features, model_sel=model_sel)
-        return features, pred_price, text, rID_str, model_sel
+        rID_str = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], price=pred_price, description=text, features=features, model_sel=model_sel, confidence_level=cp_values)
+        return features, pred_price, text, rID_str, model_sel, cp_values
 
     def HandleProBatchRequest(self, form_dict, file_path):
         """
         Handle the pro batch request.
         :param form_dict: dict, request form in dict
         :param file_path: str, the file path of the request file
-        :return: predicts_length, predict_results, model_sel
+        :return: predicts_length, predict_results, model_sel, confidence_level
         """
         proSettingsHandler = ProSettingsEventHandler(request_dict=form_dict)
         enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = proSettingsHandler.getControlArgs()
@@ -210,6 +212,7 @@ class BackendEventHandler(object):
             alpha = 1 - cp_values
         else:
             alpha = 0.2
+            cp_values = 0.8
         if enable_full:
             print("set full")
             pred_type = 'advance'
@@ -225,7 +228,7 @@ class BackendEventHandler(object):
                 index += 1
         else:
             predict_results = []
-        return len(predict_results), predict_results, model_sel
+        return len(predict_results), predict_results, model_sel, cp_values
 
     def handleRequest(self, X, model_sel="RF", full=True, alpha=0.2):
         """
@@ -291,9 +294,12 @@ class BackendEventHandler(object):
             description = record_values.get('text')
             rID = record_values.get('rID')
             model_sel = record_values.get('model_sel')
+            confidence_level = record_values.get('confidence_level')
             if model_sel is None:
                 model_sel = 'RF'
-            return {'status': True, 'values': [features, price, description, rID, pro_settings_str, model_sel]}
+            if confidence_level is None:
+                confidence_level = 0.8
+            return {'status': True, 'values': [features, price, description, rID, pro_settings_str, model_sel, confidence_level]}
         else:
             return {'status': False, 'values': None}
 

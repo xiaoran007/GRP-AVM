@@ -113,8 +113,8 @@ def pro_mode_single():
         return render_template('proModeSingleResult.html')
     elif request.method == 'POST':
         request_dict = request.form.to_dict()
-        features, pred_price, text, rID_str, model_sel = backendHandler.HandleProSingleRequest(form_dict=request_dict)
-        return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text, rID=rID_str, model_sel=model_sel)
+        features, pred_price, text, rID_str, model_sel, confidence_level = backendHandler.HandleProSingleRequest(form_dict=request_dict)
+        return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text, rID=rID_str, model_sel=model_sel, confidence_level=confidence_level)
 
 
 @app.route('/pro_mode_record_search', methods=['GET', 'POST'])
@@ -132,8 +132,8 @@ def pro_mode_record_result():
     elif request.method == 'POST':
         result = backendHandler.HandleRecordSearch(rID=request.form.get('rID'))
         if result.get('status'):
-            features, price, description, rID, pro_settings_str, model_sel = result.get('values')
-            return render_template('proModeRecordResult.html', features=features, price=price, description=description, rID=rID, pro_settings=pro_settings_str, model_sel=model_sel)
+            features, price, description, rID, pro_settings_str, model_sel, confidence_level = result.get('values')
+            return render_template('proModeRecordResult.html', features=features, price=price, description=description, rID=rID, pro_settings=pro_settings_str, model_sel=model_sel, confidence_level=confidence_level)
         else:
             return render_template('proModeNoSuchRecord.html')
 
@@ -155,8 +155,8 @@ def pro_mode_batch_upload():
             user_file = request.files['file']
             save_path = './upload/'
             user_file.save(save_path + user_file.filename)
-            results_len, results, model_sel = backendHandler.HandleProBatchRequest(request.form.to_dict(), save_path + user_file.filename)
-            return render_template('proModeBatchResult.html', lens=results_len, results=results, model_sel=model_sel)
+            results_len, results, model_sel, confidence_level = backendHandler.HandleProBatchRequest(request.form.to_dict(), save_path + user_file.filename)
+            return render_template('proModeBatchResult.html', lens=results_len, results=results, model_sel=model_sel, confidence_level=confidence_level)
         else:
             return render_template('proModeBatchError.html')
 
