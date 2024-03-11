@@ -10,7 +10,7 @@ import os
 def FULL_TEST():
     df = pd.read_csv("./data/X_Full_test.csv")
     print(df.columns.tolist())
-    predictor = Predictor.Predictor(X=df, model_sel='RF', lofi=False, lang=False)
+    predictor = Predictor.Predictor(X=df, model_sel='RF', lang=False)
     predicted_dict = predictor.Predict()
     High_err = list()
     if predicted_dict['status'] == 0:
@@ -29,7 +29,7 @@ def FULL_TEST():
 def LOFI_TEST():
     df = pd.read_csv("./data/X_Easy_test.csv")
     print(df.columns.tolist())
-    predictor = Predictor.Predictor(X=df, model_sel='RF', lofi=True, lang=False)
+    predictor = Predictor.Predictor(X=df, model_sel='RF', lang=False)
     predicted_dict = predictor.Predict()
     High_err = list()
     if predicted_dict['status'] == 0:
