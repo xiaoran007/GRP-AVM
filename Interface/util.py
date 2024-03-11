@@ -48,20 +48,21 @@ class RecordEventHandler(object):
             rID = '******'
         return rID
 
-    def HandleEvent(self, status, price, description, features):
+    def HandleEvent(self, status, price, description, features, model_sel):
         """
         Record a prediction event.
         :param status: list, A list of boolean values indicating the status of the LLM, full model, CP, hidden, and model selection.
         :param price: float, The predicted price.
         :param description: str, The predicted description.
         :param features: list, The input features.
+        :param model_sel: str, The model selection. [RF, XGB, LGBM]
         :return: str, The result ID if enable.
         """
         if self.enable:
             rID = self.generateID()
             rec_list = json.load(open('records/rec.json', 'r'))
             joblib.dump({'rID': rID, 'status': status,
-                         'features': features, 'price': price, 'text': description}, f'./records/{rID}.record')
+                         'features': features, 'price': price, 'text': description, 'model_sel': model_sel}, f'./records/{rID}.record')
             rec_list.append(rID)
             json.dump(rec_list, open('records/rec.json', 'w'))
             return f"Result ID is {rID}"
@@ -173,7 +174,7 @@ class BackendEventHandler(object):
         """
         Handle the pro single request.
         :param form_dict: dict, request form in dict
-        :return: features, pred_price, text
+        :return: features, pred_price, text, rID_str, model_sel
         """
         proSettingsHandler = ProSettingsEventHandler(request_dict=form_dict)
         recordHandler = RecordEventHandler()
@@ -192,15 +193,15 @@ class BackendEventHandler(object):
         else:
             alpha = 0.2
         pred_price, text = self.handleRequest(x, model_sel=model_sel, full=enable_full, alpha=alpha)
-        rID_str = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], price=pred_price, description=text, features=features)
-        return features, pred_price, text, rID_str
+        rID_str = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], price=pred_price, description=text, features=features, model_sel=model_sel)
+        return features, pred_price, text, rID_str, model_sel
 
     def HandleProBatchRequest(self, form_dict, file_path):
         """
         Handle the pro batch request.
         :param form_dict: dict, request form in dict
         :param file_path: str, the file path of the request file
-        :return: predicts_length, predict_results
+        :return: predicts_length, predict_results, model_sel
         """
         proSettingsHandler = ProSettingsEventHandler(request_dict=form_dict)
         enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = proSettingsHandler.getControlArgs()
@@ -224,7 +225,7 @@ class BackendEventHandler(object):
                 index += 1
         else:
             predict_results = []
-        return len(predict_results), predict_results
+        return len(predict_results), predict_results, model_sel
 
     def handleRequest(self, X, model_sel="RF", full=True, alpha=0.2):
         """
@@ -289,7 +290,10 @@ class BackendEventHandler(object):
             price = record_values.get('price')
             description = record_values.get('text')
             rID = record_values.get('rID')
-            return {'status': True, 'values': [features, price, description, rID, pro_settings_str]}
+            model_sel = record_values.get('model_sel')
+            if model_sel is None:
+                model_sel = 'RF'
+            return {'status': True, 'values': [features, price, description, rID, pro_settings_str, model_sel]}
         else:
             return {'status': False, 'values': None}
 
