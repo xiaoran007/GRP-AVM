@@ -12,14 +12,12 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 class XGBBuilder(object):
     @staticmethod
     def Make(method):
-        if method == 'Full':
+        if method:
             print('Make Full')
             X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
-        elif method == 'Easy':
+        else:
             print('Make Easy')
             X_train, y_train, X_test, y_test = Default_Easy(os.path.dirname(__file__))
-        else:
-            X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
         xgb = XGBRegressor(verbosity=3, seed=62, eval_metric='rmsle')
         xgb.fit(X=X_train, y=y_train)
         y_pred_train = xgb.predict(X=X_train)
