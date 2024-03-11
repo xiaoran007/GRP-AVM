@@ -27,7 +27,10 @@ def Make(method):
     print(f'Train: count:{count}, total:{total}, acc:{acc}, r2:{r2}, rmse:{rmse}')
     count, total, acc, r2, rmse = Evaluator(y_pred=y_pred_test, y_true=y_test.to_numpy()).Evaluate(error=0.2)
     print(f'Test: count:{count}, total:{total}, acc:{acc}, r2:{r2}, rmse:{rmse}')
-    joblib.dump(lgbm, f'LGBM_{method}.mdo')
+
+    # joblib.dump(lgbm, f'LGBM_{method}.mdo')
+    print('Save model')
+    return lgbm
 
 
 if __name__ == '__main__':

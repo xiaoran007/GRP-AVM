@@ -27,8 +27,9 @@ def Make(method):
     count, total, acc, r2, rmse = Evaluator(y_pred=y_pred_test, y_true=y_test.to_numpy()).Evaluate(error=0.2)
     print(f'Test: count:{count}, total:{total}, acc:{acc}, r2:{r2}, rmse:{rmse}')
 
-    joblib.dump(rf, f'RF_{method}.mdo')
+    # joblib.dump(rf, f'RF_{method}.mdo')
     print('Save model')
+    return rf
 
 
 if __name__ == '__main__':
