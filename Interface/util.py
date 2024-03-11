@@ -141,10 +141,14 @@ class BackendEventHandler(object):
     """
     def __init__(self):
         """
-        Initialize the BackendEventHandler class. Pre-load the object files.
+        Initialize the BackendEventHandler class. Preload the object files.
         """
         self.FullRFPredictor = CpPredictor(X=None, model_sel='RF', full=True, alpha=0.2, cwd=os.path.dirname(__file__))
+        self.FullXGBPredictor = CpPredictor(X=None, model_sel='XGB', full=True, alpha=0.2, cwd=os.path.dirname(__file__))
+        self.FullLGBMPredictor = CpPredictor(X=None, model_sel='LGBM', full=True, alpha=0.2, cwd=os.path.dirname(__file__))
         self.EasyRFPredictor = CpPredictor(X=None, model_sel='RF', full=False, alpha=0.2, cwd=os.path.dirname(__file__))
+        self.EasyXGBPredictor = CpPredictor(X=None, model_sel='XGB', full=False, alpha=0.2, cwd=os.path.dirname(__file__))
+        self.EasyLGBMPredictor = CpPredictor(X=None, model_sel='LGBM', full=False, alpha=0.2, cwd=os.path.dirname(__file__))
         self.FullDescriptor = Descriptor(X=None, predicted_price=None, full=True, cwd=os.path.dirname(__file__))
         self.EasyDescriptor = Descriptor(X=None, predicted_price=None, full=False, cwd=os.path.dirname(__file__))
         self.RecordSearcher = RecordEventHandler()
