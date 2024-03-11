@@ -31,7 +31,6 @@ def Make(method):
     print('Save model')
 
 
-
-
-Make(method='Easy')
-Make(method='Full')
+if __name__ == '__main__':
+    Make(method='Easy')
+    Make(method='Full')

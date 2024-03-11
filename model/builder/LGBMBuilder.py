@@ -30,5 +30,6 @@ def Make(method):
     joblib.dump(lgbm, f'LGBM_{method}.mdo')
 
 
-Make(method='Easy')
-Make(method='Full')
+if __name__ == '__main__':
+    Make(method='Easy')
+    Make(method='Full')
