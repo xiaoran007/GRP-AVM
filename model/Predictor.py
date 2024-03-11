@@ -111,7 +111,7 @@ class CpPredictor(Predictor):
     def __init__(self, X, model_sel="RF", full=True, cwd='./', alpha=0.2):
         """
         :param X: numpy array, 19 or 7 columns.
-        :param model_sel: string, model type, default is 'RF'.
+        :param model_sel: string, model type, ['RF', 'XGB', 'LGBM'], default is 'RF'.
         :param full: Bool, set True if full model is needed.
         :param cwd: string, caller file path, use os.path.dirname(__file__)
         :param alpha: float, alpha value used by CP, default is 0.2.
@@ -140,6 +140,7 @@ class CpPredictor(Predictor):
                 return_dict['values'] = predicted_values.tolist()
                 values_range = [mapie_pis[0][0][0], mapie_pis[0][1][0]]
                 return_dict['values_range'] = values_range
+                return_dict['model_type'] = self.model_sel
                 return return_dict
             except Exception as e:
                 print('Error: ', e)
@@ -168,9 +169,25 @@ class CpPredictor(Predictor):
         """
         :return: CP model object
         """
-        if self.FULL is True:
-            return joblib.load('object/MAPIE_Full.mdo')
+        if self.model_sel == 'RF':
+            if self.FULL:
+                return joblib.load('object/rev311/RF_CP_Full.mdo')
+            else:
+                return joblib.load('object/rev311/RF_CP_Easy.mdo')
+        elif self.model_sel == 'XGB':
+            if self.FULL:
+                return joblib.load('object/rev311/XGB_CP_Full.mdo')
+            else:
+                return joblib.load('object/rev311/XGB_CP_Easy.mdo')
+        elif self.model_sel == 'LGBM':
+            if self.FULL:
+                return joblib.load('object/rev311/LGBM_CP_Full.mdo')
+            else:
+                return joblib.load('object/rev311/LGBM_CP_Easy.mdo')
         else:
-            return joblib.load('object/MAPIE_Easy.mdo')
+            if self.FULL:
+                return joblib.load('object/rev311/RF_CP_Full.mdo')
+            else:
+                return joblib.load('object/rev311/RF_CP_Easy.mdo')
 
 
