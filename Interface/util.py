@@ -166,7 +166,7 @@ class BackendEventHandler(object):
         else:
             features = self.DataTrans(form_dict, data_class='default')
         x = self.DataPreprocessing(form_dict, full=full)
-        pred_price, text = self.handleRequest(x, full=full, alpha=alpha)
+        pred_price, text = self.handleRequest(x, model_sel='RF', full=full, alpha=alpha)
         return features, pred_price, text
 
     def HandleProSingleRequest(self, form_dict):
@@ -191,7 +191,7 @@ class BackendEventHandler(object):
             alpha = 1 - cp_values
         else:
             alpha = 0.2
-        pred_price, text = self.handleRequest(x, full=enable_full, alpha=alpha)
+        pred_price, text = self.handleRequest(x, model_sel=model_sel, full=enable_full, alpha=alpha)
         rID_str = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], price=pred_price, description=text, features=features)
         return features, pred_price, text, rID_str
 
@@ -219,29 +219,45 @@ class BackendEventHandler(object):
             predict_results = list()
             index = 0
             for i in properties:
-                pred_price, text = self.handleRequest(i, full=enable_full, alpha=alpha)
+                pred_price, text = self.handleRequest(i, model_sel=model_sel, full=enable_full, alpha=alpha)
                 predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': pred_type})
                 index += 1
         else:
             predict_results = []
         return len(predict_results), predict_results
 
-    def handleRequest(self, X, full=True, alpha=0.2):
+    def handleRequest(self, X, model_sel="RF", full=True, alpha=0.2):
         """
         Handle one request, this method is used by HandleNormalRequest, HandleProSingleRequest and HandleProBatchRequest.
         round the price to 100.
         :param X: numpy array, the features
+        :param model_sel: str, the model selection, [RF, XGB, LGBM], default is RF.
         :param full: bool, set True to use full model.
         :param alpha: float, The alpha value for the CP predictor.
         :return: pred_price, text
         """
         print(full)
         if full:
-            pred_price = self.FullRFPredictor.PredictByX(X=X, ALPHA=alpha)
+            if model_sel == 'RF':
+                pred_price = self.FullRFPredictor.PredictByX(X=X, ALPHA=alpha)
+            elif model_sel == 'XGB':
+                pred_price = self.FullXGBPredictor.PredictByX(X=X, ALPHA=alpha)
+            elif model_sel == 'LGBM':
+                pred_price = self.FullLGBMPredictor.PredictByX(X=X, ALPHA=alpha)
+            else:
+                pred_price = self.FullRFPredictor.PredictByX(X=X, ALPHA=alpha)
             text = self.FullDescriptor.GenerateDescription(X=X, predicted_price=pred_price['values'][0], full=full)
         else:
-            pred_price = self.EasyRFPredictor.PredictByX(X=X, ALPHA=alpha)
+            if model_sel == 'RF':
+                pred_price = self.EasyRFPredictor.PredictByX(X=X, ALPHA=alpha)
+            elif model_sel == 'XGB':
+                pred_price = self.EasyXGBPredictor.PredictByX(X=X, ALPHA=alpha)
+            elif model_sel == 'LGBM':
+                pred_price = self.EasyLGBMPredictor.PredictByX(X=X, ALPHA=alpha)
+            else:
+                pred_price = self.EasyRFPredictor.PredictByX(X=X, ALPHA=alpha)
             text = self.EasyDescriptor.GenerateDescription(X=X, predicted_price=pred_price['values'][0], full=full)
+        print(f'use model: {model_sel}')
         print(pred_price)
         print(text)
         return f"{int(round(pred_price['values_range'][0], -2))}-{int(round(pred_price['values_range'][1], -2))}", text
