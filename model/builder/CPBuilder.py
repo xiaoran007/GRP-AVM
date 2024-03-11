@@ -9,6 +9,25 @@ from model.Predictor import Predictor
 import pandas as pd
 
 
+class CPBuilder(object):
+    def __init__(self, pre_fit_model):
+        self.PRE_FIT_MODEL = pre_fit_model
+
+    def Make(self, full=True):
+        if full:
+            X_train, y_train, X_test, y_test = Default(os.path.dirname(__file__))
+        else:
+            X_train, y_train, X_test, y_test = Default_Easy(os.path.dirname(__file__))
+        mapie_reg = MapieRegressor(estimator=self.PRE_FIT_MODEL, n_jobs=-1, verbose=0, cv='prefit')
+        print('Start Fit CP')
+        mapie_reg.fit(X_test, y_test)
+        print('Start Evaluate CP')
+        mapie_pred, mapie_pis = mapie_reg.predict(X_test, alpha=0.2)
+        print(mapie_pis)
+        print(mapie_pred)
+        return mapie_reg
+
+
 def numpy2df(numpy_arr, full):
     if full is True:
         feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
