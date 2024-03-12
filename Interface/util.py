@@ -2,6 +2,7 @@ import time
 from NLGen.Descriptor import Descriptor
 from Datasets.Data import Default, Default_Easy
 from model.Predictor import Predictor, CpPredictor
+from Report.Generator import Generator
 import os
 import json
 import pandas as pd
@@ -110,9 +111,9 @@ class RecordEventHandler(object):
                          'features': features, 'price': price, 'text': description, 'model_sel': model_sel, 'confidence_level': confidence_level}, f'./records/{rID}.record')
             rec_list.append(rID)
             json.dump(rec_list, open('records/rec.json', 'w'))
-            return f"Result ID is {rID}"
+            return f"Result ID is {rID}", rID
         else:
-            return 'This prediction will not be recorded.'
+            return 'This prediction will not be recorded.', "hidden"
 
     @staticmethod
     def checkIfRecordExists(rID):
@@ -239,7 +240,11 @@ class BackendEventHandler(object):
             alpha = 0.2
             cp_values = 0.8
         pred_price, text = self.handleRequest(x, model_sel=model_sel, full=enable_full, alpha=alpha)
-        rID_str = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel], price=pred_price, description=text, features=features, model_sel=model_sel, confidence_level=cp_values)
+        rID_str, rID = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel],
+                                                 price=pred_price, description=text, features=features, model_sel=model_sel,
+                                                 confidence_level=cp_values)
+        data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, pred_price, text, features)
+        Generator(data=data_dict, rID=rID, cwd=os.path.dirname(__file__)).RenderPDF(out_path=f'{os.path.dirname(__file__)}/sent/{rID}.pdf')
         return features, pred_price, text, rID_str, model_sel, cp_values
 
     def HandleProBatchRequest(self, form_dict, file_path):
