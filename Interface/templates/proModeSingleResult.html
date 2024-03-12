@@ -89,7 +89,7 @@
             <div class="col-md-8 mx-auto">
                 <div class="text-center">
                     <h1 class="text-white">Pro Mode Result Page</h1>
-                    <h3 class="text-white">{{ rID }}</h3>
+                    <h3 class="text-white">{{ rID_str }}</h3>
                 </div>
             </div>
         </div>
@@ -99,16 +99,24 @@
     <div class="container">
         <div class="section text-center">
 
-                <h2 class="title">Your Result</h2>
-                <p>&nbsp;</p>
-            </div>
+            <h2 class="title">Your Result</h2>
+            <p>&nbsp;</p>
+
+        </div>
+        <form action="/download_result" method="POST">
+            <input type="hidden" name="rID" value="{{ rID }}">
+            <button class="btn btn-icon btn-success mt-4" type="submit">
+                <span class="btn-inner--icon"><i class="fa-solid fa-rocket"></i></span>
+                <span class="btn-inner--text">Download</span>
+            </button>
+        </form>
         <div class="card col-md-8 mx-auto">
 
 
             <div class="row">
                 <div class="section text-center">
                     <h4 class="title">property price</h4>
-                    <h4 class="title"> {{ price }}</h4>
+                    <h4 class="title"> {{ price }} USD</h4>
                     <h4 class="title">Model Core</h4>
                     <p class="title"> {{ model_sel }}</p>
                     <h4 class="title">Confidence Level</h4>

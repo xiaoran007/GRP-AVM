@@ -2,7 +2,7 @@ import sys
 sys.path.append("../")
 sys.path.append("./")
 import joblib
-from flask import Flask, render_template, request, flash, g, redirect, url_for, session
+from flask import Flask, render_template, request, flash, g, redirect, url_for, session, send_file
 import util
 import json
 
@@ -122,8 +122,9 @@ def pro_mode_single():
         if not util.InputCheckEventHandler(full=True, pro=True, batch=False, form_dict=request_dict).HandleEvent():
             return render_template('proModeInputError.html')
         else:
-            features, pred_price, text, rID_str, model_sel, confidence_level = backendHandler.HandleProSingleRequest(form_dict=request_dict)
-            return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text, rID=rID_str, model_sel=model_sel, confidence_level=confidence_level)
+            features, pred_price, text, rID_str, model_sel, confidence_level, rID = backendHandler.HandleProSingleRequest(form_dict=request_dict)
+            return render_template('proModeSingleResult.html', features=features, price=pred_price,
+                                   description=text, rID_str=rID_str, model_sel=model_sel, confidence_level=confidence_level, rID=rID)
 
 
 @app.route('/pro_mode_record_search', methods=['GET', 'POST'])
@@ -171,6 +172,17 @@ def pro_mode_batch_upload():
                 return render_template('proModeBatchResult.html', lens=results_len, results=results, model_sel=model_sel, confidence_level=confidence_level)
         else:
             return render_template('proModeBatchError.html')
+
+@app.route('/download_result', methods=['GET', 'POST'])
+def download_result():
+    if request.method == 'GET':
+        return "undefined"
+    elif request.method == 'POST':
+        rID = request.form.get('rID')
+        file_path = f'./sent/{rID}.pdf'
+        file_name = f'rID{rID}.pdf'
+        return send_file(file_path, as_attachment=True, download_name=file_name)
+
 
 
 @app.route('/temp', methods=['GET', 'POST'])
