@@ -64,6 +64,7 @@ aside address {
 aside address#from {
   color: #a9a;
   flex: 1;
+  font-size: 12pt;
 }
 aside address#to {
   text-align: right;
