@@ -107,7 +107,7 @@ td {
   padding-top: 7mm;
 }
 td:last-of-type {
-  color: #1ee494;
+  /*color: #1ee494;*/
   font-weight: bold;
   text-align: right;
 }

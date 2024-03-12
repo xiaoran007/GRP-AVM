@@ -11,44 +11,33 @@
 
 <aside>
     <address id="from">
-        WeasyPrint
-        26 rue Emile Decorps
-        69100 Villeurbanne
-        France
+        LLM: {{enable_llm}}
+        FULL: {{enable_full}}
+        MODEL: {{model_sel}}
+        HIDDEN: {{enable_hidden}}
     </address>
 
-    <address id="to">
-        Our awesome developers
-        From all around the world
-        Earth
-    </address>
+<!--    <address id="to">-->
+<!--        Our awesome developers-->
+<!--        From all around the world-->
+<!--        Earth-->
+<!--    </address>-->
 </aside>
 
 <dl id="informations">
     <dt>Result ID</dt>
-    <dd>12345</dd>
+    <dd>{{rID}}</dd>
     <dt>Date</dt>
-    <dd>March 31, 2024</dd>
+    <dd>{{date}}</dd>
 </dl>
 
 <h2>Price</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Due by</th>
-        <th>Account number</th>
-        <th>Total due</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>May 10, 2018</td>
-        <td>132 456 789 012</td>
-        <td>€10,545.00</td>
-    </tr>
-    </tbody>
-</table>
+<h3>{{price}} USD</h3>
+<h2>Description</h2>
+<h3>{{description}}</h3>
 
+<h2>&nbsp;</h2>
+<h2>Features</h2>
 <table>
     <thead>
     <tr>
@@ -58,21 +47,13 @@
     </tr>
     </thead>
     <tbody>
+    {% for feature in features %}
     <tr>
-        <td>Website design</td>
-        <td>€34.20</td>
-        <td>100</td>
+        <td>{{ feature.name }}</td>
+        <td>{{ feature.class }}</td>
+        <td>{{ feature.value }}</td>
     </tr>
-    <tr>
-        <td>Website development</td>
-        <td>€45.50</td>
-        <td>100</td>
-    </tr>
-    <tr>
-        <td>Website integration</td>
-        <td>€25.75</td>
-        <td>100</td>
-    </tr>
+    {% endfor %}
     </tbody>
 </table>
 
