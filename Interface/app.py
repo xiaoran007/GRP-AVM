@@ -173,6 +173,7 @@ def pro_mode_batch_upload():
         else:
             return render_template('proModeBatchError.html')
 
+
 @app.route('/download_result', methods=['GET', 'POST'])
 def download_result():
     if request.method == 'GET':
@@ -182,7 +183,6 @@ def download_result():
         file_path = f'./sent/{rID}.pdf'
         file_name = f'rID{rID}.pdf'
         return send_file(file_path, as_attachment=True, download_name=file_name)
-
 
 
 @app.route('/temp', methods=['GET', 'POST'])
