@@ -49,6 +49,16 @@ h2 {
   margin: 0;
 }
 
+h3 {
+  font-size: 23pt;
+  margin: 0;
+}
+
+h4 {
+  font-size: 15pt;
+  margin: 0;
+}
+
 p {
   text-align: center;
 }
