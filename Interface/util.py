@@ -20,6 +20,50 @@ year = 2014
 month = 6
 
 
+class InputCheckEventHandler(object):
+    def __init__(self, full=True, pro=False, batch=False, form_dict=None):
+        self.FULL = full
+        self.PRO = pro
+        self.BATCH = batch
+        self.form_dict = form_dict
+
+    def HandleEvent(self):
+        if self.BATCH:
+            return self.handleBatchEvent()
+        else:
+            return self.handleSingleEvent()
+
+    def handleSingleEvent(self):
+        if self.PRO:
+            try:
+                enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = ProSettingsEventHandler(request_dict=self.form_dict).getControlArgs()
+                self.FULL = enable_full
+                if cp_values < 0 or cp_values > 1:
+                    raise ValueError
+            except ValueError as e:
+                print(e)
+                return False
+        try:
+            BackendEventHandler.DataPreprocessing(data_form=self.form_dict, full=self.FULL)
+            return True
+        except ValueError as e:
+            print(e)
+            return False
+
+    def handleBatchEvent(self):
+        try:
+            enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = ProSettingsEventHandler(request_dict=self.form_dict).getControlArgs()
+            if cp_values < 0 or cp_values > 1:
+                raise ValueError
+            return True
+        except ValueError as e:
+            print(e)
+            return False
+
+
+
+
+
 class RecordEventHandler(object):
     """
     This class handles the recording of predictions made by the code assistant.

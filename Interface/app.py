@@ -78,17 +78,23 @@ def normal_mode_pro():
 def normal_mode_end():
     # from basic
     if request.method == 'GET':
-        features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
-        print(f"OK\nPrice: {pred_price}\nText: {text}")
-        return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
+        if not util.InputCheckEventHandler(full=False, pro=False, batch=False, form_dict=session.get('normal_form_basic')).HandleEvent():
+            return render_template('normalModeInputError.html')
+        else:
+            features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
+            print(f"OK\nPrice: {pred_price}\nText: {text}")
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
     # from pro
     elif request.method == 'POST':
         session['normal_form_pro'] = request.form.to_dict()
         combined = {**session.get('normal_form_basic'), **(session.get('normal_form_pro'))}
-        features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=combined,
-                                                                        full=True, alpha=0.2)
-        print(f"OK\nPrice: {pred_price}\nText: {text}")
-        return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
+        if not util.InputCheckEventHandler(full=True, pro=False, batch=False, form_dict=combined).HandleEvent():
+            return render_template('normalModeInputError.html')
+        else:
+            features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=combined,
+                                                                            full=True, alpha=0.2)
+            print(f"OK\nPrice: {pred_price}\nText: {text}")
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
 
 
 @app.route('/pro_mode_start', methods=['GET', 'POST'])
@@ -113,8 +119,11 @@ def pro_mode_single():
         return render_template('proModeSingleResult.html')
     elif request.method == 'POST':
         request_dict = request.form.to_dict()
-        features, pred_price, text, rID_str, model_sel, confidence_level = backendHandler.HandleProSingleRequest(form_dict=request_dict)
-        return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text, rID=rID_str, model_sel=model_sel, confidence_level=confidence_level)
+        if not util.InputCheckEventHandler(full=True, pro=True, batch=False, form_dict=request_dict).HandleEvent():
+            return render_template('proModeInputError.html')
+        else:
+            features, pred_price, text, rID_str, model_sel, confidence_level = backendHandler.HandleProSingleRequest(form_dict=request_dict)
+            return render_template('proModeSingleResult.html', features=features, price=pred_price, description=text, rID=rID_str, model_sel=model_sel, confidence_level=confidence_level)
 
 
 @app.route('/pro_mode_record_search', methods=['GET', 'POST'])
@@ -155,8 +164,11 @@ def pro_mode_batch_upload():
             user_file = request.files['file']
             save_path = './upload/'
             user_file.save(save_path + user_file.filename)
-            results_len, results, model_sel, confidence_level = backendHandler.HandleProBatchRequest(request.form.to_dict(), save_path + user_file.filename)
-            return render_template('proModeBatchResult.html', lens=results_len, results=results, model_sel=model_sel, confidence_level=confidence_level)
+            if not util.InputCheckEventHandler(full=True, pro=True, batch=True, form_dict=request.form.to_dict()).HandleEvent():
+                return render_template('proModeBatchError.html')
+            else:
+                results_len, results, model_sel, confidence_level = backendHandler.HandleProBatchRequest(request.form.to_dict(), save_path + user_file.filename)
+                return render_template('proModeBatchResult.html', lens=results_len, results=results, model_sel=model_sel, confidence_level=confidence_level)
         else:
             return render_template('proModeBatchError.html')
 
