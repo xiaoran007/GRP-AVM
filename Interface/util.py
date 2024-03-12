@@ -245,7 +245,7 @@ class BackendEventHandler(object):
                                                  confidence_level=cp_values)
         data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, pred_price, text, features)
         Generator(data=data_dict, rID=rID, cwd=os.path.dirname(__file__)).RenderPDF(out_path=f'{os.path.dirname(__file__)}/sent/{rID}.pdf')
-        return features, pred_price, text, rID_str, model_sel, cp_values
+        return features, pred_price, text, rID_str, model_sel, cp_values, rID
 
     def HandleProBatchRequest(self, form_dict, file_path):
         """
