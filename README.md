@@ -77,6 +77,7 @@ This project uses Python and the following packages are needed:
 * flask
 * mapie
 * joblib
+* weasyprint (macOS and Linux only!)
 
 For other dependent packages, see requirements.txt and environment.yml.
 
