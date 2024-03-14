@@ -99,9 +99,9 @@
     <div class="container">
         <div class="section text-center">
 
-                <h2 class="title">Batch prediction</h2>
-                <p>&nbsp;</p>
-            </div>
+            <h2 class="title">Batch prediction</h2>
+            <p>&nbsp;</p>
+        </div>
         <div class="card col-md-8 mx-auto">
 
 
@@ -145,7 +145,7 @@
                                     Price
                                 </th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Description
+                                    Report
                                 </th>
                             </tr>
                             </thead>
@@ -166,8 +166,15 @@
                                     <p class="text-xs font-weight-bold mb-0">{{ result.price }}</p>
                                     <!--                                    <p class="text-xs text-secondary mb-0">Organization</p>-->
                                 </td>
-                                <td class="align-middle text-start text-sm">
-                                    <p class="text-xs font-weight-bold mb-0">{{ result.text }}</p>
+                                <td class="align-middle text-center text-sm">
+                                    <!--                                    <p class="text-xs font-weight-bold mb-0">{{ result.text }}</p>-->
+                                    <form action="/download_result" method="POST">
+                                        <input type="hidden" name="rID" value="{{ result.rID }}">
+                                        <button class="btn btn-icon btn-success mt-4" type="submit">
+                                            <span class="btn-inner--icon"><i class="fa-solid fa-rocket"></i></span>
+                                            <span class="btn-inner--text">Download</span>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             {% endfor %}

@@ -37,7 +37,8 @@ class InputCheckEventHandler(object):
     def handleSingleEvent(self):
         if self.PRO:
             try:
-                enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = ProSettingsEventHandler(request_dict=self.form_dict).getControlArgs()
+                enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = ProSettingsEventHandler(
+                    request_dict=self.form_dict).getControlArgs()
                 self.FULL = enable_full
                 if cp_values < 0 or cp_values > 1:
                     raise ValueError
@@ -53,7 +54,8 @@ class InputCheckEventHandler(object):
 
     def handleBatchEvent(self):
         try:
-            enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = ProSettingsEventHandler(request_dict=self.form_dict).getControlArgs()
+            enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = ProSettingsEventHandler(
+                request_dict=self.form_dict).getControlArgs()
             if cp_values < 0 or cp_values > 1:
                 raise ValueError
             return True
@@ -66,6 +68,7 @@ class RecordEventHandler(object):
     """
     This class handles the recording of predictions made by the code assistant.
     """
+
     def __init__(self):
         """
         Initialize the RecordEventHandler class.
@@ -105,7 +108,8 @@ class RecordEventHandler(object):
             rID = self.generateID()
             rec_list = json.load(open('records/rec.json', 'r'))
             joblib.dump({'rID': rID, 'status': status,
-                         'features': features, 'price': price, 'text': description, 'model_sel': model_sel, 'confidence_level': confidence_level}, f'./records/{rID}.record')
+                         'features': features, 'price': price, 'text': description, 'model_sel': model_sel,
+                         'confidence_level': confidence_level}, f'./records/{rID}.record')
             rec_list.append(rID)
             json.dump(rec_list, open('records/rec.json', 'w'))
             return f"Result ID is {rID}", rID
@@ -142,6 +146,7 @@ class ProSettingsEventHandler(object):
     """
     handler for pro settings
     """
+
     def __init__(self, request_dict):
         """
         Initialize the ProSettingsEventHandler class.
@@ -183,16 +188,21 @@ class BackendEventHandler(object):
     """
     This class handles the backend events.
     """
+
     def __init__(self):
         """
         Initialize the BackendEventHandler class. Preload the object files.
         """
         self.FullRFPredictor = CpPredictor(X=None, model_sel='RF', full=True, alpha=0.2, cwd=os.path.dirname(__file__))
-        self.FullXGBPredictor = CpPredictor(X=None, model_sel='XGB', full=True, alpha=0.2, cwd=os.path.dirname(__file__))
-        self.FullLGBMPredictor = CpPredictor(X=None, model_sel='LGBM', full=True, alpha=0.2, cwd=os.path.dirname(__file__))
+        self.FullXGBPredictor = CpPredictor(X=None, model_sel='XGB', full=True, alpha=0.2,
+                                            cwd=os.path.dirname(__file__))
+        self.FullLGBMPredictor = CpPredictor(X=None, model_sel='LGBM', full=True, alpha=0.2,
+                                             cwd=os.path.dirname(__file__))
         self.EasyRFPredictor = CpPredictor(X=None, model_sel='RF', full=False, alpha=0.2, cwd=os.path.dirname(__file__))
-        self.EasyXGBPredictor = CpPredictor(X=None, model_sel='XGB', full=False, alpha=0.2, cwd=os.path.dirname(__file__))
-        self.EasyLGBMPredictor = CpPredictor(X=None, model_sel='LGBM', full=False, alpha=0.2, cwd=os.path.dirname(__file__))
+        self.EasyXGBPredictor = CpPredictor(X=None, model_sel='XGB', full=False, alpha=0.2,
+                                            cwd=os.path.dirname(__file__))
+        self.EasyLGBMPredictor = CpPredictor(X=None, model_sel='LGBM', full=False, alpha=0.2,
+                                             cwd=os.path.dirname(__file__))
         self.FullDescriptor = Descriptor(X=None, predicted_price=None, full=True, cwd=os.path.dirname(__file__))
         self.EasyDescriptor = Descriptor(X=None, predicted_price=None, full=False, cwd=os.path.dirname(__file__))
         self.RecordSearcher = RecordEventHandler()
@@ -241,11 +251,14 @@ class BackendEventHandler(object):
             alpha = 0.2
             cp_values = 0.8
         pred_price, text = self.handleRequest(x, model_sel=model_sel, full=enable_full, alpha=alpha)
-        rID_str, rID = recordHandler.HandleEvent(status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel],
-                                                 price=pred_price, description=text, features=features, model_sel=model_sel,
-                                                 confidence_level=cp_values)
-        data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, pred_price, text, features)
-        Generator(data=data_dict, rID=rID, cwd=os.path.dirname(__file__)).RenderPDF(out_path=f'{os.path.dirname(__file__)}/sent/{rID}.pdf')
+        rID_str, rID = recordHandler.HandleEvent(
+            status=[enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel],
+            price=pred_price, description=text, features=features, model_sel=model_sel,
+            confidence_level=cp_values)
+        data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, pred_price, text,
+                                         features)
+        Generator(data=data_dict, rID=rID, cwd=os.path.dirname(__file__)).RenderPDF(
+            out_path=f'{os.path.dirname(__file__)}/sent/{rID}.pdf')
         return features, pred_price, text, rID_str, model_sel, cp_values, rID
 
     def HandleProBatchRequest(self, form_dict, file_path):
@@ -272,9 +285,20 @@ class BackendEventHandler(object):
         if len(properties) != 0:
             predict_results = list()
             index = 0
+            rID = RecordEventHandler().generateID()
             for i in properties:
+                if enable_full:
+                    features = self.Numpy2dict(i, full=True, data_class='advance')
+                else:
+                    features = self.Numpy2dict(i, full=False, data_class='default')
                 pred_price, text = self.handleRequest(i, model_sel=model_sel, full=enable_full, alpha=alpha)
-                predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': pred_type})
+                rID_b = Generator.rIDPasserBatch(rID, index)
+                data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID_b,
+                                                      pred_price,
+                                                      text, features)
+                Generator(data=data_dict, rID=rID_b, cwd=os.path.dirname(__file__)).RenderPDF(
+                    out_path=f'{os.path.dirname(__file__)}/sent/{rID_b}.pdf')
+                predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': pred_type, 'rID': rID_b})
                 index += 1
         else:
             predict_results = []
@@ -349,7 +373,8 @@ class BackendEventHandler(object):
                 model_sel = 'RF'
             if confidence_level is None:
                 confidence_level = 0.8
-            return {'status': True, 'values': [features, price, description, rID, pro_settings_str, model_sel, confidence_level]}
+            return {'status': True,
+                    'values': [features, price, description, rID, pro_settings_str, model_sel, confidence_level]}
         else:
             return {'status': False, 'values': None}
 
@@ -407,6 +432,26 @@ class BackendEventHandler(object):
                 row['value'] = value
             else:
                 row['value'] = "None"
+            row['class'] = data_class
+            res.append(row)
+        return res
+
+    @staticmethod
+    def Numpy2dict(numpy_array, full, data_class='default'):
+        res = list()
+        if len(numpy_array) == 7 and full is False:
+            feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
+        else:
+            feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
+                            'condition',
+                            'grade',
+                            'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long',
+                            'sqft_living15',
+                            'sqft_lot15', 'year', 'month']
+        for i in range(len(numpy_array)):
+            row = dict()
+            row['name'] = feature_name[i]
+            row['value'] = numpy_array[i]
             row['class'] = data_class
             res.append(row)
         return res

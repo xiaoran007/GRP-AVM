@@ -57,4 +57,9 @@ class Generator(object):
         print(res)
         return res
 
+    @staticmethod
+    def rIDPasserBatch(rID, i):
+        rID = f'{rID}_{i}'
+        return rID
+
 
