@@ -26,6 +26,7 @@
 
 ## Dev tips
 - transformers model is saved in local mode, but do not track with git.
+- transformers package version must "4.37.1"
 
 
 ## **Compatibility on low-resolution devices**
