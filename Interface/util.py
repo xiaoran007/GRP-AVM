@@ -62,9 +62,6 @@ class InputCheckEventHandler(object):
             return False
 
 
-
-
-
 class RecordEventHandler(object):
     """
     This class handles the recording of predictions made by the code assistant.
@@ -214,6 +211,10 @@ class BackendEventHandler(object):
             features = self.DataTrans(form_dict, data_class='default')
         x = self.DataPreprocessing(form_dict, full=full)
         pred_price, text = self.handleRequest(x, model_sel='RF', full=full, alpha=alpha)
+        data_dict = Generator.DataPasser(False, full, 'RF', False, "Normal", pred_price, text,
+                                         features)
+        Generator(data=data_dict, rID='Normal', cwd=os.path.dirname(__file__)).RenderPDF(
+            out_path=f'{os.path.dirname(__file__)}/sent/{"Normal"}.pdf')
         return features, pred_price, text
 
     def HandleProSingleRequest(self, form_dict):

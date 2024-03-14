@@ -83,7 +83,7 @@ def normal_mode_end():
         else:
             features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
-            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price, rID='Normal')
     # from pro
     elif request.method == 'POST':
         session['normal_form_pro'] = request.form.to_dict()
@@ -94,7 +94,7 @@ def normal_mode_end():
             features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=combined,
                                                                             full=True, alpha=0.2)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
-            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price)
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price, rID='Normal')
 
 
 @app.route('/pro_mode_start', methods=['GET', 'POST'])
