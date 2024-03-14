@@ -17,15 +17,15 @@
 ***
 
 ## **TODO**
-- **Refactor Front-end code**
 - **Document**
 - **Test**
 
 ## **working branch**
 - **MaterialUIKit**
-- **CP**
-- **readmore**
-- **tryPDF**
+- **transformers**
+
+## Dev tips
+- transformers model is saved in local mode, but do not track with git.
 
 
 ## **Compatibility on low-resolution devices**
