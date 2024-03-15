@@ -1,10 +1,14 @@
 import os
 from jinja2 import Environment, FileSystemLoader
-from weasyprint import HTML
+from weasyprint import HTML, CSS
+from weasyprint.text.fonts import FontConfiguration
 from datetime import datetime
 
 
 class Generator(object):
+    """
+    This class is used to generate the PDF files for the reports that user can download.
+    """
     def __init__(self, data, rID, cwd):
         """
         :param data: dict, key: enable_llm, enable_full,
@@ -19,21 +23,25 @@ class Generator(object):
         print(f"set dir: {os.getcwd()}")
         self.ENV = Environment(loader=FileSystemLoader('./templates'))
         self.TEMPLATE = self.ENV.get_template('template.html')
+        self.font_config = FontConfiguration()
+        self.STYLESHEET = CSS(filename='./templates/template.css', font_config=self.font_config)
         os.chdir(self.CWD)
         print(f"set dir back: {self.CWD}")
 
     def renderHTML(self):
-        with open('./templates/rendered_template.html', 'w') as f:
-            f.write(self.TEMPLATE.render(self.DATA))
+        # with open('./templates/rendered_template.html', 'w') as f:
+        #     f.write(self.TEMPLATE.render(self.DATA))
+        return self.TEMPLATE.render(self.DATA)
 
     def RenderPDF(self, out_path):
         os.chdir(os.path.dirname(__file__))
         print(f"set dir: {os.getcwd()}")
-        self.renderHTML()
-        html_obj = HTML(filename='./templates/rendered_template.html')
+        # self.renderHTML()
+        # html_obj = HTML(filename='./templates/rendered_template.html')
+        html_obj = HTML(string=self.renderHTML())
         os.chdir(self.CWD)
         print(f"set dir back: {self.CWD}")
-        html_obj.write_pdf(out_path)
+        html_obj.write_pdf(out_path, stylesheets=[self.STYLESHEET], font_config=self.font_config)
 
     @staticmethod
     def DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, price, description, features):
