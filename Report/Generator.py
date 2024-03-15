@@ -31,7 +31,7 @@ class Generator(object):
         html_obj.write_pdf(out_path, stylesheets=[self.StyleSheet], font_config=self.FontConfig)
 
     @staticmethod
-    def DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, price, description, features):
+    def DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, price, description, features, cp_values):
         res = dict()
         res['enable_llm'] = enable_llm
         res['enable_full'] = enable_full
@@ -49,6 +49,7 @@ class Generator(object):
         res['price'] = price
         res['description'] = description
         res['features'] = features
+        res['cp_values'] = cp_values
         print(res)
         return res
 

@@ -234,7 +234,7 @@ class BackendEventHandler(object):
         x = self.DataPreprocessing(form_dict, full=full)
         pred_price, text = self.handleRequest(x, model_sel='RF', full=full, alpha=alpha)
         data_dict = Generator.DataPasser(False, full, 'RF', False, "Normal", pred_price, text,
-                                         features)
+                                         features, cp_values='0.8')
         self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{"Normal"}.pdf')
         return features, pred_price, text
 
@@ -267,7 +267,7 @@ class BackendEventHandler(object):
             price=pred_price, description=text, features=features, model_sel=model_sel,
             confidence_level=cp_values)
         data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, pred_price, text,
-                                         features)
+                                         features, cp_values)
         self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{rID}.pdf')
         return features, pred_price, text, rID_str, model_sel, cp_values, rID
 
@@ -305,7 +305,7 @@ class BackendEventHandler(object):
                 rID_b = Generator.rIDPasserBatch(rID, index)
                 data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID_b,
                                                       pred_price,
-                                                      text, features)
+                                                      text, features, cp_values)
                 self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{rID_b}.pdf')
                 predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': pred_type, 'rID': rID_b})
                 index += 1
