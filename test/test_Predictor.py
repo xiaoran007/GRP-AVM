@@ -94,6 +94,9 @@ class TestPredictor:
                 Predictor.numpy2df(x, full=True)
 
     class TestLoadModel:
+        """
+        Test the LoadModel method.
+        """
         def test_load(self):
             predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
             os.chdir(os.path.dirname(model.__file__))
@@ -122,7 +125,9 @@ class TestPredictor:
 
 
 class TestCpPredictor:
-
+    """
+    Test the CpPredictor class.
+    """
     @pytest.fixture(scope='class')
     def case(self):
         res = dict()
@@ -132,6 +137,9 @@ class TestCpPredictor:
         return res
 
     class TestInit:
+        """
+        Test the Init method.
+        """
         def test_rf_f(self):
             predictor = CpPredictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__), alpha=0.2)
             assert predictor is not None
@@ -157,6 +165,9 @@ class TestCpPredictor:
             assert predictor is not None
 
     class TestPredict:
+        """
+        Test the Predict method.
+        """
         def test_rf_ff(self, case):
             x = case.get('full')
             predictor = CpPredictor(X=x, model_sel='RF', full=True, cwd=os.path.dirname(__file__), alpha=0.2)
@@ -218,6 +229,9 @@ class TestCpPredictor:
             assert predictor.Predict().get('status') == -1
 
     class TestPredictByX:
+        """
+        Test the PredictByX method.
+        """
         def test_f1(self, case):
             x = case.get('full')
             predictor = CpPredictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__), alpha=0.2)
@@ -239,6 +253,9 @@ class TestCpPredictor:
             assert predictor.PredictByX(X=x, ALPHA=0.8).get('status') == 0
 
     class TestLoadModel:
+        """
+        Test the LoadModel method.
+        """
         def test_rf_f(self):
             predictor = CpPredictor(X=None, cwd=os.path.dirname(__file__))
             os.chdir(os.path.dirname(model.__file__))
