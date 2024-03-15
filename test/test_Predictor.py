@@ -1,21 +1,29 @@
 import pytest
 
 
-def test_predict():
-    assert True
+class TestPredict:
+    def test_case1(self):
+        assert True
+
+    def test_case2(self):
+        assert True
 
 
-def test_predict_by_x():
-    assert False
+class TestPredictByX:
+    def test_case1(self):
+        assert True
 
 
-def test_numpy2df():
-    assert False
+class TestNumpy2DF:
+    def test_case1(self):
+        assert True
 
 
-def test_load_model():
-    assert False
+class TestLoadModel:
+    def test_case1(self):
+        assert True
 
 
-def test_check_model():
-    assert False
+class TestCheckModel:
+    def test_case1(self):
+        assert True
