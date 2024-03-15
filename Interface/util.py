@@ -382,6 +382,10 @@ class BackendEventHandler(object):
                 model_sel = 'RF'
             if confidence_level is None:
                 confidence_level = 0.8
+            data_dict = Generator.DataPasser(pro_settings[0], pro_settings[1], model_sel, pro_settings[4], f'R{rID}',
+                                             price,
+                                             description, features, confidence_level)
+            self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/R{rID}.pdf')
             return {'status': True,
                     'values': [features, price, description, rID, pro_settings_str, model_sel, confidence_level]}
         else:

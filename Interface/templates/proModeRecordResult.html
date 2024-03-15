@@ -98,9 +98,20 @@
 <div class="card card-body shadow-xl mt-n8 col-md-9 mx-auto">
     <div class="container">
         <div class="section text-center">
-                <h2 class="title">Result</h2>
-                <p>&nbsp;</p>
-            </div>
+            <h2 class="title">Result</h2>
+            <p>&nbsp;</p>
+        </div>
+
+        <div class="text-center">
+            <form action="/download_result" method="POST">
+                <input type="hidden" name="rID" value="R{{ rID }}">
+                <button class="btn btn-icon btn-success mt-4" type="submit">
+                    <span class="btn-inner--icon"><i class="fa-solid fa-rocket"></i></span>
+                    <span class="btn-inner--text">Download</span>
+                </button>
+            </form>
+        </div>
+
         <div class="card col-md-8 mx-auto">
             <div class="row">
                 <div class="section text-center">
