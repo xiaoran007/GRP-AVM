@@ -9,16 +9,7 @@ import pandas as pd
 import json
 import joblib
 
-Full_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
-                      'condition',
-                      'grade',
-                      'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long',
-                      'sqft_living15',
-                      'sqft_lot15', 'year', 'month']
 
-Easy_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
-year = 2014
-month = 6
 
 
 class InputCheckEventHandler(object):
@@ -386,6 +377,16 @@ class BackendEventHandler(object):
         :param full: bool, set True to use full model.
         :return: numpy array of the preprocessed data
         """
+        Full_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
+                              'condition',
+                              'grade',
+                              'sqft_above', 'sqft_basement', 'building_age', 'renovated_year', 'lat', 'long',
+                              'sqft_living15',
+                              'sqft_lot15', 'year', 'month']
+
+        Easy_feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
+        year = 2014
+        month = 6
         my_array = list()
         if full:
             for feature_name in Full_feature_names:
