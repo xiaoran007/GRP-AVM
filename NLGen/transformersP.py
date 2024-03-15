@@ -4,7 +4,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
-torch.set_default_device("cuda")
+# torch.set_default_device("cuda")
+# torch.set_default_device("cpu")
 
 
 
@@ -30,8 +31,10 @@ def main2():
 
 
 def main3():
-    model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2", torch_dtype="auto", trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2", torch_dtype=torch.float32, trust_remote_code=True)
+    model.save_pretrained("transformers/microsoft/phi-2/model")
     tokenizer = AutoTokenizer.from_pretrained("microsoft/phi-2", trust_remote_code=True)
+    tokenizer.save_pretrained("transformers/microsoft/phi-2/tokenizer")
     text = 'Instruct: Paraphrase this sentence in two different way: "The expected property price is higher than average for this type of property due to the large lot size, but is reduced slightly due to poor condition of the single bathroom"\nOutput:'
     inputs = tokenizer(text, return_tensors="pt", return_attention_mask=False)
 
@@ -40,5 +43,17 @@ def main3():
     print(text)
 
 
+def main4():
+    model = AutoModelForCausalLM.from_pretrained("transformers/microsoft/phi-2/model")
+    tokenizer = AutoTokenizer.from_pretrained("transformers/microsoft/phi-2/tokenizer")
+    text = 'Instruct: Paraphrase this sentence: "The expected property price is higher than average for this type of property due to the large lot size, but is reduced slightly due to poor condition of the single bathroom"\nOutput:'
+    inputs = tokenizer(text, return_tensors="pt", return_attention_mask=False)
+
+    outputs = model.generate(**inputs, max_length=2000, pad_token_id=tokenizer.eos_token_id)
+    text = tokenizer.batch_decode(outputs)[0]
+    print('-----------')
+    print(text)
+
+
 if __name__ == '__main__':
-    main3()
+    main4()
