@@ -217,6 +217,7 @@ class BackendEventHandler(object):
         self.FullDescriptor = Descriptor(X=None, predicted_price=None, full=True, cwd=os.path.dirname(__file__))
         self.EasyDescriptor = Descriptor(X=None, predicted_price=None, full=False, cwd=os.path.dirname(__file__))
         self.RecordSearcher = RecordEventHandler()
+        self.PDFGenerator = Generator(cwd=os.path.dirname(__file__))
 
     def HandleNormalRequest(self, form_dict, full=True, alpha=0.2):
         """
@@ -234,8 +235,7 @@ class BackendEventHandler(object):
         pred_price, text = self.handleRequest(x, model_sel='RF', full=full, alpha=alpha)
         data_dict = Generator.DataPasser(False, full, 'RF', False, "Normal", pred_price, text,
                                          features)
-        Generator(data=data_dict, rID='Normal', cwd=os.path.dirname(__file__)).RenderPDF(
-            out_path=f'{os.path.dirname(__file__)}/sent/{"Normal"}.pdf')
+        self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{"Normal"}.pdf')
         return features, pred_price, text
 
     def HandleProSingleRequest(self, form_dict):
@@ -268,8 +268,7 @@ class BackendEventHandler(object):
             confidence_level=cp_values)
         data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, pred_price, text,
                                          features)
-        Generator(data=data_dict, rID=rID, cwd=os.path.dirname(__file__)).RenderPDF(
-            out_path=f'{os.path.dirname(__file__)}/sent/{rID}.pdf')
+        self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{rID}.pdf')
         return features, pred_price, text, rID_str, model_sel, cp_values, rID
 
     def HandleProBatchRequest(self, form_dict, file_path):
@@ -307,8 +306,7 @@ class BackendEventHandler(object):
                 data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID_b,
                                                       pred_price,
                                                       text, features)
-                Generator(data=data_dict, rID=rID_b, cwd=os.path.dirname(__file__)).RenderPDF(
-                    out_path=f'{os.path.dirname(__file__)}/sent/{rID_b}.pdf')
+                self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{rID_b}.pdf')
                 predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': pred_type, 'rID': rID_b})
                 index += 1
         else:
