@@ -1,10 +1,8 @@
 import sys
 sys.path.append("../")
 sys.path.append("./")
-import joblib
-from flask import Flask, render_template, request, flash, g, redirect, url_for, session, send_file
+from flask import Flask, render_template, request, session, send_file
 import util
-import json
 
 app = Flask(__name__,   static_url_path='',
             static_folder='static',
@@ -17,16 +15,27 @@ print("Init ok!")
 
 
 @app.route('/', methods=['GET', 'POST'])
-def pro_mode():
+def index():
+    """
+    This method handles all requests to the root URL (/).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('index.html')
     elif request.method == 'POST':
         return "undefined"
 
 
-
 @app.route('/indev', methods=['GET', 'POST'])
 def indev():
+    """
+    This method handle all requests to the indev URL (/indev).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('indev.html')
     elif request.method == 'POST':
@@ -35,6 +44,12 @@ def indev():
 
 @app.route('/readmore', methods=['GET', 'POST'])
 def readmore():
+    """
+    This method handle all requests to the readmore URL (/readmore).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('readmore.html')
     elif request.method == 'POST':
@@ -43,6 +58,12 @@ def readmore():
 
 @app.route('/getstarted', methods=['GET', 'POST'])
 def getstarted():
+    """
+    This method handle all requests to the getstarted URL (/getstarted).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('getStartPage.html')
     elif request.method == 'POST':
@@ -51,6 +72,12 @@ def getstarted():
 
 @app.route('/normal_mode_form', methods=['GET', 'POST'])
 def normal_mode_form():
+    """
+    This method handle all requests to the normal_mode_form URL (/normal_mode_form).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('normalModeFormBasic.html')
     elif request.method == 'POST':
@@ -59,6 +86,12 @@ def normal_mode_form():
 
 @app.route('/normal_mode_mid', methods=['POST'])
 def normal_mode_mid():
+    """
+    This method handle all requests to the normal_mode_mid URL (/normal_mode_mid).
+    Support: POST
+    :param: request
+    :return: response
+    """
     if request.method == 'POST':
         print(request.form)
         session['normal_form_basic'] = request.form.to_dict()
@@ -67,6 +100,12 @@ def normal_mode_mid():
 
 @app.route('/normal_mode_pro', methods=['GET', 'POST'])
 def normal_mode_pro():
+    """
+    This method handle all requests to the normal_mode_pro URL (/normal_mode_pro).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         print(f"from share {session.get('normal_form_basic')}")
         return render_template('normalModeFormPro.html')
@@ -76,6 +115,12 @@ def normal_mode_pro():
 
 @app.route('/normal_mode_end', methods=['GET', 'POST'])
 def normal_mode_end():
+    """
+    This method handle all requests to the normal_mode_end URL (/normal_mode_end).
+    Support: GET, POST
+    :param: request
+    :return: response
+    """
     # from basic
     if request.method == 'GET':
         if not util.InputCheckEventHandler(full=False, pro=False, batch=False, form_dict=session.get('normal_form_basic')).HandleEvent():
@@ -99,6 +144,12 @@ def normal_mode_end():
 
 @app.route('/pro_mode_start', methods=['GET', 'POST'])
 def pro_mode_start():
+    """
+    This method handle all requests to the pro_mode_start URL (/pro_mode_start).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('proModeStart.html')
     elif request.method == 'POST':
@@ -107,6 +158,12 @@ def pro_mode_start():
 
 @app.route('/pro_mode_form', methods=['GET', 'POST'])
 def pro_mode_form():
+    """
+    This method handle all requests to the pro_mode_form URL (/pro_mode_form).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('proModeForm.html')
     elif request.method == 'POST':
@@ -115,8 +172,14 @@ def pro_mode_form():
 
 @app.route('/pro_mode_single', methods=['GET', 'POST'])
 def pro_mode_single():
+    """
+    This method handle all requests to the pro_mode_single URL (/pro_mode_single).
+    Support: POST
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
-        return render_template('proModeSingleResult.html')
+        return render_template('proModeInputError.html')
     elif request.method == 'POST':
         request_dict = request.form.to_dict()
         if not util.InputCheckEventHandler(full=True, pro=True, batch=False, form_dict=request_dict).HandleEvent():
@@ -129,6 +192,12 @@ def pro_mode_single():
 
 @app.route('/pro_mode_record_search', methods=['GET', 'POST'])
 def pro_mode_record_search():
+    """
+    This method handle all requests to the pro_mode_record_search URL (/pro_mode_record_search).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('proModeRecordSearch.html')
     elif request.method == 'POST':
@@ -137,6 +206,12 @@ def pro_mode_record_search():
 
 @app.route('/pro_mode_record_result', methods=['GET', 'POST'])
 def pro_mode_record_result():
+    """
+    This method handle all requests to the pro_mode_record_result URL (/pro_mode_record_result).
+    Support: POST
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return "undefined"
     elif request.method == 'POST':
@@ -150,6 +225,12 @@ def pro_mode_record_result():
 
 @app.route('/pro_mode_batch', methods=['GET', 'POST'])
 def pro_mode_batch():
+    """
+    This method handle all requests to the pro_mode_batch URL (/pro_mode_batch).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('proModeBatch.html')
     elif request.method == 'POST':
@@ -158,6 +239,12 @@ def pro_mode_batch():
 
 @app.route('/pro_mode_batch_upload', methods=['GET', 'POST'])
 def pro_mode_batch_upload():
+    """
+    This method handle all requests to the pro_mode_batch_upload URL (/pro_mode_batch_upload).
+    Support: POST
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return "undefined"
     elif request.method == 'POST':
@@ -176,6 +263,12 @@ def pro_mode_batch_upload():
 
 @app.route('/download_result', methods=['GET', 'POST'])
 def download_result():
+    """
+    This method handle all requests to the download_result URL (/download_result).
+    Support: POST
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return "undefined"
     elif request.method == 'POST':
@@ -187,6 +280,12 @@ def download_result():
 
 @app.route('/temp', methods=['GET', 'POST'])
 def temp():
+    """
+    This method handle all requests to the temp URL (/temp).
+    Support: GET
+    :param: request
+    :return: response
+    """
     if request.method == 'GET':
         return render_template('temp.html')
     elif request.method == 'POST':
