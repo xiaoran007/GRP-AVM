@@ -1,10 +1,8 @@
 import time
 from NLGen.Descriptor import Descriptor
-from Datasets.Data import Default, Default_Easy
-from model.Predictor import Predictor, CpPredictor
+from model.Predictor import CpPredictor
 from Report.Generator import Generator
 import os
-import json
 import pandas as pd
 import json
 import joblib
@@ -14,6 +12,7 @@ class InputCheckEventHandler(object):
     """
     This class handles the input check event.
     """
+
     def __init__(self, full=True, pro=False, batch=False, form_dict=None):
         """
         Initialize the InputCheckEventHandler.
@@ -304,10 +303,11 @@ class BackendEventHandler(object):
                 pred_price, text = self.handleRequest(i, model_sel=model_sel, full=enable_full, alpha=alpha)
                 rID_b = Generator.rIDPasserBatch(rID, index)
                 data_dict = Generator.DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID_b,
-                                                      pred_price,
-                                                      text, features, cp_values)
+                                                 pred_price,
+                                                 text, features, cp_values)
                 self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{rID_b}.pdf')
-                predict_results.append({'id': index, 'price': pred_price, 'text': text, 'type': pred_type, 'rID': rID_b})
+                predict_results.append(
+                    {'id': index, 'price': pred_price, 'text': text, 'type': pred_type, 'rID': rID_b})
                 index += 1
         else:
             predict_results = []
@@ -485,4 +485,3 @@ class BackendEventHandler(object):
             row['class'] = data_class
             res.append(row)
         return res
-
