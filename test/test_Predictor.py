@@ -13,6 +13,9 @@ class TestPredictor:
         return res
 
     class TestInit:
+        """
+        Test the Init method.
+        """
         def test_case1(self):
             predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
             assert predictor is not None
@@ -38,39 +41,74 @@ class TestPredictor:
             assert predictor is not None
 
     class TestPredict:
+        """
+        Test the Predict method.
+        """
         def test_case1(self, case):
             x = case.get('full')
-            predictor = Predictor(X=x, model_sel='RF', full=True, lang=False, cwd=os.path.dirname(__file__))
+            predictor = Predictor(X=x, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
             pred_dict = predictor.Predict()
             assert pred_dict['status'] == 0
 
         def test_case2(self, case):
             x = case.get('full')
-            predictor = Predictor(X=x, model_sel='RF', full=False, lang=False, cwd=os.path.dirname(__file__))
+            predictor = Predictor(X=x, model_sel='RF', full=False, cwd=os.path.dirname(__file__))
             pred_dict = predictor.Predict()
             assert pred_dict['status'] == 0
 
         def test_case3(self, case):
             x = case.get('normal')
-            predictor = Predictor(X=x, model_sel='RF', full=False, lang=False, cwd=os.path.dirname(__file__))
+            predictor = Predictor(X=x, model_sel='RF', full=False, cwd=os.path.dirname(__file__))
             pred_dict = predictor.Predict()
             assert pred_dict['status'] == 0
 
         def test_case4(self, case):
             x = case.get('normal')
-            predictor = Predictor(X=x, model_sel='RF', full=True, lang=False, cwd=os.path.dirname(__file__))
+            predictor = Predictor(X=x, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
             pred_dict = predictor.Predict()
             assert pred_dict['status'] == -1
 
-
     class TestPredictByX:
-        def test_case1(self):
-            assert True
+        """
+        Test the PredictByX method.
+        """
+        def test_Full(self, case):
+            x = case.get('full')
+            predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
+            pred_dict = predictor.PredictByX(X=x)
+            assert pred_dict['status'] == 0
+
+        def test_Easy(self, case):
+            x = case.get('normal')
+            predictor = Predictor(X=None, model_sel='RF', full=False, cwd=os.path.dirname(__file__))
+            pred_dict = predictor.PredictByX(X=x)
+            assert pred_dict['status'] == 0
 
     class TestNumpy2DF:
+        """
+        Test the Numpy2DF method.
+        """
+        def test_full2full(self, case):
+            x = case.get('full')
+            df = Predictor.numpy2df(x, full=True)
+            assert df is not None
 
-        def test_case1(self):
-            assert self.i == 5
+        def test_full2easy(self, case):
+            x = case.get('full')
+            df = Predictor.numpy2df(x, full=True)
+            assert df is not None
+
+        def test_easy2easy(self, case):
+            x = case.get('normal')
+            df = Predictor.numpy2df(x, full=False)
+            assert df is not None
+
+        def test_easy2full(self, case):
+            x = case.get('normal')
+            with pytest.raises(ValueError):
+                Predictor.numpy2df(x, full=True)
+
+
 
     class TestLoadModel:
         def test_case1(self):
