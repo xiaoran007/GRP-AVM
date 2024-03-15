@@ -1,5 +1,6 @@
 import pytest
 from model.Predictor import Predictor, CpPredictor
+import model
 import os
 import numpy
 
@@ -108,15 +109,32 @@ class TestPredictor:
             with pytest.raises(ValueError):
                 Predictor.numpy2df(x, full=True)
 
-
-
     class TestLoadModel:
-        def test_case1(self):
-            assert True
+        def test_load(self):
+            predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
+            os.chdir(os.path.dirname(model.__file__))
+            predictor.model_sel = 'RF'
+            assert predictor.LoadModel() is not None
+            os.chdir(os.path.dirname(__file__))
+
+        def test_unload(self):
+            predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
+            os.chdir(os.path.dirname(model.__file__))
+            predictor.model_sel = 'XGB'
+            assert predictor.LoadModel() is None
+            os.chdir(os.path.dirname(__file__))
 
     class TestCheckModel:
-        def test_case1(self):
-            assert True
+        """
+        Test the CheckModel method.
+        """
+        def test_load(self):
+            predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
+            assert predictor.CheckModel() is True
+
+        def test_unload(self):
+            predictor = Predictor(X=None, model_sel='XGB', full=True, cwd=os.path.dirname(__file__))
+            assert predictor.CheckModel() is False
 
 
 
