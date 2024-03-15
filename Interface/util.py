@@ -459,6 +459,13 @@ class BackendEventHandler(object):
 
     @staticmethod
     def Numpy2dict(numpy_array, full, data_class='default'):
+        """
+        Transform numpy array to features table list. Internal method.
+        :param numpy_array: numpy array, input data (i)
+        :param full: bool, set True to use full model.
+        :param data_class: 'default' or 'advance'
+        :return: data in list of dict
+        """
         res = list()
         if len(numpy_array) == 7 and full is False:
             feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']
