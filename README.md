@@ -82,8 +82,13 @@ This project uses Python and the following packages are needed:
 
 For other dependent packages, see requirements.txt and environment.yml.
 
+### Packages for Unit test
+* pytest (from conda-forge)
+
 ### Virtual Environment
 It is recommended to use a virtual environment and use conda as the manager.
+
+If you decide to use conda, make sure only use conda to install packages.
 
 Create a virtual environment:
 ```shell
