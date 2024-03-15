@@ -10,22 +10,38 @@ import json
 import joblib
 
 
-
-
 class InputCheckEventHandler(object):
+    """
+    This class handles the input check event.
+    """
     def __init__(self, full=True, pro=False, batch=False, form_dict=None):
+        """
+        Initialize the InputCheckEventHandler.
+        :param full: Bool, set True if full model is enabled.
+        :param pro: Bool, set True if pro model is enabled.
+        :param batch: Bool, set True if batch mode is enabled.
+        :param form_dict: dict, request form in dict data type.
+        """
         self.FULL = full
         self.PRO = pro
         self.BATCH = batch
         self.form_dict = form_dict
 
     def HandleEvent(self):
+        """
+        Handle the input check event. External interface.
+        :return: Bool, True if the input check passed, else False.
+        """
         if self.BATCH:
             return self.handleBatchEvent()
         else:
             return self.handleSingleEvent()
 
     def handleSingleEvent(self):
+        """
+        Handle the single input check event. Internal interface.
+        :return: Bool, True if the input check passed, else False.
+        """
         if self.PRO:
             try:
                 enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = ProSettingsEventHandler(
@@ -44,6 +60,10 @@ class InputCheckEventHandler(object):
             return False
 
     def handleBatchEvent(self):
+        """
+        Handle the batch input check event. Internal interface.
+        :return: Bool, True if the input check passed, else False.
+        """
         try:
             enable_llm, enable_full, enable_cp, cp_values, enable_hidden, model_sel = ProSettingsEventHandler(
                 request_dict=self.form_dict).getControlArgs()
