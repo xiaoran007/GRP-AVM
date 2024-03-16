@@ -29,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateLat(true, latInput.value);
     });
     function validateLat(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < -90 || value_num > 90) {
@@ -48,6 +51,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateLong(true, longInput.value);
     });
     function validateLong(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < -180 || value_num > 180) {
@@ -67,6 +73,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateWaterfront(true, waterfrontInput.value);
     });
     function validateWaterfront(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || (!Number.isInteger(value_num)) || (value_num !== 0 && value_num !== 1)) {
@@ -86,6 +95,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateBedrooms(true, bedroomsInput.value);
     });
     function validateBedrooms(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || (!Number.isInteger(value_num)) || value_num < 0) {
@@ -105,6 +117,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateBathrooms(true, bathroomsInput.value);
     });
     function validateBathrooms(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || (!Number.isInteger(value_num)) || value_num < 0) {
@@ -124,6 +139,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateFloors(true, floorsInput.value);
     });
     function validateFloors(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < 0) {
@@ -143,6 +161,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateYr(true, yr_builtInput.value);
     });
     function validateYr(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || (!Number.isInteger(value_num)) || value_num < 0 || value_num > 2015) {
@@ -162,6 +183,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateRe(true, yr_renovatedInput.value);
     });
     function validateRe(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || (!Number.isInteger(value_num)) || value_num < 0 || value_num > 2015) {
@@ -190,6 +214,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateSqlv(true, sqft_livingInput.value);
     });
     function validateSqlv(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < 0) {
@@ -209,6 +236,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateSqlot(true, sqft_lotInput.value);
     });
     function validateSqlot(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < 0) {
@@ -228,6 +258,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateSqab(true, sqft_aboveInput.value);
     });
     function validateSqab(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < 0) {
@@ -247,6 +280,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateSqbase(true, sqft_basementInput.value);
     });
     function validateSqbase(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < 0) {
@@ -266,6 +302,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateView(true, viewInput.value);
     });
     function validateView(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || (!Number.isInteger(value_num)) || value_num < 0) {
@@ -285,6 +324,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateCond(true, conditionInput.value);
     });
     function validateCond(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || (!Number.isInteger(value_num)) || value_num < 1 || value_num > 5) {
@@ -304,6 +346,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateGrade(true, gradeInput.value);
     });
     function validateGrade(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || (!Number.isInteger(value_num)) || value_num < 1 || value_num > 13) {
@@ -323,6 +368,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateSqlv15(true, sqft_living15Input.value);
     });
     function validateSqlv15(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < 0) {
@@ -342,6 +390,9 @@ document.addEventListener("DOMContentLoaded", function() {
         validateSqlot15(true, sqft_lot15Input.value);
     });
     function validateSqlot15(inside, value) {
+        if (value === "") {
+            return false;
+        }
         const value_num = Number(value);
         console.log(value_num)
         if (isNaN(value_num) || value_num < 0) {
@@ -405,7 +456,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener("submit", function(event) {
         if (!validateAll()) {
-            event.preventDefault(); // Prevent form submission if input is invalid
+            event.preventDefault();
+            displayCustomAlert("Please check your input (make sure input all blocks).");
         }
     });
 
