@@ -29,6 +29,44 @@
 - transformers package version must "4.37.1"
 
 
+## **Compatibility problem on Windows platform**
+This is a website project. Usually the website server uses Unix (Linux or BSD) system, so you will not encounter the compatibility issues described below. If you plan to use Windows as the server deployment platform, please read the following content carefully.
+
+Please note, Windows platform is not officially supported by this project, but we still provide some limited supports.
+
+The pdf generator depends on weasyprint package, it can be very easily installed by conda on Unix (macOS and Linux) platform, but needs much more work on Windows platform. In fact, some dependencies of weasyprint, for example gtk-3, fontconfig, pango, trying to install them on Windows platform is a very complicated process.
+
+You should first follow conda env setup guide and finish all other dependencies installation process.
+
+Following steps, If you're lucky, it will work.
+
+### 1. Setup gtk-3 runtime on your machine
+You need to install gtk-3 runtime, but the gtk project website only provide very simple guide for installing the gtk development environment on Windows. In fact, you only need to install gtk runtime, and there is an unofficial exe package available on [GitHub](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases)
+
+Download, and run it, do not change any settings.
+
+### 2. Setup fontconfig
+Use conda to install fontconfig, make sure use conda-forge channel rather than conda official channel.
+```shell
+conda search fontconfig -c conda-forge
+conda install fontconfig=2.14.2 -c conda-forge
+```
+
+### 3. Setup weasyprint
+Use pip to install weasyprint and other dependencies. You MUST inside conda env, but DO NOT use conda to install this package!!!
+```shell
+python -m pip install weasyprint
+```
+Then you can check:
+```shell
+python -m weasyprint --info
+```
+If no errors are reported, the installation process is successfully completed.
+
+### 4. Issues
+Although no errors when directly check the weasyprint, various compatibility issues will still be encountered in actual use. These issues are not the concern of this project and therefore will not be resolved in the future.
+
+
 ## **Compatibility on low-resolution devices**
 This application is designed for the devices that the resolution is higher than 1080p (width is higher than 1920px). If you are planed to use this application on low-resolution devices, you may found some compatibility issues. You can use browser's resize (scale) method to resize the webUI, main-stream web browsers (chrome, safari, edge, firefox) both support this feature. 
 
