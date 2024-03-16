@@ -103,7 +103,7 @@
             <div class="col">
                 <div class="card card-frame">
                     <div class="card-body">
-                        <form action="/pro_mode_single" method="POST">
+                        <form action="/pro_mode_single" method="POST" id="proSingle">
                             <div class="row">
                                 <div class="text-start">
                                     <h6>Location</h6>
@@ -318,6 +318,24 @@
 </div>
 
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalTitle">Invalid input</h4>
+            </div>
+            <div class="modal-body">
+                <h5 id="errMsg">Check your input.</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="closeBtn">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <footer class="footer pt-0 mt-0">
     <div class="container">
         <div class="text-center">
@@ -334,6 +352,9 @@
         </div>
     </div>
 </footer>
+
+<script src="/js/proSingleChecker.js" type="text/javascript"></script>
+
 </body>
 
 <script src="/js/core/popper.min.js" type="text/javascript"></script>
