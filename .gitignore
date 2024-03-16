@@ -1,6 +1,8 @@
 # MACOS DS_Store
 .DS_Store
 
+.idea
+
 # model object files
 *.mdo
 *.record
