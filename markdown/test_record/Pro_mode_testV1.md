@@ -1,7 +1,13 @@
 # Pro Mode Test
 
+_Written by: Jianxing WANG_
+
+_Date: Mar.15_
+
+_Version: 1_
+
 ## Single Prediction
-Tested by Jianxing Wang
+
 #### All legal inputs
 
 | Test         | Description          | Inputs           | Expected Outcome | Test Outcome | Result |
@@ -65,9 +71,9 @@ fail[9]: when the waterfront value is null, it will return to the value error pa
 | negative number | input negative number | -2     | input error message | result page         | fail[10] |
 | null            | no input              | null   | input error message | error page          | fail[11] |
 
-fail[10]: the negative number of the bedrooms number should be illagel input.
+fail[10]: the negative number of the bedrooms number should be illegal input.
 
-fail[11]: when the bedrooom value is null, it will return to the value error page, rather than input error message.
+fail[11]: when the bedroom value is null, it will return to the value error page, rather than input error message.
 
 #### test on bathrooms number
 
@@ -77,9 +83,9 @@ fail[11]: when the bedrooom value is null, it will return to the value error pag
 | negative number | input negative number | -2     | input error message | result page         | fail[12] |
 | null            | no input              | null   | input error message | error page          | fail[13] |
 
-fail[12]: the negative number of the bathrooms number should be illagel input.
+fail[12]: the negative number of the bathrooms number should be illegal input.
 
-fail[13]: when the bathrooom value is null, it will return to the value error page, rather than input error message.
+fail[13]: when the bathroom value is null, it will return to the value error page, rather than input error message.
 
 #### test on floors number
 
@@ -89,7 +95,7 @@ fail[13]: when the bathrooom value is null, it will return to the value error pa
 | negative number | input negative number | -2     | input error message | result page         | fail[14] |
 | null            | no input              | null   | input error message | error page          | fail[15] |
 
-fail[14]: the negative number of the floors number should be illagel input.
+fail[14]: the negative number of the floors number should be illegal input.
 
 fail[15]: when the floors value is null, it will return to the value error page, rather than input error message.
 
