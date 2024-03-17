@@ -160,7 +160,7 @@ class Descriptor(object):
             df.columns = feature_name
             if full is False:
                 df = df[['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'building_age', 'lat', 'long']]
-                print(df)
+        print(df)
         return df
 
     @staticmethod
