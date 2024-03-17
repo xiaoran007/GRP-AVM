@@ -26,8 +26,24 @@
 
 ## Dev tips
 - transformers model is saved in local mode, but do not track with git.
-- transformers package version must "4.37.1"
+- transformers package version 4.37.1
 
+## **OS and Platform Support**
+This application is website based, since web server usually uses Unix system, this application only macOS and Linux is officially supported. The following is detailed OS and Platform support matrix. 
+
+| OS      | Version           | Architecture  | Support |
+|---------|-------------------|---------------|---------|
+| macOS   | Big Sur and later | x86_64, arm64 | ✅       |
+| Linux   | Ubuntu 20.04      | x86_64        | ✅       |
+| Windows | 10                | x86_64        | ⚠️      |
+
+This application is developed on macOS platform, and tested on MS Windows 10 and Ubuntu 22.04.
+
+The webUI is developed on Chrome browser, and tested on MS Edge (chromium core) and Apple safari.
+
+Some functionalities of this application rely on a general purpose computing framework, and we tested CPU and Nvidia CUDA framework, but AMD ROCm and other framework may also work well.
+
+For the architecture, only amd64 (x86_64) and Apple Silicon (arm64) is tested, other architectures may also work well.
 
 ## **Compatibility problem on Windows platform**
 This is a website project. Usually the website server uses Unix (Linux or BSD) system, so you will not encounter the compatibility issues described below. If you plan to use Windows as the server deployment platform, please read the following content carefully.
@@ -96,14 +112,6 @@ then you can start application.
 
 Current main and MaterialUIKit branch already fixed this issue.
 
-## **OS and Platform Support**
-This application is developed on macOS platform, and tested on MS Windows 10 and Ubuntu 22.04.
-
-The webUI is developed on Chrome browser, and tested on MS Edge (chromium core) and Apple safari.
-
-Some functionalities of this application rely on a general purpose computing framework, and we tested CPU and Nvidia CUDA framework, but AMD ROCm and other framework may also work well.
-
-For the architecture, only amd64 (x86_64) is tested, but Apple M (arm64) my also works well.
 
 ## **Environment**
 ### Packages
