@@ -4102,7 +4102,7 @@ fieldset:disabled .btn {
 }
 
 .fade:not(.show) {
-  opacity: 0;
+  opacity: 1;
 }
 
 .collapse:not(.show) {
@@ -6612,7 +6612,7 @@ fieldset:disabled .btn {
 }
 
 .modal-backdrop.fade {
-  opacity: 0;
+  opacity: 0.4;
 }
 
 .modal-backdrop.show {
@@ -7991,7 +7991,7 @@ fieldset:disabled .btn {
 }
 
 .offcanvas-backdrop.fade {
-  opacity: 0;
+  opacity: 0.4;
 }
 
 .offcanvas-backdrop.show {

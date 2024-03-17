@@ -255,8 +255,12 @@ def pro_mode_batch_upload():
             if not util.InputCheckEventHandler(full=True, pro=True, batch=True, form_dict=request.form.to_dict()).HandleEvent():
                 return render_template('proModeBatchError.html')
             else:
-                results_len, results, model_sel, confidence_level = backendHandler.HandleProBatchRequest(request.form.to_dict(), save_path + user_file.filename)
-                return render_template('proModeBatchResult.html', lens=results_len, results=results, model_sel=model_sel, confidence_level=confidence_level)
+                try:
+                    results_len, results, model_sel, confidence_level = backendHandler.HandleProBatchRequest(request.form.to_dict(), save_path + user_file.filename)
+                    return render_template('proModeBatchResult.html', lens=results_len, results=results, model_sel=model_sel, confidence_level=confidence_level)
+                except Exception as e:
+                    print("Error: ", e)
+                    return render_template('proModeBatchError.html')
         else:
             return render_template('proModeBatchError.html')
 

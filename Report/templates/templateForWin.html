@@ -1,0 +1,67 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="template.css" media="print" rel="stylesheet">
+    <title>AVM Result</title>
+    <meta name="description" content="AVM Result">
+</head>
+
+<body>
+<h1>AVM Result</h1>
+
+<aside>
+    <address id="from">
+        LLM: {{ enable_llm }}
+        Full: {{ enable_full }}
+        Model: {{ model_sel }}
+        Hidden: {{ enable_hidden }}
+        Confidence Level: {{ cp_values }}
+    </address>
+
+<!--    <address id="to">-->
+<!--        Our awesome developers-->
+<!--        From all around the world-->
+<!--        Earth-->
+<!--    </address>-->
+</aside>
+
+<dl id="informations">
+    <dt>Result ID</dt>
+    <dd>{{ rID }}</dd>
+    <p></p>
+    <dt>Date</dt>
+    <dd>{{ date }}</dd>
+</dl>
+
+<h2>Price</h2>
+<h3>{{ price }} USD</h3>
+<h2>&nbsp;</h2>
+<h2>Description</h2>
+<h4>{{ description }}</h4>
+
+<h2>&nbsp;</h2>
+<h2>Features</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Class</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for feature in features %}
+    <tr>
+        <td>{{ feature.name }}</td>
+        <td>{{ feature.class }}</td>
+        <td>{{ feature.value }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+
+
+</body>
+</html>
