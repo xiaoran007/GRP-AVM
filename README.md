@@ -109,13 +109,15 @@ For the architecture, only amd64 (x86_64) is tested, but Apple M (arm64) my also
 ### Packages
 This project uses Python and the following packages are needed:
 * torch
-* transformers
+* transformers(conda-forge)
 * numpy
 * pandas
-* scikit-learn
+* scikit-learn=1.3.0(conda-forge)
+* xgboost=2.0.3(conda-forge)
+* lightgbm=4.1.0
 * flask
-* mapie
-* joblib
+* mapie=0.8.2(conda-forge)
+* joblib=1.2.0
 * weasyprint (macOS and Linux only!)
 
 For other dependent packages, see requirements.txt and environment.yml.
