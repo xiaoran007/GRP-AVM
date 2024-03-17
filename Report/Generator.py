@@ -1,7 +1,22 @@
 import os
 from jinja2 import Environment, FileSystemLoader
-from weasyprint import HTML, CSS
-from weasyprint.text.fonts import FontConfiguration
+import platform
+os_name = platform.system()
+if os_name == "Windows":
+    print("Running on Windows, load pdfkit")
+    import pdfkit
+elif os_name == "Linux":
+    print("Running on Linux, load weasyprint")
+    from weasyprint import HTML, CSS
+    from weasyprint.text.fonts import FontConfiguration
+elif os_name == "Darwin":
+    print("Running on macOS, load weasyprint")
+    from weasyprint import HTML, CSS
+    from weasyprint.text.fonts import FontConfiguration
+else:
+    print("Running on an unsupported operating system, try to load weasyprint")
+    from weasyprint import HTML, CSS
+    from weasyprint.text.fonts import FontConfiguration
 from datetime import datetime
 
 
@@ -18,9 +33,13 @@ class Generator(object):
         os.chdir(os.path.dirname(__file__))
         print(f"Generator set dir: {os.getcwd()}")
         self.Env = Environment(loader=FileSystemLoader('./templates'))
-        self.Template = self.Env.get_template('template.html')
-        self.FontConfig = FontConfiguration()
-        self.StyleSheet = CSS(filename='./templates/template.css', font_config=self.FontConfig)
+        if os_name != "Windows":
+            self.Template = self.Env.get_template('template.html')
+            self.FontConfig = FontConfiguration()
+            self.StyleSheet = CSS(filename='./templates/template.css', font_config=self.FontConfig)
+        else:
+            self.Template = self.Env.get_template('templateForWin.html')
+            self.StyleSheetWinPath = './templates/templateForWin.css'
         os.chdir(self.Cwd)
         print(f"Generator set dir back: {self.Cwd}")
 
@@ -38,8 +57,15 @@ class Generator(object):
         :param data: dict, the input data.
         :param out_path: string, the output path.
         """
-        html_obj = HTML(string=self.renderHTML(data=data))
-        html_obj.write_pdf(out_path, stylesheets=[self.StyleSheet], font_config=self.FontConfig)
+        if os_name == "Windows":
+            os.chdir(os.path.dirname(__file__))
+            print(f"Generator set dir: {os.getcwd()}")
+            pdfkit.from_string(input=self.renderHTML(data=data), output_path=out_path, options={"enable-local-file-access": ""}, verbose=True, css=self.StyleSheetWinPath)
+            os.chdir(self.Cwd)
+            print(f"Generator set dir back: {self.Cwd}")
+        else:
+            html_obj = HTML(string=self.renderHTML(data=data))
+            html_obj.write_pdf(out_path, stylesheets=[self.StyleSheet], font_config=self.FontConfig)
 
     @staticmethod
     def DataPasser(enable_llm, enable_full, model_sel, enable_hidden, rID, price, description, features, cp_values):
