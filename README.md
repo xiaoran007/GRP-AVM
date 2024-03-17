@@ -28,6 +28,13 @@
 - transformers model is saved in local mode, but do not track with git.
 - transformers package version 4.37.1
 
+## **Before you start app.py**
+Create records folder inside Interface folder/
+
+Create sent folder inside Interface folder
+
+Create rec.json file with empty list in Interface/records/ folder
+
 ## **The support for Windows is added**
 In current version, we added support for windows. Now you can use Windows to run this application. But still need to install some extra packages. Please follow the steps below to complete the configuration.
 
