@@ -28,6 +28,33 @@
 - transformers model is saved in local mode, but do not track with git.
 - transformers package version 4.37.1
 
+## **The support for Windows is added**
+In current version, we added support for windows. Now you can use Windows to run this application. But still need to install some extra packages. Please follow the steps below to complete the configuration.
+
+### 1. Setup wkhtmltopdf
+You should download and install this tool before setup python related dependencies.
+Simply download exe file from [website](https://wkhtmltopdf.org/downloads.html), and install.
+
+### 2. Setup system path
+Add wkhtmltopdf installed path to your system path. If it was installed with default settings, the path should be:
+```shell
+C:\Program Files\wkhtmltopdf\bin
+```
+
+### 3. Setup python-pdfkit
+Download python-pdfkit from pip or conda (conda-forge channel). Inside conda env!!
+
+via pip:
+```shell
+python -m pip install pdfkit
+```
+or via conda:
+```shell
+conda install python-pdfkit=1.0.0 -c conda-forge
+```
+
+Then you can start this application on Windows.
+
 ## **OS and Platform Support**
 This application is website based, since web server usually uses Unix system, this application only macOS and Linux is officially supported. The following is detailed OS and Platform support matrix. 
 
