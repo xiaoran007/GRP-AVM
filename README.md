@@ -108,22 +108,22 @@ For the architecture, only amd64 (x86_64) is tested, but Apple M (arm64) my also
 ## **Environment**
 ### Packages
 This project uses Python and the following packages are needed:
-* torch
-* transformers(conda-forge)
-* numpy
-* pandas
-* scikit-learn=1.3.0(conda-forge)
-* xgboost=2.0.3(conda-forge)
+* torch=1.13.1
+* transformers (conda-forge)
+* numpy=1.26.9
+* pandas=2.1.1
+* scikit-learn=1.3.0 (conda-forge)
+* xgboost=2.0.3 (conda-forge)
 * lightgbm=4.1.0
-* flask
-* mapie=0.8.2(conda-forge)
+* flask=2.2.2
+* mapie=0.8.2 (conda-forge)
 * joblib=1.2.0
-* weasyprint (macOS and Linux only!)
+* weasyprint=61.2 (conda-forge)
 
-For other dependent packages, see requirements.txt and environment.yml.
+For other dependent packages, see requirements.txt and environment.yml (macOS x86_64 only).
 
 ### Packages for Unit test
-* pytest (from conda-forge)
+* pytest=8.1.1 (conda-forge)
 
 ### Virtual Environment
 It is recommended to use a virtual environment and use conda as the manager.
