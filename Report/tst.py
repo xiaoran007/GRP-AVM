@@ -1,4 +1,37 @@
-from weasyprint import HTML
+import platform
 
-obj = HTML(filename='templates/template.html')
-obj.write_pdf('./result.pdf')
+# Get the operating system name
+os_name = platform.system()
+
+# Check the operating system and execute different code accordingly
+if os_name == "Windows":
+    print("Running on Windows, load pdfkit")
+elif os_name == "Linux":
+    print("Running on Linux, load weasyprint")
+elif os_name == "Darwin":
+    print("Running on macOS, load weasyprint")
+else:
+    print("Running on an unsupported operating system, try to load weasyprint")
+
+
+
+# from weasyprint import HTML
+#
+# obj = HTML(filename='templates/template.html')
+# obj.write_pdf('./result.pdf')
+
+import pdfkit
+
+
+html_content = "./templates/template.html"
+
+
+css_content = "./templates/templateForWin.css"
+
+
+output_pdf = "output.pdf"
+
+
+pdfkit.from_file(input=html_content, css=css_content, output_path=output_pdf, options={"enable-local-file-access": ""}, verbose=True)
+
+
