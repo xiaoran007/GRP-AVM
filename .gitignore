@@ -4,10 +4,10 @@
 .idea
 
 # model object files
-*.mdo
 *.record
 *.json
 upload/
+target/
 
 *.pdf
 rendered_template.html
