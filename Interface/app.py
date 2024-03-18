@@ -1,16 +1,18 @@
+from init import Init
+print("Init dependencies")
+Init.initDependencies()
 import sys
 sys.path.append("../")
 sys.path.append("./")
 from flask import Flask, render_template, request, session, send_file
 import util
-from init import Init
 
 app = Flask(__name__,   static_url_path='',
             static_folder='static',
             template_folder='templates')
 app.secret_key = 'my_secret_key'
 print("Init app")
-Init().initApp()
+Init.initApp()
 print("Loading model...")
 backendHandler = util.BackendEventHandler()
 print("Init ok!")

@@ -1,10 +1,37 @@
 import os
 import json
+import importlib.util
+import platform
+import time
 
 
 class Init(object):
     def __init__(self):
         pass
+
+    @staticmethod
+    def initDependencies():
+        not_found = []
+        dependencies = ['torch', 'transformers', 'numpy', 'pandas', 'sklearn', 'xgboost', 'lightgbm', 'flask', 'mapie', 'joblib']
+        os_name = platform.system()
+        if os_name == "Windows":
+            print("Running on Windows, init dependencies")
+            dependencies.append('pdfkit')
+        else:
+            print("Running on Unix, init dependencies")
+            dependencies.append('weasyprint')
+        for i in dependencies:
+            if importlib.util.find_spec(i) is None:
+                not_found.append(i)
+                print(f"Check module {i} not found.")
+            else:
+                print(f"Check module {i} pass.")
+        if len(not_found) != 0:
+            print(f'Dependencies not found: {not_found}')
+            exit(1)
+        else:
+            print('Dependencies pass.')
+            print('------------------')
 
     @staticmethod
     def initApp():
