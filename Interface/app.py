@@ -13,6 +13,7 @@ app = Flask(__name__,   static_url_path='',
 app.secret_key = 'my_secret_key'
 print("Init app")
 Init.initApp()
+Init.initObjectFiles()
 print("Loading model...")
 backendHandler = util.BackendEventHandler()
 print("Init ok!")
