@@ -1,10 +1,6 @@
-from mapie.regression import MapieRegressor
 from sklearn.ensemble import RandomForestRegressor
-import joblib
 from Datasets.Data import Default, Default_Easy
 import os
-from model.Predictor import Predictor
-import pandas as pd
 from Evaluator import Evaluator
 
 
