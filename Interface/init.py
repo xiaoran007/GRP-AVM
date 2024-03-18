@@ -10,6 +10,18 @@ class Init(object):
         pass
 
     @staticmethod
+    def initPath():
+        cwd = os.getcwd()
+        print("------------------")
+        if 'Interface' not in cwd:
+            print("Check path fail.")
+            print("app.py should be run inside the Interface folder, exit.")
+            exit(1)
+        else:
+            print("Check path pass.")
+            print("------------------")
+
+    @staticmethod
     def initDependencies():
         not_found = []
         dependencies = ['torch', 'transformers', 'numpy', 'pandas', 'sklearn', 'xgboost', 'lightgbm', 'flask', 'mapie',

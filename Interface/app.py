@@ -11,6 +11,8 @@ app = Flask(__name__,   static_url_path='',
             static_folder='static',
             template_folder='templates')
 app.secret_key = 'my_secret_key'
+print("Init path")
+Init.initPath()
 print("Init app")
 Init.initApp()
 Init.initObjectFiles()
