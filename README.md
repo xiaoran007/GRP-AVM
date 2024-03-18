@@ -28,12 +28,23 @@
 - transformers model is saved in local mode, but do not track with git.
 - transformers package version 4.37.1
 
-## **Before you start app.py**
-Create records folder inside Interface folder/
+## **OS and Platform Support**
+This application is website based, since web server usually uses Unix system, this application only macOS and Linux is officially supported. The following is detailed OS and Platform support matrix. 
 
-Create sent folder inside Interface folder
+| OS      | Version           | Architecture  | Support |
+|---------|-------------------|---------------|---------|
+| macOS   | Big Sur and later | x86_64, arm64 | ✅       |
+| Linux   | Ubuntu 20.04      | x86_64        | ✅       |
+| Windows | 10                | x86_64        | ⚠️      |
 
-Create rec.json file with empty list in Interface/records/ folder
+This application is developed on macOS platform, and tested on MS Windows 10 and Ubuntu 22.04.
+
+The webUI is developed on Chrome browser, and tested on MS Edge (chromium core) and Apple safari.
+
+Some functionalities of this application rely on a general purpose computing framework, and we tested CPU and Nvidia CUDA framework, but AMD ROCm and other framework may also work well.
+
+For the architecture, only amd64 (x86_64) and Apple Silicon (arm64) is tested, other architectures may also work well.
+
 
 ## **The support for Windows is added**
 In current version, we added support for windows. Now you can use Windows to run this application. But still need to install some extra packages. Please follow the steps below to complete the configuration.
@@ -62,22 +73,7 @@ conda install python-pdfkit=1.0.0 -c conda-forge
 
 Then you can start this application on Windows.
 
-## **OS and Platform Support**
-This application is website based, since web server usually uses Unix system, this application only macOS and Linux is officially supported. The following is detailed OS and Platform support matrix. 
 
-| OS      | Version           | Architecture  | Support |
-|---------|-------------------|---------------|---------|
-| macOS   | Big Sur and later | x86_64, arm64 | ✅       |
-| Linux   | Ubuntu 20.04      | x86_64        | ✅       |
-| Windows | 10                | x86_64        | ⚠️      |
-
-This application is developed on macOS platform, and tested on MS Windows 10 and Ubuntu 22.04.
-
-The webUI is developed on Chrome browser, and tested on MS Edge (chromium core) and Apple safari.
-
-Some functionalities of this application rely on a general purpose computing framework, and we tested CPU and Nvidia CUDA framework, but AMD ROCm and other framework may also work well.
-
-For the architecture, only amd64 (x86_64) and Apple Silicon (arm64) is tested, other architectures may also work well.
 
 ## **Compatibility problem on Windows platform**
 This is a website project. Usually the website server uses Unix (Linux or BSD) system, so you will not encounter the compatibility issues described below. If you plan to use Windows as the server deployment platform, please read the following content carefully.
