@@ -160,7 +160,8 @@ This project uses Python and the following packages are needed:
 * flask=2.2.2
 * mapie=0.8.2 (conda-forge)
 * joblib=1.2.0
-* weasyprint=61.2 (conda-forge)
+* weasyprint=61.2 (conda-forge) (macOS and Linux only!)
+* pdfkit=1.0.0 (pip) (Windows only!)
 
 For other dependent packages, see requirements.txt and environment.yml (macOS x86_64 only).
 
