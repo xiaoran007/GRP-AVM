@@ -140,6 +140,7 @@ def normal_mode_end():
     elif request.method == 'POST':
         session['normal_form_pro'] = request.form.to_dict()
         combined = {**session.get('normal_form_basic'), **(session.get('normal_form_pro'))}
+        print(combined)
         if not util.InputCheckEventHandler(full=True, pro=False, batch=False, form_dict=combined).HandleEvent():
             return render_template('normalModeInputError.html')
         else:

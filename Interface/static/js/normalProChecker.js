@@ -75,11 +75,26 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.className = "";
     }
 
+    function validateCondition() {
+        const conditions = document.getElementsByName("condition");
+        for (let i = 0; i < conditions.length; i++) {
+            console.log(conditions[i], conditions[i].checked);
+            if (conditions[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     form.addEventListener("submit", function(event) {
         if (!validateAll()) {
             event.preventDefault();
             displayCustomAlert("Please check your input (make sure input all blocks).");
+        }
+        if (!validateCondition()) {
+            event.preventDefault();
+            displayCustomAlert("Please check condition.");
         }
     });
 
