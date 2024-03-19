@@ -97,8 +97,6 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             displayCustomAlert("Please check condition.");
         }
-        event.preventDefault();
-            displayCustomAlert("Please check your input (make sure input all blocks).");
     });
 
 });
