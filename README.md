@@ -8,10 +8,13 @@
 
 <span > 
     <img src="https://img.shields.io/badge/Python-_3.9-blue"  alt="py39"/> 
-    <img src="https://img.shields.io/badge/Tensorflow-_2.10-g"  alt="torch"/> 
+    <img src="https://img.shields.io/badge/PyTorch-_1.13.1-g"  alt="torch"/> 
     <img src="https://img.shields.io/badge/Flask-_2.2.2-g"  alt="flask"/> 
+    <img src="https://img.shields.io/badge/sklearn-_1.3.0-g"  alt="sklearn"/>
+    <img src="https://img.shields.io/badge/mapie-_0.8.2-g"  alt="mapie"/>
 </span>
 
+<p></p>
 <img src="./markdown/img/teamlogo.png" width="23%" height="23%" alt="team13"/>
 
 ***
@@ -24,26 +27,101 @@
 - **MaterialUIKit**
 - **pytest-ut**
 
-## Dev tips
-- transformers model is saved in local mode, but do not track with git.
-- transformers package version 4.37.1
+## **Change log**
+[Change log](changelog.md)
 
 ## **OS and Platform Support**
 This application is website based, since web server usually uses Unix system, this application only macOS and Linux is officially supported. The following is detailed OS and Platform support matrix. 
 
+OS support matrix:
+
 | OS      | Version           | Architecture  | Support |
 |---------|-------------------|---------------|---------|
 | macOS   | Big Sur and later | x86_64, arm64 | ✅       |
-| Linux   | Ubuntu 20.04      | x86_64        | ✅       |
+| Linux   | Ubuntu 22.04      | x86_64        | ✅       |
 | Windows | 10                | x86_64        | ⚠️      |
 
-This application is developed on macOS platform, and tested on MS Windows 10 and Ubuntu 22.04.
+Platform support matrix:
 
-The webUI is developed on Chrome browser, and tested on MS Edge (chromium core) and Apple safari.
+| Platform | Version       | Support |
+|----------|---------------|---------|
+| Chrome   | current       | ✅       |
+| Edge     | chromium core | ✅       |
+| Safari   | current       | ✅       |
+| FireFox  | current       | ⚠️      |
 
-Some functionalities of this application rely on a general purpose computing framework, and we tested CPU and Nvidia CUDA framework, but AMD ROCm and other framework may also work well.
 
-For the architecture, only amd64 (x86_64) and Apple Silicon (arm64) is tested, other architectures may also work well.
+
+Notes:
+- This application is developed on macOS platform, and tested on MS Windows 10 and Ubuntu 22.04. macOS and linux platforms have higher support priority, and deploying this project using the Windows platform may encounter some unpredictable problems. These problems come from compatibility issues with dependent packages and systems, so although this project has tried its best to avoid compatibility issues, it cannot completely fix such problems.
+
+- The webUI is developed on Chrome browser, and tested on MS Edge (chromium core) and Apple safari.
+
+- Some functionalities of this application rely on a general purpose computing framework, and we tested CPU and Nvidia CUDA framework, but AMD ROCm and other framework may also work well.
+
+- For the architecture, only amd64 (x86_64) and Apple Silicon (arm64) is tested, other architectures may also work well.
+
+
+## **Deployment Guide**
+Please follow this deployment guide to configure the environment and start the application.
+### **Environment setup**
+#### 1.Virtual Environment Manager
+It is recommended to use a virtual environment and use conda as the manager. This guide will use conda as the environment management tool.
+
+If you decide to use conda, make sure only use conda to install packages. DO NOT use conda and pip at the same time, this will cause inaccessible dependency conflicts.
+
+#### 2.Packages
+This project uses Python and the following packages are needed (if you do not need LLM feature, then you only need to install the basic dependencies):
+- Basic dependencies
+    * flask=2.2.2
+    * numpy=1.26.9
+    * pandas=2.1.1
+    * scikit-learn=1.3.0 (conda-forge)
+    * xgboost=2.0.3 (conda-forge)
+    * lightgbm=4.1.0
+    * mapie=0.8.2 (conda-forge)
+    * joblib=1.2.0
+    * weasyprint=61.2 (conda-forge) (macOS and Linux only!)
+    * pdfkit=1.0.0 (pip) (Windows only!)
+- Advanced dependencies
+    * torch=1.13.1
+    * transformers=4.37.1 (conda-forge)
+- Unit-Test dependencies
+    * pytest=8.1.1 (conda-forge)
+Please note that the requirements.txt and environment.yml is only for development purpose and macOS x86_64 only.
+
+
+#### 3.Create and setup virtual environment:
+First create a new env.
+```shell
+conda create --name AVM python=3.9
+```
+You can use other python version, but python 3.9 is recommended and pre-tested.
+
+Then install the packages, same version and source channel is recommended and pre-tested.
+
+Some packages require conda-forge channel, use following command:
+```shell
+conda install "package-name" -c conda-forge
+```
+Some packages require pip source, MUST use following command:
+```shell
+python -m pip install "package-name"
+```
+**If you do not need advanced features, you can skip following steps.**
+##### 3.1 Setup transformers and pytorch with CUDA
+if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
+
+Transformers can run on CPU mode or GPU mode (pytorch backend or tensorflow backend), if you have Nvidia GPU, GPU mode with pytorch backend is recommended. Install Pytorch and then install transformers with conda:
+```shell
+conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
+conda install transformers -c conda-forge
+```
+Above commands will install cuda-runtime inside conda env, it is enough for torch usage, but if you want to compile or build your own cuda program, you need install the Nvidia CUDA toolkits and cudnn.\
+You can find more information from the [Pytorch website](https://pytorch.org/get-started/previous-versions/) and [Nvidia website](https://www.nvidia.com/en-us/)
+
+
+
 
 
 ## **The support for Windows is added**
@@ -142,86 +220,3 @@ then you can start application.
 
 Current main and MaterialUIKit branch already fixed this issue.
 
-
-## **Environment**
-### Packages
-This project uses Python and the following packages are needed:
-* torch=1.13.1
-* transformers (conda-forge)
-* numpy=1.26.9
-* pandas=2.1.1
-* scikit-learn=1.3.0 (conda-forge)
-* xgboost=2.0.3 (conda-forge)
-* lightgbm=4.1.0
-* flask=2.2.2
-* mapie=0.8.2 (conda-forge)
-* joblib=1.2.0
-* weasyprint=61.2 (conda-forge) (macOS and Linux only!)
-* pdfkit=1.0.0 (pip) (Windows only!)
-
-For other dependent packages, see requirements.txt and environment.yml (macOS x86_64 only).
-
-### Packages for Unit test
-* pytest=8.1.1 (conda-forge)
-
-### Virtual Environment
-It is recommended to use a virtual environment and use conda as the manager.
-
-If you decide to use conda, make sure only use conda to install packages.
-
-Create a virtual environment:
-```shell
-conda create --name AVM python=3.9
-```
-You can use other python version, but python 3.9 is recommended and pre-tested.
-
-Then install the packages, if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
-
-Transformers can run on CPU mode or GPU mode (pytorch backend or tensorflow backend), if you have Nvidia GPU, GPU mode with pytorch backend is recommended. Install Pytorch and then install transformers with conda:
-```shell
-conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
-conda install transformers -c conda-forge
-```
-Please note, you need first install the Nvidia CUDA toolkits, and then install compatible Pytorch, you can find more information from the [Pytorch website](https://pytorch.org/get-started/previous-versions/).
-
-Some packages need install from conda-forge channel, use following command:
-```shell
-conda install "package-name" -c conda-forge
-```
-
-To install bootstrap-flask (optional)
-```shell
-conda install pip -c conda-forge
-python -m pip install bootstrap-flask
-```
-
-## **Object Files**
-We packaged our model as object file, which can be load or dump by joblib library.
-
-Please note that pre-trained object files are not stored in this repository.
-
-Object files should locate in:
-```shell
-./model/object # model object files (RF_Full.mdo) 
-./NLGen/class # class object files (class_avg_Full.mdo and kmeans_model_full.mdo)
-```
-
-If you are interested in create your own model object file, follow this:
-
-Create:
-
-```python
-import joblib
-
-joblib.dump(object, "path")
-```
-
-Load and use:
-```python
-import joblib
-
-my_object = joblib.load("path")
-```
-
-## **LLM Model Files**
-For more details, see huggingface website.
