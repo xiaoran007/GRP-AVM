@@ -77,9 +77,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function validateCondition() {
         const conditions = document.getElementsByName("condition");
+        console.log(conditions);
         for (let i = 0; i < conditions.length; i++) {
             console.log(conditions[i], conditions[i].checked);
-            if (conditions[i]) {
+            if (conditions[i].checked) {
                 return true;
             }
         }
@@ -96,6 +97,8 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             displayCustomAlert("Please check condition.");
         }
+        event.preventDefault();
+            displayCustomAlert("Please check your input (make sure input all blocks).");
     });
 
 });
