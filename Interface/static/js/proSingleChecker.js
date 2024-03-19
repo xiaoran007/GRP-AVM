@@ -417,9 +417,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         const value_num = Number(value);
         console.log(value_num)
-        if (isNaN(value_num) || value_num <= 0 || value_num >= 1) {
+        if (isNaN(value_num) || value_num <= 0 || value_num >= 0.99) {
             if (inside) {
-                displayCustomAlert("Please enter a valid confidence level in open interval (0, 1).");
+                displayCustomAlert("Please enter a valid confidence level in open interval (0, 0.99).");
             }
             return false;
         }
