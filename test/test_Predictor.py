@@ -6,6 +6,9 @@ import numpy
 
 
 class TestPredictor:
+    """
+    Test the Predictor class.
+    """
     @pytest.fixture(scope='class')
     def case(self):
         res = dict()

@@ -150,6 +150,8 @@ class Descriptor(object):
             df = pd.DataFrame([numpy_arr])
             df.columns = feature_name
         else:
+            if len(numpy_arr) != 19:
+                raise ValueError('X should be 19 columns if lofi is False, 7 columns if lofi is True.')
             feature_name = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view',
                             'condition',
                             'grade',
