@@ -108,7 +108,7 @@ Some packages require pip source, MUST use following command:
 ```shell
 python -m pip install "package-name"
 ```
-**If you do not need advanced features, you can skip following steps.**
+**If you do not need advanced features, you can skip step 3.1.**
 ##### 3.1 Setup transformers and pytorch with CUDA
 if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
 
@@ -121,7 +121,42 @@ Above commands will install cuda-runtime inside conda env, it is enough for torc
 You can find more information from the [Pytorch website](https://pytorch.org/get-started/previous-versions/) and [Nvidia website](https://www.nvidia.com/en-us/)
 
 
+### **Start App**
+#### 1. Check object files
+In versions 4.0 and newer, object files have been added to mainline tracking, so no additional configuration is required.\
+You can check object files in following directory:
+```shell
+model/object/rev311
+NLGen/class
+```
 
+#### 2. Config working folders
+In versions 4.0 and newer, the working folder will be automatically configured and checked by the program, so you do not need to configure it manually.
+
+#### 3. Check Import
+In versions 4.0 and newer, the program will automatically check the import of all dependent packages. If there are missing dependencies, an exception prompt will be provided in the terminal, and the program will exit automatically. If you encounter such problems, please follow the prompts to check the dependency installation.
+
+#### 4. Start app
+The start point of this application is _app.py_. 
+Make sure conda env is activated:
+```shell
+conda activate AVM # replace AVM to your env name.
+```
+Assuming you are in the root directory, use this command to start the app:
+```shell
+cd Interface
+python app.py
+```
+DO NOT directly start app in root directory:
+```shell
+python Interface/app.py # DO NOT directly start app in root directory
+```
+
+If the dependencies and project configuration are normal, it has been successfully started.
+
+
+
+## Issues
 
 
 ## **The support for Windows is added**
@@ -140,7 +175,7 @@ C:\Program Files\wkhtmltopdf\bin
 ### 3. Setup python-pdfkit
 Download python-pdfkit from pip or conda (conda-forge channel). Inside conda env!!
 
-via pip:
+via pip: (recommended)
 ```shell
 python -m pip install pdfkit
 ```
