@@ -98,16 +98,28 @@ conda create --name AVM python=3.9
 ```
 You can use other python version, but python 3.9 is recommended and pre-tested.
 
-Then install the packages, same version and source channel is recommended and pre-tested.
+And activate conda env by:
+```shell
+conda activate AVM
+```
 
-Some packages require conda-forge channel, use following command:
+Then install the packages, same version and source channel is recommended and pre-tested. The following commands only for basic user (exclude torch and transformers).
+
+For UNIX (macOS and Linux) users: 
 ```shell
-conda install "package-name" -c conda-forge
+conda install flask=2.2.2 pandas=2.1.1
+conda install scikit-learn=1.3.0 xgboost=2.0.3 lightgbm=4.1.0 mapie=0.8.2 joblib=1.2.0 weasyprint=61.2 -c conda-forge
 ```
-Some packages require pip source, MUST use following command:
+
+For Windows users:
 ```shell
-python -m pip install "package-name"
+conda install flask=2.2.2 pandas=2.1.1
+conda install scikit-learn=1.3.0 xgboost=2.0.3 lightgbm=4.1.0 mapie=0.8.2 joblib=1.2.0 -c conda-forge
+python -m pip install pdfkit=1.0.0
 ```
+There are some extra steps required for Windows users, please check [this link](#the-support-for-windows-is-added). 
+
+
 **If you do not need advanced features, you can skip step 3.1.**
 ##### 3.1 Setup transformers and pytorch with CUDA
 if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
@@ -131,7 +143,7 @@ NLGen/class
 ```
 
 #### 2. Config working folders
-In versions 4.0 and newer, the working folder will be automatically configured and checked by the program, so you do not need to configure it manually.
+In versions 4.0 and newer, the working folder will be automatically configured and checked by the program, so you **do not need to configure it manually**.
 
 #### 3. Check Import
 In versions 4.0 and newer, the program will automatically check the import of all dependent packages. If there are missing dependencies, an exception prompt will be provided in the terminal, and the program will exit automatically. If you encounter such problems, please follow the prompts to check the dependency installation.
