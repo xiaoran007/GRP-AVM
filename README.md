@@ -129,7 +129,7 @@ Use the following commands to complete the installation of python related depend
 ```shell
 conda install flask=2.2.2 pandas=2.1.1
 conda install scikit-learn=1.3.0 xgboost=2.0.3 lightgbm=4.1.0 mapie=0.8.2 joblib=1.2.0 -c conda-forge
-python -m pip install pdfkit=1.0.0
+python -m pip install pdfkit==1.0.0
 ```
 
 

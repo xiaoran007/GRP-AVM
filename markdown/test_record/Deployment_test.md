@@ -12,3 +12,10 @@ _Version: 1_
 **Env manager: Conda (miniconda)**\
 **Source code: gar.gz archive from gitlab main branch**\
 **Test status: Pass**
+
+## Test case 2
+**Platform: Windows 10 22H2**\
+**Architecture: x86_64**\
+**Env manager: Conda (miniconda)**\
+**Source code: zip archive from gitlab main branch**\
+**Test status: Pass**
