@@ -62,15 +62,15 @@ Notes:
 - For the architecture, only amd64 (x86_64) and Apple Silicon (arm64) is tested, other architectures may also work well.
 
 
-## **Deployment Guide**
+# **Deployment Guide**
 Please follow this deployment guide to configure the environment and start the application.
-### **Environment setup**
-#### 1.Virtual Environment Manager
+## **Environment Information**
+### 1.Virtual Environment Manager
 It is recommended to use a virtual environment and use conda as the manager. This guide will use conda as the environment management tool.
 
 If you decide to use conda, make sure only use conda to install packages. DO NOT use conda and pip at the same time, this will cause inaccessible dependency conflicts.
 
-#### 2.Packages
+### 2.Packages
 This project uses Python and the following packages are needed (if you do not need LLM feature, then you only need to install the basic dependencies):
 - Basic dependencies
     * flask=2.2.2
@@ -91,7 +91,7 @@ This project uses Python and the following packages are needed (if you do not ne
 Please note that the requirements.txt and environment.yml is only for development purpose and macOS x86_64 only.
 
 
-#### 3.Create and setup virtual environment:
+## Create and setup virtual environment:
 First create a new env.
 ```shell
 conda create --name AVM python=3.9
@@ -103,38 +103,42 @@ And activate conda env by:
 conda activate AVM
 ```
 
-Then install the packages, same version and source channel is recommended and pre-tested. The following commands only for basic user (exclude torch and transformers).
+## Install packages
+Same version and source channel is recommended and pre-tested. The following commands only for basic user (exclude torch and transformers).
 
-For UNIX (macOS and Linux) users: 
+### For UNIX (macOS and Linux) users
+Use the following commands to complete the installation of all dependencies:
 ```shell
 conda install flask=2.2.2 pandas=2.1.1
 conda install scikit-learn=1.3.0 xgboost=2.0.3 lightgbm=4.1.0 mapie=0.8.2 joblib=1.2.0 weasyprint=61.2 -c conda-forge
 ```
 
-For Windows users:
+### For Windows users
+### 1. Install wkhtmltopdf
+#### 1.1. Setup wkhtmltopdf
+You should download and install this tool before setup python related dependencies.
+Simply download exe file from [website](https://wkhtmltopdf.org/downloads.html), and install.
+
+#### 1.2. Setup system path
+Add wkhtmltopdf installed path to your system path. If it was installed with default settings, the path should be:
+```shell
+C:\Program Files\wkhtmltopdf\bin  # Replace with your path
+```
+### 2. Install other packages
+Use the following commands to complete the installation of python related dependencies:
 ```shell
 conda install flask=2.2.2 pandas=2.1.1
 conda install scikit-learn=1.3.0 xgboost=2.0.3 lightgbm=4.1.0 mapie=0.8.2 joblib=1.2.0 -c conda-forge
 python -m pip install pdfkit=1.0.0
 ```
-There are some extra steps required for Windows users, please check [this link](#the-support-for-windows-is-added). 
 
 
-**If you do not need advanced features, you can skip step 3.1.**
-##### 3.1 Setup transformers and pytorch with CUDA
-if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
-
-Transformers can run on CPU mode or GPU mode (pytorch backend or tensorflow backend), if you have Nvidia GPU, GPU mode with pytorch backend is recommended. Install Pytorch and then install transformers with conda:
-```shell
-conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
-conda install transformers -c conda-forge
-```
-Above commands will install cuda-runtime inside conda env, it is enough for torch usage, but if you want to compile or build your own cuda program, you need install the Nvidia CUDA toolkits and cudnn.\
-You can find more information from the [Pytorch website](https://pytorch.org/get-started/previous-versions/) and [Nvidia website](https://www.nvidia.com/en-us/)
 
 
-### **Start App**
-#### 1. Check object files
+
+
+## **Start App**
+### 1. Check object files
 In versions 4.0 and newer, object files have been added to mainline tracking, so no additional configuration is required.\
 You can check object files in following directory:
 ```shell
@@ -142,13 +146,13 @@ model/object/rev311
 NLGen/class
 ```
 
-#### 2. Config working folders
+### 2. Config working folders
 In versions 4.0 and newer, the working folder will be automatically configured and checked by the program, so you **do not need to configure it manually**.
 
-#### 3. Check Import
+### 3. Check Import
 In versions 4.0 and newer, the program will automatically check the import of all dependent packages. If there are missing dependencies, an exception prompt will be provided in the terminal, and the program will exit automatically. If you encounter such problems, please follow the prompts to check the dependency installation.
 
-#### 4. Start app
+### 4. Start app
 The start point of this application is _app.py_. 
 Make sure conda env is activated:
 ```shell
@@ -266,4 +270,17 @@ sys.path.append('./')
 then you can start application.
 
 Current main and MaterialUIKit branch already fixed this issue.
+
+
+## If you do not need advanced features, you can skip step 3.1.
+##### 3.1 Setup transformers and pytorch with CUDA
+if you have Nvidia GPU, you need to install Nvidia CUDA toolkits first and then install torch-cuda version.
+
+Transformers can run on CPU mode or GPU mode (pytorch backend or tensorflow backend), if you have Nvidia GPU, GPU mode with pytorch backend is recommended. Install Pytorch and then install transformers with conda:
+```shell
+conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
+conda install transformers -c conda-forge
+```
+Above commands will install cuda-runtime inside conda env, it is enough for torch usage, but if you want to compile or build your own cuda program, you need install the Nvidia CUDA toolkits and cudnn.\
+You can find more information from the [Pytorch website](https://pytorch.org/get-started/previous-versions/) and [Nvidia website](https://www.nvidia.com/en-us/)
 
