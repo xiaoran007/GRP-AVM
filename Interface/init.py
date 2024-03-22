@@ -24,7 +24,7 @@ class Init(object):
     @staticmethod
     def initDependencies():
         not_found = []
-        dependencies = ['torch', 'transformers', 'numpy', 'pandas', 'sklearn', 'xgboost', 'lightgbm', 'flask', 'mapie',
+        dependencies = ['numpy', 'pandas', 'sklearn', 'xgboost', 'lightgbm', 'flask', 'mapie',
                         'joblib']
         os_name = platform.system()
         if os_name == "Windows":
