@@ -19,3 +19,10 @@ _Version: 1_
 **Env manager: Conda (miniconda)**\
 **Source code: zip archive from gitlab main branch**\
 **Test status: Pass**
+
+## Test case 3
+**Platform: macOS 13**\
+**Architecture: arm64**\
+**Env manager: Conda (anaconda)**\
+**Source code: git clone from gitlab main branch**\
+**Test status: Pass**
