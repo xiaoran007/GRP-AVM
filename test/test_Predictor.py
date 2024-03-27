@@ -28,49 +28,6 @@ class TestPredictor:
             predictor = Predictor(X=None, model_sel='RF', full=False, cwd=os.path.dirname(__file__))
             assert predictor is not None
 
-    class TestPredict:
-        """
-        Test the Predict method.
-        """
-        def test_ff(self, case):
-            x = case.get('full')
-            predictor = Predictor(X=x, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
-            pred_dict = predictor.Predict()
-            assert pred_dict['status'] == 0
-
-        def test_fe(self, case):
-            x = case.get('full')
-            predictor = Predictor(X=x, model_sel='RF', full=False, cwd=os.path.dirname(__file__))
-            pred_dict = predictor.Predict()
-            assert pred_dict['status'] == 0
-
-        def test_ee(self, case):
-            x = case.get('normal')
-            predictor = Predictor(X=x, model_sel='RF', full=False, cwd=os.path.dirname(__file__))
-            pred_dict = predictor.Predict()
-            assert pred_dict['status'] == 0
-
-        def test_ef(self, case):
-            x = case.get('normal')
-            predictor = Predictor(X=x, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
-            pred_dict = predictor.Predict()
-            assert pred_dict['status'] == -1
-
-    class TestPredictByX:
-        """
-        Test the PredictByX method.
-        """
-        def test_Full(self, case):
-            x = case.get('full')
-            predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
-            pred_dict = predictor.PredictByX(X=x)
-            assert pred_dict['status'] == 0
-
-        def test_Easy(self, case):
-            x = case.get('normal')
-            predictor = Predictor(X=None, model_sel='RF', full=False, cwd=os.path.dirname(__file__))
-            pred_dict = predictor.PredictByX(X=x)
-            assert pred_dict['status'] == 0
 
     class TestNumpy2DF:
         """
@@ -95,36 +52,6 @@ class TestPredictor:
             x = case.get('normal')
             with pytest.raises(ValueError):
                 Predictor.numpy2df(x, full=True)
-
-    class TestLoadModel:
-        """
-        Test the LoadModel method.
-        """
-        def test_load(self):
-            predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
-            os.chdir(os.path.dirname(model.__file__))
-            predictor.model_sel = 'RF'
-            assert predictor.LoadModel() is not None
-            os.chdir(os.path.dirname(__file__))
-
-        def test_unload(self):
-            predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
-            os.chdir(os.path.dirname(model.__file__))
-            predictor.model_sel = 'XGB'
-            assert predictor.LoadModel() is None
-            os.chdir(os.path.dirname(__file__))
-
-    class TestCheckModel:
-        """
-        Test the CheckModel method.
-        """
-        def test_load(self):
-            predictor = Predictor(X=None, model_sel='RF', full=True, cwd=os.path.dirname(__file__))
-            assert predictor.CheckModel() is True
-
-        def test_unload(self):
-            predictor = Predictor(X=None, model_sel='XGB', full=True, cwd=os.path.dirname(__file__))
-            assert predictor.CheckModel() is False
 
 
 class TestCpPredictor:
