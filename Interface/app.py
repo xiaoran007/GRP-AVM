@@ -133,9 +133,9 @@ def normal_mode_end():
         if not util.InputCheckEventHandler(full=False, pro=False, batch=False, form_dict=session.get('normal_form_basic')).HandleEvent():
             return render_template('normalModeInputError.html')
         else:
-            features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
+            features, pred_price, text, rID = backendHandler.HandleNormalRequest(form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
-            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price, rID='Normal')
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price, rID=rID)
     # from pro
     elif request.method == 'POST':
         session['normal_form_pro'] = request.form.to_dict()
@@ -144,10 +144,10 @@ def normal_mode_end():
         if not util.InputCheckEventHandler(full=True, pro=False, batch=False, form_dict=combined).HandleEvent():
             return render_template('normalModeInputError.html')
         else:
-            features, pred_price, text = backendHandler.HandleNormalRequest(form_dict=combined,
+            features, pred_price, text, rID = backendHandler.HandleNormalRequest(form_dict=combined,
                                                                             full=True, alpha=0.2)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
-            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price, rID='Normal')
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price, rID=rID)
 
 
 @app.route('/pro_mode_start', methods=['GET', 'POST'])

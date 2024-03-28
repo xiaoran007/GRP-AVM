@@ -232,10 +232,11 @@ class BackendEventHandler(object):
             features = self.DataTrans(form_dict, data_class='default')
         x = self.DataPreprocessing(form_dict, full=full)
         pred_price, text = self.handleRequest(x, model_sel='RF', full=full, alpha=alpha)
-        data_dict = Generator.DataPasser(False, full, 'RF', False, "Normal", pred_price, text,
+        rID = f'N{RecordEventHandler().generateID()}'
+        data_dict = Generator.DataPasser(False, full, 'RF', False, rID, pred_price, text,
                                          features, cp_values='0.8')
-        self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{"Normal"}.pdf')
-        return features, pred_price, text
+        self.PDFGenerator.RenderPDF(data=data_dict, out_path=f'{os.path.dirname(__file__)}/sent/{rID}.pdf')
+        return features, pred_price, text, rID
 
     def HandleProSingleRequest(self, form_dict):
         """
