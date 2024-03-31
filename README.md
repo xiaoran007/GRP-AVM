@@ -35,11 +35,11 @@ This application is website based, since web server usually uses Unix system, th
 
 OS support matrix:
 
-| OS      | Version           | Architecture  | Support |
-|---------|-------------------|---------------|---------|
-| macOS   | Big Sur and later | x86_64, arm64 | ✅       |
-| Linux   | Ubuntu 22.04      | x86_64        | ✅       |
-| Windows | 10                | x86_64        | ⚠️      |
+| OS      | Version                 | Architecture  | Support |
+|---------|-------------------------|---------------|---------|
+| macOS   | Big Sur and later       | x86_64, arm64 | ✅       |
+| Linux   | Ubuntu 22.04, Debian 12 | x86_64, arm64 | ✅       |
+| Windows | 10                      | x86_64        | ✅       |
 
 Platform support matrix:
 
@@ -91,7 +91,7 @@ This project uses Python and the following packages are needed (if you do not ne
 Please note that the requirements.txt and environment.yml is only for development purpose and macOS x86_64 only.
 
 
-## Create and setup virtual environment:
+# Create and setup virtual environment:
 First create a new env.
 ```shell
 conda create --name AVM python=3.9
@@ -103,17 +103,17 @@ And activate conda env by:
 conda activate AVM
 ```
 
-## Install packages
+# Install packages
 Same version and source channel is recommended and pre-tested. The following commands only for basic user (exclude torch and transformers).
 
-### For UNIX (macOS and Linux) users
+## For UNIX (macOS and Linux) users
 Use the following commands to complete the installation of all dependencies:
 ```shell
 conda install flask=2.2.2 pandas=2.1.1
 conda install scikit-learn=1.3.0 xgboost=2.0.3 lightgbm=4.1.0 mapie=0.8.2 joblib=1.2.0 weasyprint=61.2 -c conda-forge
 ```
 
-### For Windows users
+## For Windows users
 ### 1. Install wkhtmltopdf
 #### 1.1. Setup wkhtmltopdf
 You should download and install this tool before setup python related dependencies.
@@ -137,9 +137,9 @@ python -m pip install pdfkit==1.0.0
 
 
 
-## **Start App**
+# **Start App**
 ### 1. Check object files
-In versions 4.0 and newer, object files have been added to mainline tracking, so no additional configuration is required.\
+In versions 4.0 and newer, object files have been added to mainline tracking, so **no** additional configuration is required.\
 You can check object files in following directory:
 ```shell
 model/object/rev311
@@ -150,7 +150,7 @@ NLGen/class
 In versions 4.0 and newer, the working folder will be automatically configured and checked by the program, so you **do not need to configure it manually**.
 
 ### 3. Check Import
-In versions 4.0 and newer, the program will automatically check the import of all dependent packages. If there are missing dependencies, an exception prompt will be provided in the terminal, and the program will exit automatically. If you encounter such problems, please follow the prompts to check the dependency installation.
+In versions 4.0 and newer, the program will **automatically** check the import of all dependent packages. If there are missing dependencies, an exception prompt will be provided in the terminal, and the program will exit automatically. If you encounter such problems, please follow the prompts to check the dependency installation.
 
 ### 4. Start app
 The start point of this application is _app.py_. 
@@ -163,7 +163,7 @@ Assuming you are in the root directory, use this command to start the app:
 cd Interface
 python app.py
 ```
-DO NOT directly start app in root directory:
+**DO NOT** directly start app in root directory:
 ```shell
 python Interface/app.py # DO NOT directly start app in root directory
 ```
@@ -172,8 +172,9 @@ If the dependencies and project configuration are normal, it has been successful
 
 
 
-## Issues
+## You can skip following sections.
 
+## Issues
 
 ## **The support for Windows is added**
 In current version, we added support for windows. Now you can use Windows to run this application. But still need to install some extra packages. Please follow the steps below to complete the configuration.
