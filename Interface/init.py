@@ -13,7 +13,6 @@ import os
 import json
 import importlib.util
 import platform
-import time
 
 
 class Init(object):
