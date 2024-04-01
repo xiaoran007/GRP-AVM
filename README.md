@@ -20,12 +20,16 @@
 ***
 
 ## Table of Contents
+1. [Note](#Note)
+2. [Change Log](#Change-Log)
+3. [OS and Platform Support](#OS-and-Platform-Support)
+4. [Deployment Guide](#Deployment-Guide)
+5. [Troubleshooting](#Troubleshooting)
 
-1. [Change Log](#Change-Log)
-2. [OS and Platform Support](#OS-and-Platform-Support)
-3. [Deployment Guide](#Deployment-Guide)
-4. [Troubleshooting](#Troubleshooting)
-
+## **Note**
+This project **AVM-GRP** is part of GRP project.\
+Some links (About us and code repo link) in this software is only designed for in-school access, which means you need access these links under __Eduroam__ network connection.\
+The website [avm.asia](http://www.avm.asia) is the demo of this software.
 
 ## **Change Log**
 [Change Log](changelog.md)
@@ -159,6 +163,16 @@ In versions 4.0 and newer, the working folder will be automatically configured a
 
 ### 3. Check Import
 In versions 4.0 and newer, the program will **automatically** check the import of all dependent packages. If there are missing dependencies, an exception prompt will be provided in the terminal, and the program will exit automatically. If you encounter such problems, please follow the prompts to check the dependency installation.
+
+### 4. Set host and port
+The host and port is set as local (127.0.0.1:5000) as default. If you want to deploy this software to real server, you must change the host and port settings in the last line of __app.py__.
+
+For general purpose, set host to "0.0.0.0" and port to "80" (http) or port "443" (https).\
+Here is the example:
+```python
+app.run(debug=False) # default setting
+app.run(host="0.0.0.0", port=80, debug=False) # http setting
+```
 
 ## **Start app**
 The start point of this application is _app.py_. 
