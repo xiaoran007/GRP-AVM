@@ -31,18 +31,18 @@ else:
 # obj = HTML(filename='templates/template.html')
 # obj.write_pdf('./result.pdf')
 
-import pdfkit
-
-
-html_content = "./templates/template.html"
-
-
-css_content = "./templates/templateForWin.css"
-
-
-output_pdf = "output.pdf"
-
-
-pdfkit.from_file(input=html_content, css=css_content, output_path=output_pdf, options={"enable-local-file-access": ""}, verbose=True)
+# import pdfkit
+#
+#
+# html_content = "./templates/template.html"
+#
+#
+# css_content = "./templates/templateForWin.css"
+#
+#
+# output_pdf = "output.pdf"
+#
+#
+# pdfkit.from_file(input=html_content, css=css_content, output_path=output_pdf, options={"enable-local-file-access": ""}, verbose=True)
 
 
