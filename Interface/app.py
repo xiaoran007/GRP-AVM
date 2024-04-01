@@ -15,7 +15,7 @@ Init.initDependencies()
 import sys
 sys.path.append("../")
 sys.path.append("./")
-from flask import Flask, render_template, request, session, send_file
+from flask import Flask, render_template, request, session, send_file, redirect
 import util
 
 app = Flask(__name__,   static_url_path='',
@@ -55,7 +55,7 @@ def indev():
     :return: response
     """
     if request.method == 'GET':
-        return render_template('indev.html')
+        return redirect('http://cslinux.nottingham.edu.cn/~Team202313/')
     elif request.method == 'POST':
         return "undefined"
 
