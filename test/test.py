@@ -16,6 +16,9 @@ from Datasets.Data import Default, Default_Easy
 from model.Predictor import Predictor, CpPredictor
 import os
 
+"""
+    This file is not final test file.
+"""
 
 def TEST(sel_index, full):
     if full is True:
