@@ -10,6 +10,7 @@ upload/
 target/
 
 *.pdf
+!UserManual.pdf
 rendered_template.html
 
 transformers
