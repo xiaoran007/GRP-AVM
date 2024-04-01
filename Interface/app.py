@@ -10,15 +10,17 @@ See the LICENSE file at the top level of the distribution for details.
 """
 
 from init import Init
+
 print("Init dependencies")
 Init.initDependencies()
 import sys
+
 sys.path.append("../")
 sys.path.append("./")
 from flask import Flask, render_template, request, session, send_file, redirect
 import util
 
-app = Flask(__name__,   static_url_path='',
+app = Flask(__name__, static_url_path='',
             static_folder='static',
             template_folder='templates')
 app.secret_key = 'my_secret_key'
@@ -141,12 +143,15 @@ def normal_mode_end():
     """
     # from basic
     if request.method == 'GET':
-        if not util.InputCheckEventHandler(full=False, pro=False, batch=False, form_dict=session.get('normal_form_basic')).HandleEvent():
+        if not util.InputCheckEventHandler(full=False, pro=False, batch=False,
+                                           form_dict=session.get('normal_form_basic')).HandleEvent():
             return render_template('normalModeInputError.html')
         else:
-            features, pred_price, text, rID = backendHandler.HandleNormalRequest(form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
+            features, pred_price, text, rID = backendHandler.HandleNormalRequest(
+                form_dict=session.get('normal_form_basic'), full=False, alpha=0.2)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
-            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price, rID=rID)
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text,
+                                   price_pred=pred_price, rID=rID)
     # from pro
     elif request.method == 'POST':
         session['normal_form_pro'] = request.form.to_dict()
@@ -156,9 +161,10 @@ def normal_mode_end():
             return render_template('normalModeInputError.html')
         else:
             features, pred_price, text, rID = backendHandler.HandleNormalRequest(form_dict=combined,
-                                                                            full=True, alpha=0.2)
+                                                                                 full=True, alpha=0.2)
             print(f"OK\nPrice: {pred_price}\nText: {text}")
-            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text, price_pred=pred_price, rID=rID)
+            return render_template('normalModeFormEnd.html', features=features, price=pred_price, description=text,
+                                   price_pred=pred_price, rID=rID)
 
 
 @app.route('/pro_mode_start', methods=['GET', 'POST'])
@@ -204,9 +210,11 @@ def pro_mode_single():
         if not util.InputCheckEventHandler(full=True, pro=True, batch=False, form_dict=request_dict).HandleEvent():
             return render_template('proModeInputError.html')
         else:
-            features, pred_price, text, rID_str, model_sel, confidence_level, rID = backendHandler.HandleProSingleRequest(form_dict=request_dict)
+            features, pred_price, text, rID_str, model_sel, confidence_level, rID = backendHandler.HandleProSingleRequest(
+                form_dict=request_dict)
             return render_template('proModeSingleResult.html', features=features, price=pred_price,
-                                   description=text, rID_str=rID_str, model_sel=model_sel, confidence_level=confidence_level, rID=rID)
+                                   description=text, rID_str=rID_str, model_sel=model_sel,
+                                   confidence_level=confidence_level, rID=rID)
 
 
 @app.route('/pro_mode_record_search', methods=['GET', 'POST'])
@@ -237,7 +245,9 @@ def pro_mode_record_result():
         result = backendHandler.HandleRecordSearch(rID=request.form.get('rID'))
         if result.get('status'):
             features, price, description, rID, pro_settings_str, model_sel, confidence_level = result.get('values')
-            return render_template('proModeRecordResult.html', features=features, price=price, description=description, rID=rID, pro_settings=pro_settings_str, model_sel=model_sel, confidence_level=confidence_level)
+            return render_template('proModeRecordResult.html', features=features, price=price, description=description,
+                                   rID=rID, pro_settings=pro_settings_str, model_sel=model_sel,
+                                   confidence_level=confidence_level)
         else:
             return render_template('proModeNoSuchRecord.html')
 
@@ -271,12 +281,15 @@ def pro_mode_batch_upload():
             user_file = request.files['file']
             save_path = './upload/'
             user_file.save(save_path + user_file.filename)
-            if not util.InputCheckEventHandler(full=True, pro=True, batch=True, form_dict=request.form.to_dict()).HandleEvent():
+            if not util.InputCheckEventHandler(full=True, pro=True, batch=True,
+                                               form_dict=request.form.to_dict()).HandleEvent():
                 return render_template('proModeBatchError.html')
             else:
                 try:
-                    results_len, results, model_sel, confidence_level = backendHandler.HandleProBatchRequest(request.form.to_dict(), save_path + user_file.filename)
-                    return render_template('proModeBatchResult.html', lens=results_len, results=results, model_sel=model_sel, confidence_level=confidence_level)
+                    results_len, results, model_sel, confidence_level = backendHandler.HandleProBatchRequest(
+                        request.form.to_dict(), save_path + user_file.filename)
+                    return render_template('proModeBatchResult.html', lens=results_len, results=results,
+                                           model_sel=model_sel, confidence_level=confidence_level)
                 except Exception as e:
                     print("Error: ", e)
                     return render_template('proModeBatchError.html')
