@@ -1,5 +1,18 @@
 # Releases
 
+## Version 4.2.0
+**Release date: 2024.4.1**\
+**Release type: Issue fix release**\
+**Contributors: Tangtangfang Fang, Yuhao Cai**
+* Fix path init bug.
+
+
+## Version 4.1.0
+**Release date: 2024.3.25**\
+**Release type: Issue fix release**\
+**Contributors: Tangtangfang Fang**
+* Fix normal user rID bug.
+
 ## Version 4.0.0
 **Release date: 2024.3.19**\
 **Release type: Stable version release**\
