@@ -9,14 +9,14 @@ AVM-GRP is distributed under the GPLv3 License.
 See the LICENSE file at the top level of the distribution for details.
 """
 
-from Datasets.Data import Default, Default_Easy
-import pandas as pd
 import os
 
+from Datasets.Data import Default, Default_Easy
 
 """
     This file is not final test file.
 """
+
 
 def genExample(full=True):
     if full:

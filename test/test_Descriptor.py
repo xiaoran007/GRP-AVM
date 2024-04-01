@@ -35,6 +35,7 @@ class TestDescriptor:
         """
         Test the init method.
         """
+
         def test_full_init(self):
             descriptor = Descriptor(X=None, predicted_price=None, full=True, cwd=os.path.dirname(__file__))
             assert descriptor is not None
@@ -47,6 +48,7 @@ class TestDescriptor:
         """
         Test the LoadObject method.
         """
+
         def test_load(self):
             descriptor = Descriptor(X=None, predicted_price=None, full=True, cwd=os.path.dirname(__file__))
             os.chdir(os.path.dirname(NLGen.__file__))
@@ -57,20 +59,24 @@ class TestDescriptor:
         """
         Test the GenerateDescription method.
         """
+
         def test_normal(self, case):
             descriptor = Descriptor(X=None, predicted_price=None, full=False, cwd=os.path.dirname(__file__))
-            description = descriptor.GenerateDescription(X=case.get('normal_x'), predicted_price=case.get('normal_price'), full=False)
+            description = descriptor.GenerateDescription(X=case.get('normal_x'),
+                                                         predicted_price=case.get('normal_price'), full=False)
             assert description != "Description not generated."
 
         def test_full(self, case):
             descriptor = Descriptor(X=None, predicted_price=None, full=True, cwd=os.path.dirname(__file__))
-            description = descriptor.GenerateDescription(X=case.get('full_x'), predicted_price=case.get('full_price'), full=True)
+            description = descriptor.GenerateDescription(X=case.get('full_x'), predicted_price=case.get('full_price'),
+                                                         full=True)
             assert description != "Description not generated."
 
     class TestGeneratePosAndCons:
         """
         Test the GeneratePosAndCons method.
         """
+
         def test_normal(self, case):
             descriptor = Descriptor(X=None, predicted_price=None, full=False, cwd=os.path.dirname(__file__))
             descriptor.X = case.get('normal_x')
@@ -113,5 +119,3 @@ class TestDescriptor:
             x = case.get('normal_x')
             with pytest.raises(ValueError):
                 Descriptor.numpy2df(x, full=True)
-
-
