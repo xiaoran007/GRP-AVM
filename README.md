@@ -27,7 +27,7 @@
 5. [Troubleshooting](#Troubleshooting)
 
 ## **Note**
-This project **AVM-GRP** is part of GRP project.\
+This project **AVM-GRP** is part of **GRP** project.\
 Some links (About us and code repo link) in this software is only designed for in-school access, which means you need access these links under __Eduroam__ network connection.\
 The website [avm.asia](http://www.avm.asia) is the demo of this software.
 
@@ -65,7 +65,7 @@ Notes:
 
 - For the architecture, only amd64 (x86_64) and Apple Silicon (arm64) is tested, other architectures may also work well.
 
-## **Compatibility on low-resolution devices**
+### **Compatibility on low-resolution devices**
 This application is designed for the devices that the resolution is higher than 1080p (width is higher than 1920px). If you are planed to use this application on low-resolution devices, you may found some compatibility issues. You can use browser's resize (scale) method to resize the webUI, main-stream web browsers (chrome, safari, edge, firefox) both support this feature. 
 
 For Windows and UNIX users:
