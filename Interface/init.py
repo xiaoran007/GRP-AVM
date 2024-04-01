@@ -64,6 +64,12 @@ class Init(object):
             os.mkdir('./sent')
             print('created sent')
 
+        if os.path.exists('./upload'):
+            pass
+        else:
+            os.mkdir('./upload')
+            print('created upload')
+
         if os.path.exists('./records'):
             if os.path.exists('./records/rec.json'):
                 try:
