@@ -10,7 +10,7 @@
 </span>
 
 <p></p>
-<img src="./img/teamlogo.png" width="23%" height="23%" alt="team13"/>
+<img src="markdown/img/teamlogo.png" width="23%" height="23%" alt="team13"/>
 
 Please follow this deployment guide to configure the environment and start the application.
 
@@ -51,6 +51,7 @@ This project uses Python and the following packages are needed (if you do not ne
     * transformers=4.37.1 (conda-forge)
 - Unit-Test dependencies
     * pytest=8.1.1 (conda-forge)
+
 Please note that the requirements.txt and environment.yml is only for development purpose and macOS x86_64 only.
 
 
