@@ -29,7 +29,13 @@
 ## **Note**
 This project **AVM-GRP** is part of **GRP** project.\
 Some links (About us and code repo link) in this software is only designed for in-school access, which means you need access these links under __Eduroam__ network connection.\
-The website [avm.asia](http://www.avm.asia) is the demo of this software.
+The website [avm.asia](http://www.avm.asia) is the demo of this software.\
+This repository use git lfs to track model object file, use
+```shell
+git lfs fetch
+git lfs pull
+```
+to fetch all the *.mdo files.
 
 ## **Change Log**
 [Change Log](changelog.md)
